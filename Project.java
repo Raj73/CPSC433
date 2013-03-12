@@ -1,11 +1,12 @@
-import java.util.AbstractList;
-import java.util.TreeSet;
-
-public class Project extends Entity
+public class Project
 {
-  boolean large;
+	boolean large;
+	String name;
 
-  void Project()
+	Project(String Pname)
+	{
+		name = Pname;
+	}
 
 
 	boolean evaluateProject(String Pname)
@@ -16,13 +17,13 @@ public class Project extends Entity
 		return false;
 	}
 
-  void assertLarge(String Pname)
+  	void assertLarge(String Pname)
 	{
 		if (name.compareTo(Pname) == 0)
 			large = true;
 	}
 
-  boolean evaluateProject(String Pname)
+  	boolean evaluateLarge(String Pname)
 	{
 		if ((name.compareTo(Pname) == 0) && (large == true))
 			return true;
