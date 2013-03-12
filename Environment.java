@@ -1,3 +1,5 @@
+
+
 import java.util.TreeSet;
 import java.util.LinkedList;
 
@@ -8,9 +10,9 @@ public abstract class Environment extends PredicateReader implements SisyphusPre
 	
 	
 	LinkedList<Person> myPeople;
-	LinkedList<String> groupNames;
-	LinkedList<String> roomNames;
-	LinkedList<String> projectNames; 
+	LinkedList<Group> groupNames;
+	LinkedList<Room> roomNames;
+	LinkedList<Project> projectNames; 
 	public Environment(PredicateReader p) {
 		super(p);
 		
@@ -35,6 +37,8 @@ public abstract class Environment extends PredicateReader implements SisyphusPre
 
 	@Override
 	public void a_secretary(String p) {
+		if(!e_person(p))
+			a_person(p);
 		for(int i =0;i<myPeople.size();i++){
 			if(myPeople.get(i).evaluatePerson(p))
 				((Person) myPeople.get(i)).assertSecretary(p);
@@ -53,6 +57,8 @@ public abstract class Environment extends PredicateReader implements SisyphusPre
 
 	@Override
 	public void a_researcher(String p) {
+		if(!e_person(p))
+			a_person(p);
 		for(int i =0;i<myPeople.size();i++){
 			if(myPeople.get(i).evaluatePerson(p))
 				((Person) myPeople.get(i)).assertResearcher(p);
@@ -71,6 +77,8 @@ public abstract class Environment extends PredicateReader implements SisyphusPre
 
 	@Override
 	public void a_manager(String p) {
+		if(!e_person(p))
+			a_person(p);
 		for(int i =0;i<myPeople.size();i++){
 			if(myPeople.get(i).evaluatePerson(p))
 				((Person) myPeople.get(i)).assertManager(p);
@@ -89,6 +97,8 @@ public abstract class Environment extends PredicateReader implements SisyphusPre
 
 	@Override
 	public void a_smoker(String p) {
+		if(!e_person(p))
+			a_person(p);
 		for(int i =0;i<myPeople.size();i++){
 			if(myPeople.get(i).evaluatePerson(p))
 				((Person) myPeople.get(i)).assertSmoker(p);
@@ -108,6 +118,8 @@ public abstract class Environment extends PredicateReader implements SisyphusPre
 
 	@Override
 	public void a_hacker(String p) {
+		if(!e_person(p))
+			a_person(p);
 		for(int i =0;i<myPeople.size();i++){
 			if(myPeople.get(i).evaluatePerson(p))
 				((Person) myPeople.get(i)).assertHacker(p);
@@ -117,6 +129,7 @@ public abstract class Environment extends PredicateReader implements SisyphusPre
 
 	@Override
 	public boolean e_hacker(String p) {
+		
 		for(int i =0;i<myPeople.size();i++){
 			if(myPeople.get(i).evaluateHacker(p))
 				return true;

@@ -1,7 +1,8 @@
 import java.util.AbstractList;
+import java.util.LinkedList;
 import java.util.TreeSet;
 
-public class Person extends Entity
+public class Person
 {
 	// Person qualities
 	boolean secretary;
@@ -9,6 +10,7 @@ public class Person extends Entity
 	boolean manager;
 	boolean smoker;
 	boolean hacker;
+	String name;
 	String group;
 	String project;
 	String headsGroup;
@@ -22,7 +24,10 @@ public class Person extends Entity
 	
 	// Project qualities
 	
-	void Person()
+	Person(String name){
+	this.name = name;	
+	
+	}
 	
 	
 	boolean evaluatePerson(String Ename)

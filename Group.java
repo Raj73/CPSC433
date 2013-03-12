@@ -1,10 +1,13 @@
-import java.util.AbstractList;
-import java.util.TreeSet;
 
-public class Group extends Entity
+public class Group
 {
-	void Group()
-
+	String name;
+	Group(String name){
+		this.name = name;
+		
+	
+	}
+	
 
 	boolean evaluateGroup(String Gname)
 	{
