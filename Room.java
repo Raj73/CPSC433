@@ -1,22 +1,20 @@
 import java.util.AbstractList;
 import java.util.TreeSet;
 
-public class Room extends Entity
+public class Room
 {
-  // Person qualities
 	boolean small;
 	boolean medium;
 	boolean large;
+	
+	String name;
 
 	LinkedList<String> closeWith;
 
-	// Room qualities
-
-	// Group qualities
-
-	// Project qualities
-
-	void Room()
+	void Room(String Rname)
+	{
+		name = Rname;
+	}
 
 
 	boolean evaluateRoom(String Rname)
