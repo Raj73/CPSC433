@@ -114,4 +114,28 @@ public class Room
 
 		return false;
 	}
+	
+	// Works with asserts and qeuries (singular)
+	void assertWorksWith(String Rname, String Rname2)
+	{
+		if (name.compareTo(Rname) == 0)
+			closeWith.add(Rname2);
+	}
+	
+	boolean evaluateWorksWith(String Rname, String Rname2)
+	{
+		if (name.compareTo(Rname) == 0)
+		{
+			int size = closeWith.size();
+			
+			for (i = 0; i < size; i++)
+			{
+				if (closeWith.get(i).compareTo(Rname2) == 0)
+						return true;
+			}
+			return false;
+		}
+		
+		return false;
+	}
 }
