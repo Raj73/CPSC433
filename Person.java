@@ -2,17 +2,29 @@ import java.util.AbstractList<E>
 
 public class Person extends Entity
 {
+	// Person qualities
 	boolean secretary;
 	boolean researcher;
 	boolean manager;
 	boolean smoker;
 	boolean hacker;
+	String group;
+	String project;
 	String headsGroup;
 	String headsProject;
 	String assignedRoom;
 	LinkedList<String> worksWith;
 	
-	evaluatePerson(String Ename)
+	// Room qualities
+	
+	// Group qualities
+	
+	// Project qualities
+	
+	void Person()
+	
+	
+	boolean evaluatePerson(String Ename)
 	{
 		if (name.compareTo(Ename) == 0)
 			return true;
@@ -21,13 +33,13 @@ public class Person extends Entity
 	}
 	
 	// Secretary asserts and qeuries
-	assertSecretary(String Ename)
+	void assertSecretary(String Ename)
 	{
 		if (name.compareTo(Ename) == 0)
 			secretary = true;
 	}
 	
-	evaluateSecretary(String Ename)
+	boolean evaluateSecretary(String Ename)
 	{
 		if ((name.compareTo(Ename) == 0) && (secretary == true;))
 			return true;
@@ -36,13 +48,13 @@ public class Person extends Entity
 	}
 	
 	// Researcher asserts and qeuries
-	assertResearcher(String Ename)
+	void assertResearcher(String Ename)
 	{
 		if (name.compareTo(Ename) == 0)
 			researcher = true;
 	}
 	
-	evaluateResearcher(String Ename)
+	boolean evaluateResearcher(String Ename)
 	{
 		if ((name.compareTo(Ename) == 0) && (researcher == true;))
 			return true;
@@ -51,13 +63,13 @@ public class Person extends Entity
 	}
 	
 	// Manager asserts and qeuries
-	assertManager(String Ename)
+	void assertManager(String Ename)
 	{
 		if (name.compareTo(Ename) == 0)
 			manager = true;
 	}
 	
-	evaluateManager(String Ename)
+	boolean evaluateManager(String Ename)
 	{
 		if ((name.compareTo(Ename) == 0) && (manager == true;))
 			return true;
@@ -66,13 +78,13 @@ public class Person extends Entity
 	}
 	
 	// Smoker asserts and qeuries
-	assertSmoker(String Ename)
+	void assertSmoker(String Ename)
 	{
 		if (name.compareTo(Ename) == 0)
 			smoker = true;
 	}
 	
-	evaluateSmoker(String Ename)
+	boolean evaluateSmoker(String Ename)
 	{
 		if ((name.compareTo(Ename) == 0) && (smoker == true;))
 			return true;
@@ -81,18 +93,49 @@ public class Person extends Entity
 	}
 	
 	// Hacker asserts and qeuries
-	assertHacker(String Ename)
+	void assertHacker(String Ename)
 	{
 		if (name.compareTo(Ename) == 0)
 			hacker = true;
 	}
 	
-	evaluateHacker(String Ename)
+	boolean evaluateHacker(String Ename)
 	{
 		if ((name.compareTo(Ename) == 0) && (hacker == true;))
 			return true;
 		
 		return false;
 	}
+	
+	// group asserts and qeuries
+	void assertHacker(String Gname)
+	{
+		if (name.compareTo(Ename) == 0)
+			hacker = true;
+	}
+	
+	boolean evaluateHacker(String Ename)
+	{
+		if ((name.compareTo(Ename) == 0) && (hacker == true;))
+			return true;
+		
+		return false;
+	}
+	
+	// group asserts and qeuries
+	void assertHacker(String Gname)
+	{
+		if (name.compareTo(Ename) == 0)
+			hacker = true;
+	}
+	
+	boolean evaluateHacker(String Ename)
+	{
+		if ((name.compareTo(Ename) == 0) && (hacker == true;))
+			return true;
+		
+		return false;
+	}
+	
 	
 	
