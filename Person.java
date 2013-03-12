@@ -168,7 +168,7 @@ public class Person
 			headsProject = Pname;
 	}
 	
-	boolean evaluateHeadsGroup(String Ename, String Gname)
+	boolean evaluateHeadsProject(String Ename, String Pname)
 	{
 		if ((name.compareTo(Ename) == 0) && (headsProject.compareTo(Pname) == 0))
 			return true;

@@ -10,6 +10,7 @@ public abstract class Environment extends PredicateReader implements SisyphusPre
 
 	
 	
+	@SuppressWarnings("unused")
 	private static final String Object = null;
 	LinkedList<Person> myPeople;
 	LinkedList<Group> groupNames;
@@ -164,6 +165,8 @@ public abstract class Environment extends PredicateReader implements SisyphusPre
 
 	@Override
 	public void a_group(String p, String grp) {
+		if(!e_person(p))
+			a_person(p);
 		for(int i =0;i<myPeople.size();i++){
 			if(myPeople.get(i).evaluatePerson(p))
 				((Person) myPeople.get(i)).assertInProject(p, grp);
@@ -198,6 +201,8 @@ public abstract class Environment extends PredicateReader implements SisyphusPre
 
 	@Override
 	public void a_project(String p, String prj){
+		if(!e_person(p))
+			a_person(p);
 		for(int i =0;i<myPeople.size();i++){
 			if(myPeople.get(i).evaluatePerson(p))
 				((Person) myPeople.get(i)).assertInProject(p, prj);
@@ -223,6 +228,8 @@ public abstract class Environment extends PredicateReader implements SisyphusPre
 
 	@Override
 	public void a_heads_group(String p, String grp) {
+		if(!e_person(p))
+			a_person(p);
 		for(int i =0;i<myPeople.size();i++){
 			if(myPeople.get(i).evaluatePerson(p))
 				((Person) myPeople.get(i)).assertHeadsGroup(p, grp);
@@ -248,13 +255,28 @@ public abstract class Environment extends PredicateReader implements SisyphusPre
 
 	@Override
 	public void a_heads_project(String p, String prj) {
-		// TODO Auto-generated method stub
+		if(!e_person(p))
+			a_person(p);
+		for(int i =0;i<myPeople.size();i++){
+			if(myPeople.get(i).evaluatePerson(p))
+				((Person) myPeople.get(i)).assertHeadsProject(p, prj);
+		}
+		int temp =0;
+		while((temp <projectNames.size()) && !projectNames.get(temp).evaluateProject(prj)){
+			temp++;
+		}
+		if (temp == projectNames.size()){
+			  projectNames.add(new Project(prj));
+		}
 		
 	}
 
 	@Override
 	public boolean e_heads_project(String p, String prj) {
-		// TODO Auto-generated method stub
+		for(int i =0;i<myPeople.size();i++){
+			if(myPeople.get(i).evaluateHeadsProject(p, prj))
+				return true;
+		}
 		return false;
 	}
 	@Override
