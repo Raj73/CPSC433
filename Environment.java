@@ -1,3 +1,4 @@
+package trunk;
 
 
 import java.util.TreeSet;
@@ -9,6 +10,7 @@ public abstract class Environment extends PredicateReader implements SisyphusPre
 
 	
 	
+	private static final String Object = null;
 	LinkedList<Person> myPeople;
 	LinkedList<Group> groupNames;
 	LinkedList<Room> roomNames;
@@ -166,13 +168,19 @@ public abstract class Environment extends PredicateReader implements SisyphusPre
 			if(myPeople.get(i).evaluatePerson(p))
 				((Person) myPeople.get(i)).assertInProject(p, grp);
 		}
-		
+		int temp =0;
+		while((temp <groupNames.size()) && !groupNames.get(temp).evaluateGroup(grp)){
+			temp++;
+		}
+		if (temp == groupNames.size()){
+			  groupNames.add(new Group(grp));
+		}
 	}
 
 	@Override
 	public boolean e_group(String p, String grp) {
 		for(int i =0;i<myPeople.size();i++){
-			if(myPeople.get(i).evaluateInProject(p, grp))
+			if(myPeople.get(i).evaluateInGroup(p, grp))
 				return true;
 		}
 		return false;
@@ -180,39 +188,63 @@ public abstract class Environment extends PredicateReader implements SisyphusPre
 
 	@Override
 	public void a_in_project(String p, String prj) {
-		// TODO Auto-generated method stub
-		
+		a_group(p,prj);
 	}
 
 	@Override
 	public boolean e_in_project(String p, String prj) {
-		// TODO Auto-generated method stub
-		return false;
+		return e_group(p,prj);
 	}
 
 	@Override
-	public void a_project(String p, String prj) {
-		// TODO Auto-generated method stub
+	public void a_project(String p, String prj){
+		for(int i =0;i<myPeople.size();i++){
+			if(myPeople.get(i).evaluatePerson(p))
+				((Person) myPeople.get(i)).assertInProject(p, prj);
+		}
+		int temp =0;
+		while((temp <projectNames.size()) && !projectNames.get(temp).evaluateProject(prj)){
+			temp++;
+		}
+		if (temp == projectNames.size()){
+			  projectNames.add(new Project(prj));
+		}
 		
 	}
 
 	@Override
 	public boolean e_project(String p, String prj) {
-		// TODO Auto-generated method stub
+		for(int i =0;i<myPeople.size();i++){
+			if(myPeople.get(i).evaluateInProject(p, prj))
+				return true;
+		}
 		return false;
-	}
+	}		
 
 	@Override
 	public void a_heads_group(String p, String grp) {
-		// TODO Auto-generated method stub
-		
+		for(int i =0;i<myPeople.size();i++){
+			if(myPeople.get(i).evaluatePerson(p))
+				((Person) myPeople.get(i)).assertHeadsGroup(p, grp);
+		}
+		int temp =0;
+		while((temp <groupNames.size()) && !groupNames.get(temp).evaluateGroup(grp)){
+			temp++;
+		}
+		if (temp == groupNames.size()){
+			  groupNames.add(new Group(grp));
+		}
 	}
 
 	@Override
 	public boolean e_heads_group(String p, String grp) {
-		// TODO Auto-generated method stub
+		for(int i =0;i<myPeople.size();i++){
+			if(myPeople.get(i).evaluateHeadsGroup(p, grp))
+				return true;
+		}
 		return false;
 	}
+	
 
 	@Override
 	public void a_heads_project(String p, String prj) {

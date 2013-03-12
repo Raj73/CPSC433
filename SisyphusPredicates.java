@@ -1,22 +1,24 @@
+package trunk;
 /**
  * 
  */
-package cpsc433;
+
 
 import java.util.TreeSet;
 
-import cpsc433.Predicate.ParamType;
+import trunk.Predicate.ParamType;
+
 
 
 /**
  * This interface should be <code>implement</code>ed by any class that reads Sisyphus I 
  * predicates.  The implementing class should also <code>extend</code> the
- * class {@link cpsc433.PredicateReader}.  
+ * class {@link PredicateReader}.  
  * <p>
  * The method declarations here form the
  * stubs you will need to implement all the predicates for the assignments.
  * The static String definitions here don't need to be overridden: they will
- * automatically work with {@link cpsc433.PredicateReader} to yield help 
+ * automatically work with {@link PredicateReader} to yield help 
  * information when the predicate "!help()" is interpreted. 
  * <p>
  * For more information on the semantics of these predicates, see the 
