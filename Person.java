@@ -168,20 +168,86 @@ public class Person extends Entity
 		return false;
 	}
 	
-	// Works with asserts and qeuries
+	// Works with asserts and qeuries (sets)
 	void assertWorksWith(String Ename, TreeSet<Pair<ParamType,Object>> p2s)
 	{
-		if ((name.compareTo(Ename) == 0))
+		if (name.compareTo(Ename) == 0)
 		{
-			headsProject = Pname;
+			int size = p2s.size();
+			Pair input = p2s.pollfirst();
+			
+			for (i = 0; i < size; i++)
+			{
+				worksWith.add(input.getValue());
+				Pair input = p2s.pollfirst();
+			}
 		}
 	}
 	
-	boolean evaluateWorksWith(String Ename, String Gname)
+	boolean evaluateWorksWith(String Ename, TreeSet<Pair<ParamType,Object>> p2s)
 	{
-		if ((name.compareTo(Ename) == 0) && (headsProject.compareTo(Pname) == 0))
-			return true;
+		if (name.compareTo(Ename) == 0)
+		{
+			int inputSize = p2s.size();
+			int currentSize = worksWith.size();
+			int found = 0;
+			Pair input = p2s.pollfirst();
+			
+			for (i = 0; i < inputSize; i++)
+			{
+				for (j = 0; j < currentSize; j++)
+				{
+					if (worksWith.get(j).compareTo(input.getValue()) == 0)
+					{
+						found++;
+						continue;
+					}
+				}
+				Pair input = p2s.pollfirst();
+			}
+			
+			if (found == inputSize)
+				return true;
+		}
 		
 		return false;
 	}
 	
+	// Works with asserts and qeuries (singular)
+	void assertWorksWith(String Ename, String Ename2)
+	{
+		if (name.compareTo(Ename) == 0)
+			worksWith.add(Ename2);
+	}
+	
+	boolean evaluateWorksWith(String Ename, TreeSet<Pair<ParamType,Object>> p2s)
+	{
+		if (name.compareTo(Ename) == 0)
+		{
+			int size = worksWith.size();
+			
+			for (i = 0; i < size; i++)
+			{
+				if (worksWith.get(i).compareTo(Ename2) == 0)
+						return true;
+			}
+			return false;
+		}
+		
+		return false;
+	}
+	
+	void assertAssignedRoom(String Ename, String Rname)
+	{
+		if (name.compareTo(Ename) == 0)
+			assignedRoom = Rname;
+	}
+	
+	boolean evaluateWorksWith(String Ename, String Rname)
+	{
+		if ((name.compareTo(Ename) == 0) && (assignedRoom.compareTo(Rname) == 0))
+			return true;
+		
+		return false;
+	}
+}
