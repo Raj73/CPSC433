@@ -172,7 +172,9 @@ public class Person extends Entity
 	void assertWorksWith(String Ename, TreeSet<Pair<ParamType,Object>> p2s)
 	{
 		if ((name.compareTo(Ename) == 0))
+		{
 			headsProject = Pname;
+		}
 	}
 	
 	boolean evaluateWorksWith(String Ename, String Gname)
