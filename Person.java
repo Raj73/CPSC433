@@ -225,7 +225,7 @@ public class Person
 			worksWith.add(Ename2);
 	}
 	
-	boolean evaluateWorksWith(String Ename, TreeSet<Pair<ParamType,Object>> p2s)
+	boolean evaluateWorksWith(String Ename, String Ename2)
 	{
 		if (name.compareTo(Ename) == 0)
 		{
