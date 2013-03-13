@@ -285,13 +285,26 @@ public abstract class Environment extends PredicateReader implements SisyphusPre
 	public void a_works_with(String p, TreeSet<Pair<ParamType, Object>> p2s) {
 		if(!e_person(p))
 			a_person(p);
-		
+		String p2 = (String) p2s.pollFirst().getValue();
+
+		while (p2 != null)
+		{
+			a_close(p, p2);
+			p2 = (String) p2s.pollFirst().getValue();
+		}
 	}
 
 	@Override
 	public boolean e_works_with(String p, TreeSet<Pair<ParamType, Object>> p2s) {
-		// TODO Auto-generated method stub
-		return false;
+		 String person2 = (String) p2s.pollFirst().getValue();
+			
+			while (person2 != null)
+			{
+				if (!e_works_with(p, person2))
+					return false;
+				person2 = (String) p2s.pollFirst().getValue();
+			}
+			return true;
 	}
 
 	@Override
@@ -420,25 +433,25 @@ public abstract class Environment extends PredicateReader implements SisyphusPre
 
 	@Override
 	public void a_close(String room, TreeSet<Pair<ParamType, Object>> set) {
-		String room2;
+		String room2 = (String) set.pollFirst().getValue();
 		
 		while (room2 != null)
 		{
 			a_close(room, room2);
-			room2 = (String) set.pollFirst();
+			room2 = (String) set.pollFirst().getValue();
 		}
 	}
 
 
 	@Override
 	public boolean e_close(String room, TreeSet<Pair<ParamType, Object>> set) {
-		String room2;
+		String room2 = (String) set.pollFirst().getValue();
 		
 		while (room2 != null)
 		{
 			if (!e_close(room, room2))
-				return false
-			room2 = (String) set.pollFirst();
+				return false;
+			room2 = (String) set.pollFirst().getValue();
 		}
 		return true;
 	}
