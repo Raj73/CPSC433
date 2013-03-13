@@ -449,7 +449,6 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 		}
 	}
 
-
 	@Override
 	public boolean e_close(String room, TreeSet<Pair<ParamType, Object>> set) {
 		String room2 = (String) set.pollFirst().getValue();
