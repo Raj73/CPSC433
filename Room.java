@@ -1,6 +1,7 @@
 package trunk;
 import java.util.AbstractList;
 import java.util.TreeSet;
+import java.util.LinkedList;
 
 public class Room
 {
@@ -79,7 +80,7 @@ public class Room
 			int size = r2s.size();
 			Pair input = r2s.pollfirst();
 
-			for (i = 0; i < size; i++)
+			for (int i = 0; i < size; i++)
 			{
 				closeWith.add(input.getValue());
 				Pair input = r2s.pollfirst();
@@ -96,9 +97,9 @@ public class Room
 			int found = 0;
 			Pair input = r2s.pollfirst();
 
-			for (i = 0; i < inputSize; i++)
+			for (int i = 0; i < inputSize; i++)
 			{
-				for (j = 0; j < currentSize; j++)
+				for (int j = 0; j < currentSize; j++)
 				{
 					if (closeWith.get(j).compareTo(input.getValue()) == 0)
 					{
@@ -129,7 +130,7 @@ public class Room
 		{
 			int size = closeWith.size();
 			
-			for (i = 0; i < size; i++)
+			for (int i = 0; i < size; i++)
 			{
 				if (closeWith.get(i).compareTo(Rname2) == 0)
 						return true;

@@ -1,9 +1,10 @@
 package trunk;
 
-
 import java.util.AbstractList;
 import java.util.LinkedList;
 import java.util.TreeSet;
+
+import trunk.Predicate.ParamType;
 
 public class Person
 {
@@ -182,12 +183,12 @@ public class Person
 		if (name.compareTo(Ename) == 0)
 		{
 			int size = p2s.size();
-			Pair input = p2s.pollfirst();
+			Pair input = p2s.pollFirst();
 			
-			for (i = 0; i < size; i++)
+			for (int i = 0; i < size; i++)
 			{
-				worksWith.add(input.getValue());
-				Pair input = p2s.pollfirst();
+				worksWith.add((String) input.getValue());
+				input = p2s.pollFirst();
 			}
 		}
 	}
@@ -199,19 +200,19 @@ public class Person
 			int inputSize = p2s.size();
 			int currentSize = worksWith.size();
 			int found = 0;
-			Pair input = p2s.pollfirst();
+			Pair input = p2s.pollFirst();
 			
-			for (i = 0; i < inputSize; i++)
+			for (int i = 0; i < inputSize; i++)
 			{
-				for (j = 0; j < currentSize; j++)
+				for (int j = 0; j < currentSize; j++)
 				{
-					if (worksWith.get(j).compareTo(input.getValue()) == 0)
+					if (worksWith.get(j).compareTo((String) input.getValue()) == 0)
 					{
 						found++;
 						continue;
 					}
 				}
-				Pair input = p2s.pollfirst();
+				input = p2s.pollFirst();
 			}
 			
 			if (found == inputSize)
@@ -234,7 +235,7 @@ public class Person
 		{
 			int size = worksWith.size();
 			
-			for (i = 0; i < size; i++)
+			for (int i = 0; i < size; i++)
 			{
 				if (worksWith.get(i).compareTo(Ename2) == 0)
 						return true;
@@ -251,7 +252,7 @@ public class Person
 			assignedRoom = Rname;
 	}
 	
-	boolean evaluateWorksWith(String Ename, String Rname)
+	boolean evaluateAssignedRoom(String Ename, String Rname)
 	{
 		if ((name.compareTo(Ename) == 0) && (assignedRoom.compareTo(Rname) == 0))
 			return true;
