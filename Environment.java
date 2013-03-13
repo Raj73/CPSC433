@@ -384,19 +384,19 @@ public abstract class Environment extends PredicateReader implements SisyphusPre
 
 	@Override
 	public boolean e_close(String room, String room2) {
-		int r1;
-		int r2;
+		int r1 = -1;
+		int r2 = -1;
 		
 		for (int i = 0; i < roomNames.size(); i++)
 		{
 			if(roomNames.get(i).evaluateRoom(room))
-				r1++;
+				r1 = i;
 			
 			if (roomNames.get(i).evaluateRoom(room2))
-				r1++;
+				r2 = i;
 		}
 		
-		if (roomNames.get(r1).evaluateCloseWith(room, room2) && roomNames.get(r2).evaluateCloseWith(room2, room))
+		if (!(r1 == -1 || r2 == -1) && roomNames.get(r1).evaluateCloseWith(room, room2) && roomNames.get(r2).evaluateCloseWith(room2, room))
 			return true;
 			
 		return false;
