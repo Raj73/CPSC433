@@ -8,9 +8,9 @@ import trunk.Predicate.ParamType;
 
 
 
-public abstract class Environment extends PredicateReader implements SisyphusPredicates {
+public class Environment extends PredicateReader implements SisyphusPredicates {
 
-	
+	private static final Environment myEnvir = new Environment("myenvironment");
 	
 	@SuppressWarnings("unused")
 	private static final String Object = null;
@@ -21,6 +21,13 @@ public abstract class Environment extends PredicateReader implements SisyphusPre
 	public Environment(PredicateReader p) {
 		super(p);
 		
+	}
+	public Environment(String name)
+	{
+		super(name);
+	}
+	public static Environment get(){
+		return myEnvir;
 	}
 
 	@Override
@@ -567,5 +574,5 @@ public abstract class Environment extends PredicateReader implements SisyphusPre
 		}		
 		return false;
 	}
-
+	
 	}
