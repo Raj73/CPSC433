@@ -309,12 +309,23 @@ public abstract class Environment extends PredicateReader implements SisyphusPre
 	@Override
 	public void a_assign_to(String p, String room) throws Exception {
 		if(!e_person(p))
-			a_person(p);		
+			a_person(p);
+		if(!e_room(room))
+			a_room(room);
+		for(int i =0;i<myPeople.size();i++){
+			if(myPeople.get(i).evaluatePerson(p))
+				((Person) myPeople.get(i)).assertAssignedRoom(p, room);
+		}
+		
 	}
 
 	@Override
 	public boolean e_assign_to(String p, String room) {
-		// TODO Auto-generated method stub
+
+		for(int i =0;i<myPeople.size();i++){
+			if(myPeople.get(i).evaluateAssignedRoom(p, room))
+				return true;
+		}
 		return false;
 	}
 
