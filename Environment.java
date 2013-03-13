@@ -4,6 +4,8 @@ package trunk;
 import java.util.TreeSet;
 import java.util.LinkedList;
 
+import trunk.Predicate.ParamType;
+
 
 
 public abstract class Environment extends PredicateReader implements SisyphusPredicates {
@@ -281,7 +283,8 @@ public abstract class Environment extends PredicateReader implements SisyphusPre
 	}
 	@Override
 	public void a_works_with(String p, TreeSet<Pair<ParamType, Object>> p2s) {
-		// TODO Auto-generated method stub
+		if(!e_person(p))
+			a_person(p);
 		
 	}
 
@@ -293,8 +296,8 @@ public abstract class Environment extends PredicateReader implements SisyphusPre
 
 	@Override
 	public void a_works_with(String p, String p2) {
-		// TODO Auto-generated method stub
-		
+		if(!e_person(p))
+			a_person(p);
 	}
 
 	@Override
@@ -305,8 +308,8 @@ public abstract class Environment extends PredicateReader implements SisyphusPre
 
 	@Override
 	public void a_assign_to(String p, String room) throws Exception {
-		// TODO Auto-generated method stub
-		
+		if(!e_person(p))
+			a_person(p);		
 	}
 
 	@Override

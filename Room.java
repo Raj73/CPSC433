@@ -15,7 +15,7 @@ public class Room
 
 	LinkedList<String> closeWith;
 
-	void Room(String Rname)
+	Room(String Rname)
 	{
 		name = Rname;
 	}
