@@ -404,15 +404,27 @@ public abstract class Environment extends PredicateReader implements SisyphusPre
 
 	@Override
 	public void a_close(String room, TreeSet<Pair<ParamType, Object>> set) {
-		// TODO Auto-generated method stub
+		String room2;
 		
+		while (room2 != null)
+		{
+			a_close(room, room2);
+			room2 = (String) set.pollFirst();
+		}
 	}
 
 
 	@Override
 	public boolean e_close(String room, TreeSet<Pair<ParamType, Object>> set) {
-		// TODO Auto-generated method stub
-		return false;
+		String room2;
+		
+		while (room2 != null)
+		{
+			if (!e_close(room, room2))
+				return false
+			room2 = (String) set.pollFirst();
+		}
+		return true;
 	}
 
 	@Override
