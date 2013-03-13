@@ -317,25 +317,62 @@ public abstract class Environment extends PredicateReader implements SisyphusPre
 
 	@Override
 	public void a_room(String r) {
-		// TODO Auto-generated method stub
+		Room aroom = new Room(r);
+		roomNames.add(aroom);
 		
 	}
 
 	@Override
 	public boolean e_room(String r) {
-		// TODO Auto-generated method stub
-		return false;
+		for(int i =0;i<roomNames.size();i++){
+			if(roomNames.get(i).evaluateRoom(r))
+				return true;
+		}
+		return false;     
 	}
 
 	@Override
 	public void a_close(String room, String room2) {
-		// TODO Auto-generated method stub
+		if(!e_room(room))
+			a_room(room);
+			
+		if(!e_room(room2))
+			a_room(room2);
+			
+		int r1;
+		int r2;
+		
+		for (i = 0; i < roomNames.size(); i++)
+		{
+			if(roomNames.get(i).evaluateRoom(room))
+				r1++;
+			
+			if (roomNames.get(i).evaluateRoom(room2))
+				r1++;
+		}
+		
+		roomNames.get(r1).assertCloseWith(room, room2);
+		roomNames.get(r2).assertCloseWith(room2, room);
 		
 	}
 
 	@Override
 	public boolean e_close(String room, String room2) {
-		// TODO Auto-generated method stub
+		int r1;
+		int r2;
+		
+		for (i = 0; i < roomNames.size(); i++)
+		{
+			if(roomNames.get(i).evaluateRoom(room))
+				r1++;
+			
+			if (roomNames.get(i).evaluateRoom(room2))
+				r1++;
+		}
+		
+		if (roomNames.get(r1).evaluateCloseWith(room, room2) && roomNames.get(r2).evaluateCloseWith(room2, room))
+			return true;
+			
 		return false;
 	}
 
@@ -354,73 +391,113 @@ public abstract class Environment extends PredicateReader implements SisyphusPre
 
 	@Override
 	public void a_large_room(String r) {
-		// TODO Auto-generated method stub
+		if(!e_room(r))
+			a_room(r);
+		for(int i =0;i<roomNames.size();i++){
+			if(roomNames.get(i).evaluateRoom(r))
+				((Room) roomNames.get(i)).assertLarge(r);
+		}
 		
 	}
 
 	@Override
 	public boolean e_large_room(String r) {
-		// TODO Auto-generated method stub
+		for(int i =0;i<roomNames.size();i++){
+			if(roomNames.get(i).evaluateLarge(r))
+				return true;
+		}		
 		return false;
 	}
 
 	@Override
 	public void a_medium_room(String r) {
-		// TODO Auto-generated method stub
+		if(!e_room(r))
+			a_room(r);
+		for(int i =0;i<roomNames.size();i++){
+			if(roomNames.get(i).evaluateRoom(r))
+				((Room) roomNames.get(i)).assertMedium(r);
+		}
 		
 	}
 
 	@Override
 	public boolean e_medium_room(String r) {
-		// TODO Auto-generated method stub
+		for(int i =0;i<roomNames.size();i++){
+			if(roomNames.get(i).evaluateMedium(r))
+				return true;
+		}		
 		return false;
 	}
 
 	@Override
 	public void a_small_room(String r) {
-		// TODO Auto-generated method stub
+		if(!e_room(r))
+			a_room(r);
+		for(int i =0;i<roomNames.size();i++){
+			if(roomNames.get(i).evaluateRoom(r))
+				((Room) roomNames.get(i)).assertSmall(r);
+		}
 		
 	}
 
 	@Override
 	public boolean e_small_room(String r) {
-		// TODO Auto-generated method stub
+		for(int i =0;i<roomNames.size();i++){
+			if(roomNames.get(i).evaluateSmall(r))
+				return true;
+		}		
 		return false;
 	}
 
 	@Override
 	public void a_group(String g) {
-		// TODO Auto-generated method stub
+		Group agroup = new Group(g);
+		groupNames.add(agroup);
 		
 	}
 
 	@Override
 	public boolean e_group(String g) {
-		// TODO Auto-generated method stub
+		for(int i =0;i<groupNames.size();i++){
+			if(groupNames.get(i).evaluateGroup(g))
+				return true;
+		}
 		return false;
 	}
 
 	@Override
 	public void a_project(String p) {
-		// TODO Auto-generated method stub
+		Project aproject = new Project(p);
+		projectNames.add(aproject);
 		
 	}
 
 	@Override
 	public boolean e_project(String p) {
-		// TODO Auto-generated method stub
+		for(int i =0;i<projectNames.size();i++){
+			if(projectNames.get(i).evaluateProject(p))
+				return true;
+		}
 		return false;
 	}
 
 	@Override
 	public void a_large_project(String prj) {
-		// TODO Auto-generated method stub
+		if(!e_person(prj))
+			a_person(prj);
+		for(int i =0;i<projectNames.size();i++){
+			if(projectNames.get(i).evaluateProject(prj))
+				((Project) projectNames.get(i)).assertLarge(prj);
+		}
 		
 	}
 
 	@Override
 	public boolean e_large_project(String prj) {
-		// TODO Auto-generated method stub
+		for(int i =0;i<projectNames.size();i++){
+			if(projectNames.get(i).evaluateLarge(prj))
+				return true;
+		}		
 		return false;
 	}
 
