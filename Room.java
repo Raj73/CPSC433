@@ -3,6 +3,8 @@ import java.util.AbstractList;
 import java.util.TreeSet;
 import java.util.LinkedList;
 
+import trunk.Predicate.ParamType;
+
 public class Room
 {
 	boolean small;
@@ -78,12 +80,12 @@ public class Room
 		if (name.compareTo(Rname) == 0)
 		{
 			int size = r2s.size();
-			Pair input = r2s.pollfirst();
+			Pair input = r2s.pollFirst();
 
 			for (int i = 0; i < size; i++)
 			{
-				closeWith.add(input.getValue());
-				Pair input = r2s.pollfirst();
+				closeWith.add((String) input.getValue());
+				input = r2s.pollFirst();
 			}
 		}
 	}
@@ -95,19 +97,19 @@ public class Room
 			int inputSize = r2s.size();
 			int currentSize = closeWith.size();
 			int found = 0;
-			Pair input = r2s.pollfirst();
+			Pair input = r2s.pollFirst();
 
 			for (int i = 0; i < inputSize; i++)
 			{
 				for (int j = 0; j < currentSize; j++)
 				{
-					if (closeWith.get(j).compareTo(input.getValue()) == 0)
+					if (closeWith.get(j).compareTo((String) input.getValue()) == 0)
 					{
 						found++;
 						continue;
 					}
 				}
-				Pair input = r2s.pollfirst();
+				input = r2s.pollFirst();
 			}
 
 			if (found == inputSize)
