@@ -298,11 +298,27 @@ public abstract class Environment extends PredicateReader implements SisyphusPre
 	public void a_works_with(String p, String p2) {
 		if(!e_person(p))
 			a_person(p);
+		if(!e_person(p2))
+			a_person(p2);
+		
+		for(int i =0;i<myPeople.size();i++){
+			if(myPeople.get(i).evaluatePerson(p))
+				((Person) myPeople.get(i)).assertWorksWith(p, p2);
+		}
+		for(int i =0;i<myPeople.size();i++){
+			if(myPeople.get(i).evaluatePerson(p2)){
+				if(myPeople.get(i).evaluateWorksWith(p2, p))
+				((Person) myPeople.get(i)).assertWorksWith(p2, p);
+			}
+		}
 	}
 
 	@Override
 	public boolean e_works_with(String p, String p2) {
-		// TODO Auto-generated method stub
+		for(int i =0;i<myPeople.size();i++){
+			if(myPeople.get(i).evaluateWorksWith(p, p2))
+				return true;
+		}
 		return false;
 	}
 
