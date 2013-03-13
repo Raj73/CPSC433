@@ -336,27 +336,39 @@ public abstract class Environment extends PredicateReader implements SisyphusPre
 
 	@Override
 	public void a_close(String room, String room2) {
-		if(!e_room(room))
-			a_room(room);
 			
-		if(!e_room(room2))
-			a_room(room2);
-			
-		int r1;
-		int r2;
+		int r1 = -1;
+		int r2 = -1;
 		
-		for (i = 0; i < roomNames.size(); i++)
+		for (int i = 0; i < roomNames.size(); i++)
 		{
 			if(roomNames.get(i).evaluateRoom(room))
-				r1++;
+				r1 = i;
 			
 			if (roomNames.get(i).evaluateRoom(room2))
-				r1++;
+				r2 = i;
 		}
 		
-		roomNames.get(r1).assertCloseWith(room, room2);
-		roomNames.get(r2).assertCloseWith(room2, room);
-		
+		if(r1 == -1 && r2 == -1){
+			a_room(room);
+			a_room(room2);
+			roomNames.get(roomNames.size() - 2).assertCloseWith(room, room2);
+			roomNames.get(roomNames.size() - 1).assertCloseWith(room2, room);	
+		}
+		else if(r1 == -1){
+			a_room(room);
+			roomNames.get(roomNames.size() - 1).assertCloseWith(room, room2);
+			roomNames.get(r2).assertCloseWith(room2, room);	
+		}
+		else if (r2 == -1){
+			a_room(room2);
+			roomNames.get(roomNames.size() - 1).assertCloseWith(room2, room);
+			roomNames.get(r1).assertCloseWith(room, room2);	
+		}
+		else{
+			roomNames.get(r1).assertCloseWith(room, room2);
+			roomNames.get(r2).assertCloseWith(room2, room);
+		}
 	}
 
 	@Override
@@ -364,7 +376,7 @@ public abstract class Environment extends PredicateReader implements SisyphusPre
 		int r1;
 		int r2;
 		
-		for (i = 0; i < roomNames.size(); i++)
+		for (int i = 0; i < roomNames.size(); i++)
 		{
 			if(roomNames.get(i).evaluateRoom(room))
 				r1++;

@@ -90,7 +90,7 @@ public class Room
 		}
 	}
 
-	boolean evaluateWorksWith(String Rname, TreeSet<Pair<ParamType,Object>> r2s)
+	boolean evaluateCloseWith(String Rname, TreeSet<Pair<ParamType,Object>> r2s)
 	{
 		if (name.compareTo(Rname) == 0)
 		{
@@ -120,13 +120,13 @@ public class Room
 	}
 	
 	// Works with asserts and qeuries (singular)
-	void assertWorksWith(String Rname, String Rname2)
+	void assertCloseWith(String Rname, String Rname2)
 	{
 		if (name.compareTo(Rname) == 0)
 			closeWith.add(Rname2);
 	}
 	
-	boolean evaluateWorksWith(String Rname, String Rname2)
+	boolean evaluateCloseWith(String Rname, String Rname2)
 	{
 		if (name.compareTo(Rname) == 0)
 		{
