@@ -78,26 +78,30 @@ public class SisI {
 					writer.write("Smoker(" + name +")\n");
 					
 				if (env.myPeople.get(i).group != null)
-					writer.write("Group(" + name + ", " + env.myPeople.get(i).group + " )\n");
+					writer.write("Group(" + name + ", " + env.myPeople.get(i).group + ")\n");
 				
 				if (env.myPeople.get(i).project != null)
-					writer.write("Project(" + name + ", " + env.myPeople.get(i).project + " )\n");
+					writer.write("Project(" + name + ", " + env.myPeople.get(i).project + ")\n");
 					
 				if (env.myPeople.get(i).headsGroup != null){
 					numberOfroomsNeeded = numberOfroomsNeeded + .5;
-					writer.write("Heads-Group(" + name + ", " + env.myPeople.get(i).group + " )\n");
+					writer.write("Heads-Group(" + name + ", " + env.myPeople.get(i).group + ")\n");
 				}
 				if (env.myPeople.get(i).headsProject != null){
 					numberOfroomsNeeded = numberOfroomsNeeded + .5;
-					writer.write("Heads-Project(" + name + ", " + env.myPeople.get(i).project + " )\n");
+					writer.write("Heads-Project(" + name + ", " + env.myPeople.get(i).project + ")\n");
 				}
-				for (int j = 0; j < env.myPeople.get(i).worksWith.size(); j++){
-					worksWith = worksWith + env.myPeople.get(i).worksWith.get(j) + ", ";
+				if (env.myPeople.get(i).worksWith.size() > 0)
+				{
+					worksWith = env.myPeople.get(i).worksWith.get(j);
+					for (int j = 0; j < env.myPeople.get(i).worksWith.size(); j++){
+						worksWith = worksWith + ", " + env.myPeople.get(i).worksWith.get(j);
+					}
 				}
 				
 				if (worksWith != "")
 				{
-					writer.write("Works-With(" + name + ", {" + worksWith + "} )\n");
+					writer.write("Works-With(" + name + ", {" + worksWith + "})\n");
 					worksWith = "";
 				}
 			}
@@ -116,8 +120,12 @@ public class SisI {
 				if (env.roomNames.get(i).evaluateSmall(name))
 					writer.write("Small-Room(" + name +")\n");
 					
-				for (int j = 0; j < env.roomNames.get(i).closeWith.size(); j++){
-					closeWith = closeWith + env.roomNames.get(i).closeWith.get(j) + ", ";
+				if (env.roomNames.get(i).closeWith.size() > 0)
+				{
+					closeWith = env.roomNames.get(i).closeWith.get(j);
+					for (int j = 0; j < env.roomNames.get(i).closeWith.size(); j++){
+						closeWith = closeWith + ", " + env.roomNames.get(i).closeWith.get(j);
+					}
 				}
 				
 				if (worksWith != "")
