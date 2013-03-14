@@ -74,9 +74,6 @@ public class SisI {
 				if (env.myPeople.get(i).evaluateHacker(name))
 					writer.write("Hacker(" + name +")\n");
 					
-				if (env.myPeople.get(i).evaluateSmoker(name))
-					writer.write("Smoker(" + name +")\n");
-					
 				if (env.myPeople.get(i).group != null)
 					writer.write("Group(" + name + ", " + env.myPeople.get(i).group + ")\n");
 				
@@ -94,7 +91,7 @@ public class SisI {
 				if (env.myPeople.get(i).worksWith.size() > 0)
 				{
 					worksWith = env.myPeople.get(i).worksWith.get(0);
-					for (int j = 0; j < env.myPeople.get(i).worksWith.size(); j++){
+					for (int j = 1; j < env.myPeople.get(i).worksWith.size(); j++){
 						worksWith = worksWith + ", " + env.myPeople.get(i).worksWith.get(j);
 					}
 				}
@@ -123,7 +120,7 @@ public class SisI {
 				if (env.roomNames.get(i).closeWith.size() > 0)
 				{
 					closeWith = env.roomNames.get(i).closeWith.get(0);
-					for (int j = 0; j < env.roomNames.get(i).closeWith.size(); j++){
+					for (int j = 1; j < env.roomNames.get(i).closeWith.size(); j++){
 						closeWith = closeWith + ", " + env.roomNames.get(i).closeWith.get(j);
 					}
 				}
@@ -132,7 +129,7 @@ public class SisI {
 				{
 					writer.write("Close-With(" + name + ", {" + closeWith + "})\n");
 					closeWith = "";
-				}
+				} 
 			}
 			writer.write("// Groups \n");
 			for (int i = 0; i < env.groupNames.size(); i++){

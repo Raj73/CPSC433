@@ -177,55 +177,10 @@ public class Person
 		return false;
 	}
 	
-	// Works with asserts and qeuries (sets)
-	void assertWorksWith(String Ename, TreeSet<Pair<ParamType,Object>> p2s)
-	{
-		if (name.compareTo(Ename) == 0)
-		{
-			int size = p2s.size();
-			Pair input = p2s.pollFirst();
-			
-			for (int i = 0; i < size; i++)
-			{
-				worksWith.add((String) input.getValue());
-				input = p2s.pollFirst();
-			}
-		}
-	}
-	
-	boolean evaluateWorksWith(String Ename, TreeSet<Pair<ParamType,Object>> p2s)
-	{
-		if (name.compareTo(Ename) == 0)
-		{
-			int inputSize = p2s.size();
-			int currentSize = worksWith.size();
-			int found = 0;
-			Pair input = p2s.pollFirst();
-			
-			for (int i = 0; i < inputSize; i++)
-			{
-				for (int j = 0; j < currentSize; j++)
-				{
-					if (worksWith.get(j).compareTo((String) input.getValue()) == 0)
-					{
-						found++;
-						continue;
-					}
-				}
-				input = p2s.pollFirst();
-			}
-			
-			if (found == inputSize)
-				return true;
-		}
-		
-		return false;
-	}
-	
 	// Works with asserts and qeuries (singular)
 	void assertWorksWith(String Ename, String Ename2)
 	{
-		if (name.compareTo(Ename) == 0)
+		if ((name.compareTo(Ename) == 0) && (!evaluateWorksWith(Ename, Ename2)))
 			worksWith.add(Ename2);
 	}
 	
