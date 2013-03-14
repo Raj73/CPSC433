@@ -98,6 +98,7 @@ public class SisI {
 				if (worksWith != "")
 				{
 					writer.write("Works-With(" + name + ", {" + worksWith + "} )\n");
+					worksWith = "";
 				}
 			}
 			writer.write("// Room \n");
@@ -122,6 +123,7 @@ public class SisI {
 				if (worksWith != "")
 				{
 					writer.write("Close-With(" + name + ", {" + closeWith + "} )\n");
+					closeWith = "";
 				}
 			}
 			writer.write("// Groups \n");
