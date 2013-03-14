@@ -56,23 +56,23 @@ public class SisI {
 			for (int i = 0; i < env.myPeople.size(); i++){
 				numberOfroomsNeeded = numberOfroomsNeeded + .5;
 				name = env.myPeople.get(i).name;
-				writer.write("Person(" + name +")\n");
+				writer.write("person(" + name +")\n");
 				
 				if (env.myPeople.get(i).evaluateResearcher(name))
-					writer.write("Researcher(" + name +")\n");
+					writer.write("researcher(" + name +")\n");
 					
 				if (env.myPeople.get(i).evaluateSecretary(name))
-					writer.write("Secretary(" + name +")\n");
+					writer.write("secretary(" + name +")\n");
 					
 				if (env.myPeople.get(i).evaluateManager(name)){
-					writer.write("Manager(" + name +")\n");
+					writer.write("manager(" + name +")\n");
 					numberOfroomsNeeded = numberOfroomsNeeded + .5;
 				}
 				if (env.myPeople.get(i).evaluateSmoker(name))
-					writer.write("Smoker(" + name +")\n");
+					writer.write("smoker(" + name +")\n");
 					
 				if (env.myPeople.get(i).evaluateHacker(name))
-					writer.write("Hacker(" + name +")\n");
+					writer.write("hacker(" + name +")\n");
 					
 				if (env.myPeople.get(i).group != null)
 					writer.write("Group(" + name + ", " + env.myPeople.get(i).group + ")\n");
