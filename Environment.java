@@ -178,7 +178,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 			a_person(p);
 		for(int i =0;i<myPeople.size();i++){
 			if(myPeople.get(i).evaluatePerson(p))
-				((Person) myPeople.get(i)).assertInProject(p, grp);
+				((Person) myPeople.get(i)).assertInGroup(p, grp);
 		}
 		int temp =0;
 		while((temp <groupNames.size()) && !groupNames.get(temp).evaluateGroup(grp)){
@@ -200,12 +200,12 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 
 	@Override
 	public void a_in_project(String p, String prj) {
-		a_group(p,prj);
+		a_project(p,prj);
 	}
 
 	@Override
 	public boolean e_in_project(String p, String prj) {
-		return e_group(p,prj);
+		return e_project(p,prj);
 	}
 
 	@Override
