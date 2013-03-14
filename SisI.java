@@ -8,10 +8,11 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+
 public class SisI {
 	public static void main(String[] args) {
 		String fileName = "Zero";
-		
+		int numberofheads =0;
 		
 		final Environment env = Environment.get();
 		if (args.length>0) {
@@ -39,6 +40,10 @@ public class SisI {
 	
 	
 	public static void toFile(Environment env, String fileName){
+		double numberOfroomsNeeded = 0;
+		double numberOfRooms = 0;
+		
+		
 		BufferedWriter writer = null;
 		try{
 			writer = new BufferedWriter(new FileWriter(fileName+".out", true));
@@ -49,6 +54,7 @@ public class SisI {
 			writer.write("// -- Environment ------------------\n");
 			writer.write("// People \n");
 			for (int i = 0; i < env.myPeople.size(); i++){
+				numberOfroomsNeeded = numberOfroomsNeeded + .5;
 				name = env.myPeople.get(i).name;
 				writer.write("Person(" + name +")\n");
 				
@@ -58,9 +64,10 @@ public class SisI {
 				if (env.myPeople.get(i).evaluateSecretary(name))
 					writer.write("Secretary(" + name +")\n");
 					
-				if (env.myPeople.get(i).evaluateManager(name))
+				if (env.myPeople.get(i).evaluateManager(name)){
 					writer.write("Manager(" + name +")\n");
-					
+					numberOfroomsNeeded = numberOfroomsNeeded + .5;
+				}
 				if (env.myPeople.get(i).evaluateSmoker(name))
 					writer.write("Smoker(" + name +")\n");
 					
@@ -76,12 +83,14 @@ public class SisI {
 				if (env.myPeople.get(i).project != null)
 					writer.write("Project(" + name + ", " + env.myPeople.get(i).project + " )\n");
 					
-				if (env.myPeople.get(i).headsGroup != null)
+				if (env.myPeople.get(i).headsGroup != null){
+					numberOfroomsNeeded = numberOfroomsNeeded + .5;
 					writer.write("Heads-Group(" + name + ", " + env.myPeople.get(i).group + " )\n");
-					
-				if (env.myPeople.get(i).headsProject != null)
+				}
+				if (env.myPeople.get(i).headsProject != null){
+					numberOfroomsNeeded = numberOfroomsNeeded + .5;
 					writer.write("Heads-Project(" + name + ", " + env.myPeople.get(i).project + " )\n");
-					
+				}
 				for (int j = 0; j < env.myPeople.get(i).worksWith.size(); j++){
 					worksWith = worksWith + env.myPeople.get(i).worksWith.get(j) + ", ";
 				}
@@ -93,6 +102,8 @@ public class SisI {
 			}
 			writer.write("// Room \n");
 			for (int i = 0; i < env.roomNames.size(); i++){
+				numberOfRooms = numberOfRooms++;
+				name = env.roomNames.get(i).name;
 				writer.write("Room (" + env.roomNames.get(i).name + ")\n");
 				
 				if (env.roomNames.get(i).evaluateLarge(name))
@@ -105,12 +116,12 @@ public class SisI {
 					writer.write("Small-Room(" + name +")\n");
 					
 				for (int j = 0; j < env.roomNames.get(i).closeWith.size(); j++){
-					closeWith = closeWith + env.myPeople.get(i).closeWith.get(j) + ", ";
+					closeWith = closeWith + env.roomNames.get(i).closeWith.get(j) + ", ";
 				}
 				
 				if (worksWith != "")
 				{
-					writer.write(""works"Close-With(" + name + ", {" + closeWith + "} )\n");
+					writer.write("Close-With(" + name + ", {" + closeWith + "} )\n");
 				}
 			}
 			writer.write("// Groups \n");
@@ -121,8 +132,8 @@ public class SisI {
 			for (int i = 0; i < env.projectNames.size(); i++){
 				writer.write("Project(" + env.projectNames.get(i).name + ")\n");
 				
-				if (env.projectNames.get(i).evaluateLarge(name))
-					writer.write("Large-Project(" + name +")\n");
+				if (env.projectNames.get(i).evaluateLarge(env.projectNames.get(i).name))
+					writer.write("Large-Project(" + env.projectNames.get(i).name +")\n");
 			}
 			
 			/* for finding the hard constraints
