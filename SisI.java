@@ -10,7 +10,7 @@ import java.io.InputStreamReader;
 
 public class SisI {
 	public static void main(String[] args) {
-		String fileName;
+		String fileName = "Zero";
 		
 		
 		final Environment env = Environment.get();
@@ -33,32 +33,35 @@ public class SisI {
 		for (int i = 0; i < env.projectNames.size(); i++){
 			System.out.println("Project " + i + env.projectNames.get(i).name);
 		}
+		
+		toFile(env, fileName);
 	}
 	
 	
-	public void toFile(Environment env, String fileName){
+	public static void toFile(Environment env, String fileName){
 		BufferedWriter writer = null;
 		try{
 			writer = new BufferedWriter(new FileWriter(fileName+".out", true));
 			
-			writer.write("// -- Environment ------------------");
-			writer.write("// People");
+			writer.write("// -- Environment ------------------\n");
+			writer.write("// People \n");
 			for (int i = 0; i < env.myPeople.size(); i++){
 				
 			}
-			writer.write("// Room");
+			writer.write("// Room \n");
 			for (int i = 0; i < env.roomNames.size(); i++){
 				System.out.println("Room " + i + env.roomNames.get(i).name);
 			}
-			writer.write("// Groups");
+			writer.write("// Groups \n");
 			for (int i = 0; i < env.groupNames.size(); i++){
 				System.out.println("Group " + i + env.groupNames.get(i).name);
 			}
-			writer.write("// Projects");
+			writer.write("// Projects \n");
 			for (int i = 0; i < env.projectNames.size(); i++){
 				System.out.println("Project " + i + env.projectNames.get(i).name);
 			}
-			writer.write("// -- END Environment ------------------");
+			writer.write("// -- END Environment ------------------ \n");
+			writer.close();
 		}
 		catch(IOException err){
 			System.err.println("File could not be created!!");
