@@ -75,18 +75,18 @@ public class SisI {
 					writer.write("hacker(" + name +")\n");
 					
 				if (env.myPeople.get(i).group != null)
-					writer.write("Group(" + name + ", " + env.myPeople.get(i).group + ")\n");
+					writer.write("group(" + name + ", " + env.myPeople.get(i).group + ")\n");
 				
 				if (env.myPeople.get(i).project != null)
-					writer.write("Project(" + name + ", " + env.myPeople.get(i).project + ")\n");
+					writer.write("project(" + name + ", " + env.myPeople.get(i).project + ")\n");
 					
 				if (env.myPeople.get(i).headsGroup != null){
 					numberOfroomsNeeded = numberOfroomsNeeded + .5;
-					writer.write("Heads-Group(" + name + ", " + env.myPeople.get(i).group + ")\n");
+					writer.write("heads-group(" + name + ", " + env.myPeople.get(i).group + ")\n");
 				}
 				if (env.myPeople.get(i).headsProject != null){
 					numberOfroomsNeeded = numberOfroomsNeeded + .5;
-					writer.write("Heads-Project(" + name + ", " + env.myPeople.get(i).project + ")\n");
+					writer.write("heads-project(" + name + ", " + env.myPeople.get(i).project + ")\n");
 				}
 				if (env.myPeople.get(i).worksWith.size() > 0)
 				{
@@ -98,7 +98,7 @@ public class SisI {
 				
 				if (worksWith != "")
 				{
-					writer.write("Works-With(" + name + ", {" + worksWith + "})\n");
+					writer.write("works-with(" + name + ", {" + worksWith + "})\n");
 					worksWith = "";
 				}
 			}
@@ -106,16 +106,16 @@ public class SisI {
 			for (int i = 0; i < env.roomNames.size(); i++){
 				numberOfRooms = numberOfRooms++;
 				name = env.roomNames.get(i).name;
-				writer.write("Room (" + env.roomNames.get(i).name + ")\n");
+				writer.write("room (" + env.roomNames.get(i).name + ")\n");
 				
 				if (env.roomNames.get(i).evaluateLarge(name))
-					writer.write("Large-Room(" + name +")\n");
+					writer.write("large-room(" + name +")\n");
 					
 				if (env.roomNames.get(i).evaluateMedium(name))
-					writer.write("Medium-Room(" + name +")\n");
+					writer.write("medium-room(" + name +")\n");
 					
 				if (env.roomNames.get(i).evaluateSmall(name))
-					writer.write("Small-Room(" + name +")\n");
+					writer.write("small-room(" + name +")\n");
 					
 				if (env.roomNames.get(i).closeWith.size() > 0)
 				{
@@ -127,20 +127,20 @@ public class SisI {
 				
 				if (closeWith != "")
 				{
-					writer.write("Close-With(" + name + ", {" + closeWith + "})\n");
+					writer.write("close-with(" + name + ", {" + closeWith + "})\n");
 					closeWith = "";
 				} 
 			}
 			writer.write("// Groups \n");
 			for (int i = 0; i < env.groupNames.size(); i++){
-				writer.write("Group(" + env.groupNames.get(i).name + ")\n");
+				writer.write("group(" + env.groupNames.get(i).name + ")\n");
 			}
 			writer.write("// Projects \n");
 			for (int i = 0; i < env.projectNames.size(); i++){
-				writer.write("Project(" + env.projectNames.get(i).name + ")\n");
+				writer.write("project(" + env.projectNames.get(i).name + ")\n");
 				
 				if (env.projectNames.get(i).evaluateLarge(env.projectNames.get(i).name))
-					writer.write("Large-Project(" + env.projectNames.get(i).name +")\n");
+					writer.write("large-project(" + env.projectNames.get(i).name +")\n");
 			}
 			
 			/* for finding the hard constraints
