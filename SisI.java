@@ -17,22 +17,19 @@ public class SisI {
 			env.fromFile(fromFile);
 		}
 		
-/*		try{
-		
-		BufferedReader stream = null;
-		stream = new BufferedReader(new InputStreamReader(new FileInputStream("input.txt")));
-		stream.close();
-		}
-		catch (FileNotFoundException ex){
-			System.err.println("Can't open file ");
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
-		
 		for (int i = 0; i < env.myPeople.size(); i++){
 			System.out.println("Person " + i + env.myPeople.get(i).name);
+			System.out.println("	Group " + env.myPeople.get(i).group);
+			System.out.println("	Project " + env.myPeople.get(i).project);
 		}
-		
+		for (int i = 0; i < env.roomNames.size(); i++){
+			System.out.println("Room " + i + env.roomNames.get(i).name);
+		}
+		for (int i = 0; i < env.groupNames.size(); i++){
+			System.out.println("Group " + i + env.groupNames.get(i).name);
+		}
+		for (int i = 0; i < env.projectNames.size(); i++){
+			System.out.println("Project " + i + env.projectNames.get(i).name);
+		}
 	}
 }

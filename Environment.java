@@ -14,10 +14,10 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	
 	@SuppressWarnings("unused")
 	private static final String Object = null;
-	LinkedList<Person> myPeople;
-	LinkedList<Group> groupNames;
-	LinkedList<Room> roomNames;
-	LinkedList<Project> projectNames; 
+	LinkedList<Person> myPeople  = new LinkedList<Person>();
+	LinkedList<Group> groupNames = new LinkedList<Group>();
+	LinkedList<Room> roomNames = new LinkedList<Room>();
+	LinkedList<Project> projectNames = new LinkedList<Project>(); 
 	public Environment(PredicateReader p) {
 		super(p);
 		
@@ -292,24 +292,24 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	public void a_works_with(String p, TreeSet<Pair<ParamType, Object>> p2s) {
 		if(!e_person(p))
 			a_person(p);
-		String p2 = (String) p2s.pollFirst().getValue();
+		String p2;
 
-		while (p2 != null)
+		while (!p2s.isEmpty())
 		{
-			a_close(p, p2);
 			p2 = (String) p2s.pollFirst().getValue();
+			a_works_with(p, p2);
 		}
 	}
 
 	@Override
 	public boolean e_works_with(String p, TreeSet<Pair<ParamType, Object>> p2s) {
-		 String person2 = (String) p2s.pollFirst().getValue();
+		 String person2;
 			
-			while (person2 != null)
+			while (!p2s.isEmpty())
 			{
+				person2 = (String) p2s.pollFirst().getValue();
 				if (!e_works_with(p, person2))
 					return false;
-				person2 = (String) p2s.pollFirst().getValue();
 			}
 			return true;
 	}
@@ -440,24 +440,24 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 
 	@Override
 	public void a_close(String room, TreeSet<Pair<ParamType, Object>> set) {
-		String room2 = (String) set.pollFirst().getValue();
+		String room2;
 		
-		while (room2 != null)
+		while (!set.isEmpty())
 		{
-			a_close(room, room2);
 			room2 = (String) set.pollFirst().getValue();
+			a_close(room, room2);
 		}
 	}
 
 	@Override
 	public boolean e_close(String room, TreeSet<Pair<ParamType, Object>> set) {
-		String room2 = (String) set.pollFirst().getValue();
+		String room2;
 		
-		while (room2 != null)
+		while (!set.isEmpty())
 		{
+			room2 = (String) set.pollFirst().getValue();
 			if (!e_close(room, room2))
 				return false;
-			room2 = (String) set.pollFirst().getValue();
 		}
 		return true;
 	}
@@ -556,8 +556,8 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 
 	@Override
 	public void a_large_project(String prj) {
-		if(!e_person(prj))
-			a_person(prj);
+		if(!e_project(prj))
+			a_project(prj);
 		for(int i =0;i<projectNames.size();i++){
 			if(projectNames.get(i).evaluateProject(prj))
 				((Project) projectNames.get(i)).assertLarge(prj);

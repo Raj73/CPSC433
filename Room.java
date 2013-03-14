@@ -13,7 +13,7 @@ public class Room
 	
 	String name;
 
-	LinkedList<String> closeWith;
+	LinkedList<String> closeWith = new LinkedList<String>();
 
 	Room(String Rname)
 	{

@@ -20,7 +20,7 @@ public class Person
 	String headsGroup;
 	String headsProject;
 	String assignedRoom;
-	LinkedList<String> worksWith;
+	LinkedList<String> worksWith = new LinkedList<String>();
 	
 	// Room qualities
 	
