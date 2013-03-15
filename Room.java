@@ -1,26 +1,26 @@
 import java.util.LinkedList;
 import java.util.Vector;
 
-public class Room
+public class Room extends Entity
 {
 	boolean small;
 	boolean medium;
 	boolean large;
 	Vector<Person> people = new Vector<Person>();
 	
-	String name;
+	
 
 	LinkedList<String> closeWith = new LinkedList<String>();
 
 	Room(String Rname)
 	{
-		name = Rname;
+		super(Rname);
 	}
 
 
 	boolean evaluateRoom(String Rname)
 	{
-		if (name.compareTo(Rname) == 0)
+		if (getName().compareTo(Rname) == 0)
 			return true;
 
 		return false;
@@ -29,13 +29,13 @@ public class Room
 	// Small Room asserts and qeuries
 	void assertSmall(String Rname)
 	{
-		if (name.compareTo(Rname) == 0)
+		if (getName().compareTo(Rname) == 0)
 			small = true;
 	}
 
 	boolean evaluateSmall(String Rname)
 	{
-		if ((name.compareTo(Rname) == 0) && (small == true))
+		if ((getName().compareTo(Rname) == 0) && (small == true))
 			return true;
 
 		return false;
@@ -44,13 +44,13 @@ public class Room
   	// Medium Room asserts and qeuries
   	void assertMedium(String Rname)
 	{
-		if (name.compareTo(Rname) == 0)
+		if (getName().compareTo(Rname) == 0)
 			medium = true;
 	}
 
 	boolean evaluateMedium(String Rname)
 	{
-		if ((name.compareTo(Rname) == 0) && (medium == true))
+		if ((getName().compareTo(Rname) == 0) && (medium == true))
 			return true;
 
 		return false;
@@ -59,13 +59,13 @@ public class Room
   	// Large Room asserts and qeuries
  	void assertLarge(String Rname)
 	{
-		if (name.compareTo(Rname) == 0)
+		if (getName().compareTo(Rname) == 0)
 			large = true;
 	}
 
 	boolean evaluateLarge(String Rname)
 	{
-		if ((name.compareTo(Rname) == 0) && (large == true))
+		if ((getName().compareTo(Rname) == 0) && (large == true))
 			return true;
 
 		return false;
@@ -81,7 +81,7 @@ public class Room
 	
 	boolean evaluateCloseWith(String Rname, String Rname2)
 	{
-		if (name.compareTo(Rname) == 0)
+		if (getName().compareTo(Rname) == 0)
 		{
 			int size = closeWith.size();
 			
@@ -101,7 +101,7 @@ public class Room
 	}
 
 	public void assertAssignPerson(Person p, String room) {
-		if (name.compareTo(room) == 0){
+		if (getName().compareTo(room) == 0){
 			people.addElement(p);
 		}
 	}
