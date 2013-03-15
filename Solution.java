@@ -4,6 +4,23 @@ public class Solution {
 public Solution(){
 	
 }
+public int softConstraints(Environment env){
+	int penalty = 0;
+	
+	for(int i = 0; i < env.myPeople.size(); i++){
+		if(env.myPeople.get(i).headsGroup != null){
+				for(int j = 0; j < env.roomNames.size();j++){
+					if(env.roomNames.get(j).name.equals(env.myPeople.get(j).assignedRoom)){
+						if(env.roomNames.get(j).large)
+							penalty = -40;
+					}
+				}
+				//soft 2 here
+		}
+	}
+	return penalty;
+}
+
 
 public String hardConstraints(Environment env){
 	
