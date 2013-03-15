@@ -327,6 +327,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 				groupNames.get(newGroup).addPerson(person);
 			}
 		}
+		person.assertInGroup(p, groupNames.get(newGroup));
 		person.assertHeadsGroup(p, groupNames.get(newGroup));
 	}
 
@@ -376,6 +377,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 			}
 			projectNames.get(temp).removePerson(myPeople.get(pIndex));
 		}
+		((Person) myPeople.get(pIndex)).assertInProject(p, projectNames.get(rIndex));
 		((Person) myPeople.get(pIndex)).assertHeadsProject(p, projectNames.get(rIndex));
 	}
 

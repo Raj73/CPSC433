@@ -13,13 +13,18 @@ public class SisI {
 		final Environment env = Environment.get();
 		if (args.length>0) {
 			fileName = args[0];
+			env.fromFile(fileName);
+			System.out.println(new Solution().hardConstraints(env));
 		}
 		else{
 			System.out.println("Please enter a valid file name");
 			fileName = console.nextLine();
+			env.fromFile(fileName);
+			System.out.println(new Solution().hardConstraints(env));
+			System.out.println("penalty: " + new Solution().softConstraints(env));
 		}
-		env.fromFile(fileName);
 		
+	/*	
 		for (int i = 0; i < env.myPeople.size(); i++){
 			System.out.println("Person " + i + env.myPeople.get(i).getName());
 			System.out.println("	Group " + env.myPeople.get(i).group);
@@ -35,11 +40,10 @@ public class SisI {
 		for (int i = 0; i < env.projectNames.size(); i++){
 			System.out.println("Project " + i + env.projectNames.get(i).getName());
 		}
+		*/
 		
 		toFile(env, fileName);
 		
-		System.out.println(new Solution().hardConstraints(env));
-		System.out.println("penalty: " + new Solution().softConstraints(env));
 	}
 	
 	
@@ -75,22 +79,22 @@ public class SisI {
 					writer.write("hacker(" + name +")\n");
 					
 				if (env.myPeople.get(i).group != null)
-					writer.write("group(" + name + ", " + env.myPeople.get(i).group + ")\n");
+					writer.write("group(" + name + ", " + env.myPeople.get(i).group.getName() + ")\n");
 				
 				if (env.myPeople.get(i).project != null)
-					writer.write("project(" + name + ", " + env.myPeople.get(i).project + ")\n");
+					writer.write("project(" + name + ", " + env.myPeople.get(i).project.getName() + ")\n");
 					
 				if (env.myPeople.get(i).headsGroup != null){
-					writer.write("heads-group(" + name + ", " + env.myPeople.get(i).group + ")\n");
+					writer.write("heads-group(" + name + ", " + env.myPeople.get(i).headsGroup.getName() + ")\n");
 				}
 				if (env.myPeople.get(i).headsProject != null){
-					writer.write("heads-project(" + name + ", " + env.myPeople.get(i).project + ")\n");
+					writer.write("heads-project(" + name + ", " + env.myPeople.get(i).headsProject.getName() + ")\n");
 				}
 				if (env.myPeople.get(i).worksWith.size() > 0)
 				{
 					worksWith = env.myPeople.get(i).worksWith.get(0).getName();
 					for (int j = 1; j < env.myPeople.get(i).worksWith.size(); j++){
-						worksWith = worksWith + ", " + env.myPeople.get(i).worksWith.get(j);
+						worksWith = worksWith + ", " + env.myPeople.get(i).worksWith.get(j).getName();
 					}
 				}
 				

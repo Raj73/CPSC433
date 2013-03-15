@@ -26,14 +26,9 @@ public int softConstraints(Environment env){
 			}
 			
 			for(int person = 0; person < env.groupNames.get(groupIndex).people.size(); person++){
-				System.out.println("person " + person + "groupIndex " + groupIndex);
-				System.out.println(env.groupNames.get(groupIndex).people.size());
 				int wherethepersonis = env.roomNames.get(headRoomIndex).closeWith.indexOf(env.groupNames.get(groupIndex).people.get(person).assignedRoom);
 				if(wherethepersonis == -1)
 					penalty += -2;
-				else{
-					//Constraint 3 goes here
-				}
 						
 			}
 		}
@@ -42,21 +37,27 @@ public int softConstraints(Environment env){
 		
 		for(int j = 0; j < env.roomNames.get(i).people.size(); j++){
 			Room room = env.roomNames.get(i);
-			
+			//Constraint 3
 			if(room.people.get(j).headsGroup != null){
 				Person p = env.roomNames.get(i).people.get(j);
 				Group group = p.group;
+				boolean secClose = false;
 				for(int k = 0; k < group.people.size(); k++){
 					if(group.people.get(k).secretary){
-						
+						if (room.closeWith.contains(group.people.get(k).assignedRoom))
+							secClose = true;
 					}
-						
+				}
+				if(!secClose){
+					penalty += -30;
 				}
 			}
 			
 			//soft constraint 4
 			if(room.people.get(j).secretary){
-				if(j == 0){
+				if(room.people.size() == 1)
+					penalty += -5;
+				else if(j == 0){
 					if(!room.people.get(1).secretary){
 						penalty += -5;
 					}
@@ -65,10 +66,39 @@ public int softConstraints(Environment env){
 					if(!room.people.get(0).secretary)
 					penalty += -5;
 				}
+				
+			}
+			//soft contrain 5
+			if(room.people.get(j).manager){
+				Person p = env.roomNames.get(i).people.get(j);
+				Group group = p.group;
+				boolean secClose = false;
+				boolean headClose = false;
+				if(p.group != null){
+					for(int k = 0; k < group.people.size(); k++){
+						if(group.people.get(k).secretary){
+							if (room.closeWith.contains(group.people.get(k).assignedRoom))
+								secClose = true;
+						}
+						if(group.people.get(k).headsGroup != null){			//soft constraint 6
+							if (group.people.get(k).compareTo(p) == 0 || room.closeWith.contains(group.people.get(k).assignedRoom))
+								headClose = true;
+						}
+					}
+				}
+				if(!secClose){
+					penalty += -20;
+				}
+				if(!headClose){
+					penalty += -20;
+				}
+				
+				
 			}
 			
 			
 		}
+		
 			
 	}
 	return penalty;
@@ -101,8 +131,10 @@ public String hardConstraints(Environment env){
 		}
 		if(env.myPeople.get(i).manager ||env.myPeople.get(i).headsGroup != null || env.myPeople.get(i).headsProject != null){
 				for(int j = 0; j < env.roomNames.size();j++){
-					if(env.roomNames.get(j).getName().equals(env.myPeople.get(j).assignedRoom))
+					if(env.roomNames.get(j).getName().equals(env.myPeople.get(i).assignedRoom)){
+						if(env.roomNames.get(j).people.size() > 1)
 							constraint4 =false;
+					}
 				}
 		}
 	}
