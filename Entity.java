@@ -1,9 +1,3 @@
-package trunk;
-
-/**
- * 
- */
-
 
 /**
  * The base class for named things.  It implements <code>Comparable</code> so

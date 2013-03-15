@@ -1,9 +1,4 @@
-package trunk;
-import java.util.AbstractList;
-import java.util.TreeSet;
 import java.util.LinkedList;
-
-import trunk.Predicate.ParamType;
 
 public class Room
 {

@@ -1,9 +1,3 @@
-package trunk;
-/**
- * 
- */
-
-
 import java.util.Map;
 
 /**

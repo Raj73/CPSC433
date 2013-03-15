@@ -1,5 +1,3 @@
-package trunk;
-
 public class Project
 
 {

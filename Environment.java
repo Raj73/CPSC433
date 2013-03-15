@@ -1,11 +1,6 @@
-package trunk;
-
 
 import java.util.TreeSet;
 import java.util.LinkedList;
-
-import trunk.Predicate.ParamType;
-
 
 
 public class Environment extends PredicateReader implements SisyphusPredicates {
@@ -291,7 +286,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 		return false;
 	}
 	@Override
-	public void a_works_with(String p, TreeSet<Pair<ParamType, Object>> p2s) {
+	public void a_works_with(String p, TreeSet<Pair<Predicate.ParamType, Object>> p2s) {
 		if(!e_person(p))
 			a_person(p);
 		String p2;
@@ -304,7 +299,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	}
 
 	@Override
-	public boolean e_works_with(String p, TreeSet<Pair<ParamType, Object>> p2s) {
+	public boolean e_works_with(String p, TreeSet<Pair<Predicate.ParamType, Object>> p2s) {
 		 String person2;
 			
 			while (!p2s.isEmpty())
@@ -442,7 +437,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	}
 
 	@Override
-	public void a_close(String room, TreeSet<Pair<ParamType, Object>> set) {
+	public void a_close(String room, TreeSet<Pair<Predicate.ParamType, Object>> set) {
 		String room2;
 		
 		while (!set.isEmpty())
@@ -453,7 +448,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	}
 
 	@Override
-	public boolean e_close(String room, TreeSet<Pair<ParamType, Object>> set) {
+	public boolean e_close(String room, TreeSet<Pair<Predicate.ParamType, Object>> set) {
 		String room2;
 		
 		while (!set.isEmpty())

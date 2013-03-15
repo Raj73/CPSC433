@@ -1,14 +1,4 @@
-package trunk;
-/**
- * 
- */
-
-
 import java.util.TreeSet;
-
-import trunk.Predicate.ParamType;
-
-
 
 /**
  * This interface should be <code>implement</code>ed by any class that reads Sisyphus I 
@@ -82,8 +72,8 @@ public interface SisyphusPredicates {
 	public boolean e_heads_project(String p, String prj);
 	
 	public static String h_works_with = "query or assert person <id> works with [the person <id2>/all the people in <set>] (reflexive)";
-	public void a_works_with(String p, TreeSet<Pair<ParamType,Object>> p2s);
-	public boolean e_works_with(String p, TreeSet<Pair<ParamType,Object>> p2s);
+	public void a_works_with(String p, TreeSet<Pair<Predicate.ParamType,Object>> p2s);
+	public boolean e_works_with(String p, TreeSet<Pair<Predicate.ParamType,Object>> p2s);
 	
 	public void a_works_with(String p, String p2);
 	public boolean e_works_with(String p, String p2);
@@ -101,8 +91,8 @@ public interface SisyphusPredicates {
 	public void a_close(String room, String room2);	
 	public boolean e_close(String room, String room2);
 
-	public void a_close(String room, TreeSet<Pair<ParamType,Object>> set);
-	public boolean e_close(String room, TreeSet<Pair<ParamType,Object>> set);
+	public void a_close(String room, TreeSet<Pair<Predicate.ParamType,Object>> set);
+	public boolean e_close(String room, TreeSet<Pair<Predicate.ParamType,Object>> set);
 	
 	public static String h_large_room = "query or assert <id> is a large-sized room";
 	public void a_large_room(String r);

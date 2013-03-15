@@ -1,7 +1,3 @@
-package trunk;
-
-
-
 public class Group
 {
 	String name;

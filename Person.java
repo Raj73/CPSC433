@@ -1,10 +1,4 @@
-package trunk;
-
-import java.util.AbstractList;
 import java.util.LinkedList;
-import java.util.TreeSet;
-
-import trunk.Predicate.ParamType;
 
 public class Person
 {
