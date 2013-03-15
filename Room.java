@@ -78,7 +78,7 @@ public class Room
 	// Works with asserts and qeuries (singular)
 	void assertCloseWith(String Rname, String Rname2)
 	{
-		if ((name.compareTo(Rname) == 0) && (!evaluateCloseWith(Rname, Rname2)))
+		if ((Rname2.compareTo(Rname) != 0) && (!evaluateCloseWith(Rname, Rname2)))
 			closeWith.add(Rname2);
 	}
 	

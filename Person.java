@@ -180,7 +180,7 @@ public class Person
 	// Works with asserts and qeuries (singular)
 	void assertWorksWith(String Ename, String Ename2)
 	{
-		if ((name.compareTo(Ename) == 0) && (!evaluateWorksWith(Ename, Ename2)))
+		if ((Ename2.compareTo(Ename) != 0) && (!evaluateWorksWith(Ename, Ename2)))
 			worksWith.add(Ename2);
 	}
 	

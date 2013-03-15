@@ -32,9 +32,10 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 
 	@Override
 	public void a_person(String p) {
+		if(!e_person(p)){
 		Person aperson = new Person(p);
 		myPeople.add(aperson);
-		
+		}
 	}
 
 	@Override
@@ -200,6 +201,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 
 	@Override
 	public void a_in_project(String p, String prj) {
+		if(!e_project(p,prj))
 		a_project(p,prj);
 	}
 
@@ -367,9 +369,10 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 
 	@Override
 	public void a_room(String r) {
+		if(!e_room(r)){
 		Room aroom = new Room(r);
 		roomNames.add(aroom);
-		
+		}
 	}
 
 	@Override
@@ -524,9 +527,10 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 
 	@Override
 	public void a_group(String g) {
+		if(!e_group(g)){
 		Group agroup = new Group(g);
 		groupNames.add(agroup);
-		
+		}
 	}
 
 	@Override
@@ -540,13 +544,15 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 
 	@Override
 	public void a_project(String p) {
+		if(!e_project(p)){
 		Project aproject = new Project(p);
 		projectNames.add(aproject);
-		
+		}
 	}
 
 	@Override
 	public boolean e_project(String p) {
+		
 		for(int i =0;i<projectNames.size();i++){
 			if(projectNames.get(i).evaluateProject(p))
 				return true;

@@ -127,7 +127,7 @@ public class SisI {
 				
 				if (closeWith != "")
 				{
-					writer.write("close-with(" + name + ", {" + closeWith + "})\n");
+					writer.write("close(" + name + ", {" + closeWith + "})\n");
 					closeWith = "";
 				} 
 			}
