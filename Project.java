@@ -1,12 +1,15 @@
-public class Project
+import java.util.Vector;
+
+public class Project extends Entity
 
 {
 	boolean large;
 	String name;
+	Vector<Person> projectMembers = new Vector<Person>();
 
 	Project(String Pname)
 	{
-		name = Pname;
+		super(Pname);
 	}
 
 
@@ -31,5 +34,14 @@ public class Project
 
 		return false;
 	}
-
+	
+	void addPerson(Person Ename)
+	{
+		projectMembers.addElement(Ename);
+	}	
+	
+	void removePerson(Person Ename)
+	{
+		projectMembers.removeElement(Ename);
+	}
 }
