@@ -37,7 +37,9 @@ public class SisI {
 		}
 		
 		toFile(env, fileName);
+		
 		System.out.println(new Solution().hardConstraints(env));
+		System.out.println("penalty: " + new Solution().softConstraints(env));
 	}
 	
 	

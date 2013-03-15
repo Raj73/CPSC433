@@ -3,9 +3,9 @@ import java.util.Vector;
 
 public class Room extends Entity
 {
-	boolean small;
-	boolean medium;
-	boolean large;
+	boolean small = false;
+	boolean medium = false;
+	boolean large = false;
 	Vector<Person> people = new Vector<Person>();
 	
 	
