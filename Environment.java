@@ -211,16 +211,36 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 			a_person(p);
 		for(int i =0;i<myPeople.size();i++){
 			if(myPeople.get(i).evaluatePerson(p))
-				((Person) myPeople.get(i)).assertInProject(p, prj);
+			{
+				int pIndex = i;
+				break;
+			}
 		}
 		int temp =0;
 		while((temp <projectNames.size()) && !projectNames.get(temp).evaluateProject(prj)){
 			temp++;
 		}
 		if (temp == projectNames.size()){
-			  projectNames.add(new Project(prj));
+			projectNames.add(new Project(prj));
+			projectNames.get(temp).addPerson(myPeople.get(pIndex));
 		}
 		
+		else if (!projectNames.get(temp).projectMembers.contains(myPeople.get(pIndex)))
+		{
+			projectNames.get(temp).addPerson(myPeople.get(pIndex));
+		}
+		
+		if (myPeople.get(pIndex).project != null)
+		{
+			String oldProject = myPeople.get(pIndex).project;
+			temp = 0;
+		
+			while((temp <projectNames.size()) && !projectNames.get(temp).evaluateProject(oldProject)){
+				temp++;
+			}
+			projectNames.get(temp).removePerson(myPeople.get(pIndex));
+		}
+		((Person) myPeople.get(i)).assertInProject(p, prj);
 	}
 
 	@Override
