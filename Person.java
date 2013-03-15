@@ -1,4 +1,4 @@
-import java.util.LinkedList;
+import java.util.Vector;
 
 public class Person extends Entity
 {
@@ -9,12 +9,12 @@ public class Person extends Entity
 	boolean smoker;
 	boolean hacker;
 	int assigned = 0;
-	String group;
-	String project;
-	String headsGroup;
-	String headsProject;
+	Group group;
+	Project project;
+	Group headsGroup;
+	Project headsProject;
 	String assignedRoom = null;
-	LinkedList<String> worksWith = new LinkedList<String>();
+	Vector<Person> worksWith = new Vector<Person>();
 	
 	// Room qualities
 	
@@ -111,7 +111,7 @@ public class Person extends Entity
 	}
 	
 	// Group asserts and qeuries
-	void assertInGroup(String Ename, String Gname)
+	void assertInGroup(String Ename, Group Gname)
 	{
 		if ((getName().compareTo(Ename) == 0))
 			group = Gname;
@@ -119,14 +119,14 @@ public class Person extends Entity
 	
 	boolean evaluateInGroup(String Ename, String Gname)
 	{
-		if ((getName().compareTo(Ename) == 0) && (group.compareTo(Gname) == 0))
+		if ((getName().compareTo(Ename) == 0) && (group.getName().compareTo(Gname) == 0))
 			return true;
 		
 		return false;
 	}
 	
 	// Project asserts and qeuries
-	void assertInProject(String Ename, String Pname)
+	void assertInProject(String Ename, Project Pname)
 	{
 		if ((getName().compareTo(Ename) == 0))
 			project = Pname;
@@ -134,14 +134,14 @@ public class Person extends Entity
 	
 	boolean evaluateInProject(String Ename, String Pname)
 	{
-		if ((getName().compareTo(Ename) == 0) && (project.compareTo(Pname) == 0))
+		if ((getName().compareTo(Ename) == 0) && (project.getName().compareTo(Pname) == 0))
 			return true;
 		
 		return false;
 	}
 	
 	// Heads Group asserts and qeuries
-	void assertHeadsGroup(String Ename, String Gname)
+	void assertHeadsGroup(String Ename, Group Gname)
 	{
 		if ((getName().compareTo(Ename) == 0))
 			headsGroup = Gname;
@@ -149,14 +149,14 @@ public class Person extends Entity
 	
 	boolean evaluateHeadsGroup(String Ename, String Gname)
 	{
-		if ((getName().compareTo(Ename) == 0) && (headsGroup.compareTo(Gname) == 0))
+		if ((getName().compareTo(Ename) == 0) && (headsGroup.getName().compareTo(Gname) == 0))
 			return true;
 		
 		return false;
 	}	
 	
 	// Heads Project asserts and qeuries
-	void assertHeadsProject(String Ename, String Pname)
+	void assertHeadsProject(String Ename, Project Pname)
 	{
 		if ((getName().compareTo(Ename) == 0))
 			headsProject = Pname;
@@ -164,17 +164,17 @@ public class Person extends Entity
 	
 	boolean evaluateHeadsProject(String Ename, String Pname)
 	{
-		if ((getName().compareTo(Ename) == 0) && (headsProject.compareTo(Pname) == 0))
+		if ((getName().compareTo(Ename) == 0) && (headsProject.getName().compareTo(Pname) == 0))
 			return true;
 		
 		return false;
 	}
 	
 	// Works with asserts and qeuries (singular)
-	void assertWorksWith(String Ename, String Ename2)
+	void assertWorksWith(String Ename, Person Ename2)
 	{
-		if ((Ename2.compareTo(Ename) != 0) && (!evaluateWorksWith(Ename, Ename2)))
-			worksWith.add(Ename2);
+		if ((Ename2.getName().compareTo(Ename) != 0) && (!evaluateWorksWith(Ename, Ename2.getName())))
+			worksWith.addElement(Ename2);
 	}
 	
 	boolean evaluateWorksWith(String Ename, String Ename2)
@@ -183,10 +183,10 @@ public class Person extends Entity
 		{
 			int size = worksWith.size();
 			
-			for (int i = 0; i < size; i++)
+			if  (int i = 0; i < size; i++)
 			{
-				if (worksWith.get(i).compareTo(Ename2) == 0)
-						return true;
+				if (worksWith.get(i).getName().compareTo(Ename2) == 0)
+					return true;
 			}
 			return false;
 		}
@@ -194,7 +194,7 @@ public class Person extends Entity
 		return false;
 	}
 	
-	void assertAssignedRoom(String Ename, String Rname)
+	void assertAssignedRoom(String Ename, Room Rname)
 	{
 		if (getName().compareTo(Ename) == 0)
 			assignedRoom = Rname;
@@ -203,7 +203,7 @@ public class Person extends Entity
 	
 	boolean evaluateAssignedRoom(String Ename, String Rname)
 	{
-		if ((getName().compareTo(Ename) == 0) && (assignedRoom.compareTo(Rname) == 0))
+		if ((getName().compareTo(Ename) == 0) && (assignedRoom.getName().compareTo(Rname) == 0))
 			return true;
 		
 		return false;

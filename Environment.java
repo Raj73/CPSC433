@@ -208,7 +208,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 				groupNames.get(newGroup).addPerson(person);
 			}
 		}
-		person.assertInGroup(p, grp);
+		person.assertInGroup(p, groupNames.get(newGroup));
 	}
 
 	@Override
@@ -243,18 +243,18 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 				break;
 			}
 		}
-		int temp =0;
-		while((temp <projectNames.size()) && !projectNames.get(temp).evaluateProject(prj)){
-			temp++;
+		int rIndex =0;
+		while((rIndex <projectNames.size()) && !projectNames.get(rIndex).evaluateProject(prj)){
+			rIndex++;
 		}
-		if (temp == projectNames.size()){
+		if (rIndex == projectNames.size()){
 			projectNames.add(new Project(prj));
-			projectNames.get(temp).addPerson(myPeople.get(pIndex));
+			projectNames.get(rIndex).addPerson(myPeople.get(pIndex));
 		}
 		
-		else if (!projectNames.get(temp).projectMembers.contains(myPeople.get(pIndex)))
+		else if (!projectNames.get(rIndex).projectMembers.contains(myPeople.get(pIndex)))
 		{
-			projectNames.get(temp).addPerson(myPeople.get(pIndex));
+			projectNames.get(rIndex).addPerson(myPeople.get(pIndex));
 		}
 		
 		if (myPeople.get(pIndex).project != null)
@@ -267,7 +267,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 			}
 			projectNames.get(temp).removePerson(myPeople.get(pIndex));
 		}
-		((Person) myPeople.get(pIndex)).assertInProject(p, prj);
+		((Person) myPeople.get(pIndex)).assertInProject(p, projectNames.get(rIndex));
 	}
 
 	@Override
@@ -281,19 +281,53 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 
 	@Override
 	public void a_heads_group(String p, String grp) {
+		int i = 0;
+		Person person;
 		if(!e_person(p))
 			a_person(p);
-		for(int i =0;i<myPeople.size();i++){
-			if(myPeople.get(i).evaluatePerson(p))
-				((Person) myPeople.get(i)).assertHeadsGroup(p, grp);
+		for(i =0;i<myPeople.size();i++){
+			if(myPeople.get(i).evaluatePerson(p)){
+				break;
+			}
 		}
-		int temp =0;
-		while((temp <groupNames.size()) && !groupNames.get(temp).evaluateGroup(grp)){
-			temp++;
+		
+		person = myPeople.get(i);
+		String oldGroup;
+		
+		int newGroup =0;
+		while((newGroup <groupNames.size()) && !groupNames.get(newGroup).evaluateGroup(grp)){
+			newGroup++;
 		}
-		if (temp == groupNames.size()){
-			  groupNames.add(new Group(grp));
+		if (newGroup == groupNames.size()){
+			groupNames.addElement(new Group(grp));
+			if(person.headsGroup == null){
+				groupNames.get(newGroup).addPerson(person);
+			}
+			else{
+				oldGroup = person.headsGroup;
+				int old = 0;
+				while((old <groupNames.size()) && !groupNames.get(old).evaluateGroup(grp)){
+					old++;
+				}
+				groupNames.get(old).removePerson(person);
+				groupNames.get(newGroup).addPerson(person);  
+			}
 		}
+		else{
+			if(person.headsGroup == null){
+				groupNames.get(newGroup).addPerson(person);
+			}
+			else{
+				oldGroup = person.headsGroup;
+				int old = 0;
+				while((old <groupNames.size()) && !groupNames.get(old).evaluateGroup(grp)){
+					old++;
+				}
+				groupNames.get(old).removePerson(person);
+				groupNames.get(newGroup).addPerson(person);
+			}
+		}
+		person.assertHeadsGroup(p, groupNames.get(newGroup));
 	}
 
 	@Override
@@ -308,20 +342,41 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 
 	@Override
 	public void a_heads_project(String p, String prj) {
+		int pIndex = -1;
+		
 		if(!e_person(p))
 			a_person(p);
-		for(int i =0;i<myPeople.size();i++){
-			if(myPeople.get(i).evaluatePerson(p))
-				((Person) myPeople.get(i)).assertHeadsProject(p, prj);
+		for(pIndex =0; pIndex<myPeople.size(); pIndex++){
+			if(myPeople.get(pIndex).evaluatePerson(p))
+			{
+				break;
+			}
 		}
-		int temp =0;
-		while((temp <projectNames.size()) && !projectNames.get(temp).evaluateProject(prj)){
-			temp++;
+		int rIndex =0;
+		while((rIndex <projectNames.size()) && !projectNames.get(rIndex).evaluateProject(prj)){
+			rIndex++;
 		}
-		if (temp == projectNames.size()){
-			  projectNames.add(new Project(prj));
+		if (rIndex == projectNames.size()){
+			projectNames.add(new Project(prj));
+			projectNames.get(rIndex).addPerson(myPeople.get(pIndex));
 		}
 		
+		else if (!projectNames.get(rIndex).projectMembers.contains(myPeople.get(pIndex)))
+		{
+			projectNames.get(rIndex).addPerson(myPeople.get(pIndex));
+		}
+		
+		if (myPeople.get(pIndex).headsProject != null)
+		{
+			String oldProject = myPeople.get(pIndex).headsProject;
+			temp = 0;
+		
+			while((temp <projectNames.size()) && !projectNames.get(temp).evaluateProject(oldProject)){
+				temp++;
+			}
+			projectNames.get(temp).removePerson(myPeople.get(pIndex));
+		}
+		((Person) myPeople.get(pIndex)).assertHeadsProject(p, projectNames.get(rIndex));
 	}
 
 	@Override
@@ -360,20 +415,37 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 
 	@Override
 	public void a_works_with(String p, String p2) {
-		if(!e_person(p))
-			a_person(p);
-		if(!e_person(p2))
-			a_person(p2);
+		int pIndex = -1;
+		int pIndex2 = -1;
 		
-		for(int i =0;i<myPeople.size();i++){
-			if(myPeople.get(i).evaluatePerson(p))
-				((Person) myPeople.get(i)).assertWorksWith(p, p2);
+		for (int i = 0; i < myPeople.size(); i++)
+		{
+			if(myPeople.get(i).evaluatePerson(p1))
+				pIndex = i;
+			
+			if (myPeople.get(i).evaluatePerson(p2))
+				pIndex2 = i;
 		}
-		for(int i =0;i<myPeople.size();i++){
-			if(myPeople.get(i).evaluatePerson(p2)){
-				if(myPeople.get(i).evaluateWorksWith(p2, p))
-				((Person) myPeople.get(i)).assertWorksWith(p2, p);
-			}
+		
+		if(pIndex == -1 && pIndex2 == -1){
+			a_person(p1);
+			a_person(p2);
+			myPeople.get(myPeople.size() - 2).assertWorksWith(p1, myPeople.get(myPeople.size() - 1));
+			myPeople.get(myPeople.size() - 1).assertWorksWith(p2, myPeople.get(myPeople.size() - 2));	
+		}
+		else if(pIndex == -1){
+			a_person(p1);
+			myPeople.get(myPeople.size() - 1).assertWorksWith(p1, myPeople.get(pIndex2));
+			myPeople.get(pIndex2).assertWorksWith(p2, myPeople.get(myPeople.size() - 1));	
+		}
+		else if (pIndex2 == -1){
+			a_person(p2);
+			myPeople.get(myPeople.size() - 1).assertWorksWith(p2, myPeople.get(pIndex));
+			myPeople.get(pIndex).assertWorksWith(p1, myPeople.get(myPeople.size() - 1));	
+		}
+		else{
+			myPeople.get(pIndex).assertWorksWith(p1, myPeople.get(pIndex2));
+			myPeople.get(pIndex2).assertWorksWith(p2, myPeople.get(pIndex));
 		}
 	}
 
