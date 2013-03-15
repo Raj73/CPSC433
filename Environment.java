@@ -1,6 +1,7 @@
 
 import java.util.TreeSet;
 import java.util.LinkedList;
+import java.util.Vector;
 
 
 public class Environment extends PredicateReader implements SisyphusPredicates {
@@ -10,7 +11,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	@SuppressWarnings("unused")
 	private static final String Object = null;
 	LinkedList<Person> myPeople  = new LinkedList<Person>();
-	LinkedList<Group> groupNames = new LinkedList<Group>();
+	Vector<Group> groupNames = new Vector<Group>();
 	LinkedList<Room> roomNames = new LinkedList<Room>();
 	LinkedList<Project> projectNames = new LinkedList<Project>(); 
 	public Environment(PredicateReader p) {
@@ -147,16 +148,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 
 	@Override
 	public void a_in_group(String p, String grp) {
-		if(!e_person(p))
-				a_person(p);
-		
-		
-		else{
-		for(int i =0;i<myPeople.size();i++){
-			if(myPeople.get(i).evaluatePerson(p))
-				((Person) myPeople.get(i)).assertInGroup(p, grp);
-		}
-		}
+		a_group(p, grp);
 	}
 
 	@Override
@@ -170,19 +162,53 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 
 	@Override
 	public void a_group(String p, String grp) {
+		int i = 0;
+		Person person;
 		if(!e_person(p))
 			a_person(p);
-		for(int i =0;i<myPeople.size();i++){
-			if(myPeople.get(i).evaluatePerson(p))
-				((Person) myPeople.get(i)).assertInGroup(p, grp);
+		for(i =0;i<myPeople.size();i++){
+			if(myPeople.get(i).evaluatePerson(p)){
+				break;
+			}
 		}
-		int temp =0;
-		while((temp <groupNames.size()) && !groupNames.get(temp).evaluateGroup(grp)){
-			temp++;
+		
+		person = myPeople.get(i);
+		String oldGroup;
+		
+		int newGroup =0;
+		while((newGroup <groupNames.size()) && !groupNames.get(newGroup).evaluateGroup(grp)){
+			newGroup++;
 		}
-		if (temp == groupNames.size()){
-			  groupNames.add(new Group(grp));
+		if (newGroup == groupNames.size()){
+			groupNames.addElement(new Group(grp));
+			if(person.group.equals(null)){
+				groupNames.get(newGroup).addPerson(person);
+			}
+			else{
+				oldGroup = person.group;
+				int old = 0;
+				while((old <groupNames.size()) && !groupNames.get(old).evaluateGroup(grp)){
+					old++;
+				}
+				groupNames.get(old).removePerson(person);
+				groupNames.get(newGroup).addPerson(person);  
+			}
 		}
+		else{
+			if(person.group.equals(null)){
+				groupNames.get(newGroup).addPerson(person);
+			}
+			else{
+				oldGroup = person.group;
+				int old = 0;
+				while((old <groupNames.size()) && !groupNames.get(old).evaluateGroup(grp)){
+					old++;
+				}
+				groupNames.get(old).removePerson(person);
+				groupNames.get(newGroup).addPerson(person);
+			}
+		}
+		person.assertInGroup(p, grp);
 	}
 
 	@Override
