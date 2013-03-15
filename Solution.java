@@ -19,19 +19,57 @@ public int softConstraints(Environment env){
 				}
 			}
 			//soft 2 here
-			String group = env.myPeople.get(i).headsGroup;
+			String group = env.myPeople.get(i).headsGroup.getName();
 			int groupIndex = 0;
 			while((groupIndex <env.groupNames.size()) && !env.groupNames.get(groupIndex).evaluateGroup(group)){
 				groupIndex++;
 			}
+			
 			for(int person = 0; person < env.groupNames.get(groupIndex).people.size(); person++){
 				System.out.println("person " + person + "groupIndex " + groupIndex);
 				System.out.println(env.groupNames.get(groupIndex).people.size());
-				if(env.roomNames.get(headRoomIndex).closeWith.indexOf(env.groupNames.get(groupIndex).people.get(person).assignedRoom) == -1)
+				int wherethepersonis = env.roomNames.get(headRoomIndex).closeWith.indexOf(env.groupNames.get(groupIndex).people.get(person).assignedRoom);
+				if(wherethepersonis == -1)
 					penalty += -2;
-				//if(env.roomNames.get(headRoomIndex).closeWith)
+				else{
+					//Constraint 3 goes here
+				}
+						
 			}
 		}
+	}
+	for(int i =0; i< env.roomNames.size();i++){
+		
+		for(int j = 0; j < env.roomNames.get(i).people.size(); j++){
+			Room room = env.roomNames.get(i);
+			
+			if(room.people.get(j).headsGroup != null){
+				Person p = env.roomNames.get(i).people.get(j);
+				Group group = p.group;
+				for(int k = 0; k < group.people.size(); k++){
+					if(group.people.get(k).secretary){
+						
+					}
+						
+				}
+			}
+			
+			//soft constraint 4
+			if(room.people.get(j).secretary){
+				if(j == 0){
+					if(!room.people.get(1).secretary){
+						penalty += -5;
+					}
+				}
+				else if(j == 1){
+					if(!room.people.get(0).secretary)
+					penalty += -5;
+				}
+			}
+			
+			
+		}
+			
 	}
 	return penalty;
 }

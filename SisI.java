@@ -88,7 +88,7 @@ public class SisI {
 				}
 				if (env.myPeople.get(i).worksWith.size() > 0)
 				{
-					worksWith = env.myPeople.get(i).worksWith.get(0);
+					worksWith = env.myPeople.get(i).worksWith.get(0).getName();
 					for (int j = 1; j < env.myPeople.get(i).worksWith.size(); j++){
 						worksWith = worksWith + ", " + env.myPeople.get(i).worksWith.get(j);
 					}
