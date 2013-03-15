@@ -1,6 +1,6 @@
 import java.util.LinkedList;
 
-public class Person
+public class Person extends Entity
 {
 	// Person qualities
 	boolean secretary;
@@ -8,12 +8,12 @@ public class Person
 	boolean manager;
 	boolean smoker;
 	boolean hacker;
-	String name;
+	int assigned = 0;
 	String group;
 	String project;
 	String headsGroup;
 	String headsProject;
-	String assignedRoom;
+	String assignedRoom = null;
 	LinkedList<String> worksWith = new LinkedList<String>();
 	
 	// Room qualities
@@ -23,14 +23,13 @@ public class Person
 	// Project qualities
 	
 	Person(String name){
-	this.name = name;	
-	
+		super(name);
 	}
 	
 	
 	boolean evaluatePerson(String Ename)
 	{
-		if (name.compareTo(Ename) == 0)
+		if (getName().compareTo(Ename) == 0)
 			return true;
 			
 		return false;
@@ -39,13 +38,13 @@ public class Person
 	// Secretary asserts and qeuries
 	void assertSecretary(String Ename)
 	{
-		if (name.compareTo(Ename) == 0)
+		if (getName().compareTo(Ename) == 0)
 			secretary = true;
 	}
 	
 	boolean evaluateSecretary(String Ename)
 	{
-		if ((name.compareTo(Ename) == 0) && (secretary == true))
+		if ((getName().compareTo(Ename) == 0) && (secretary == true))
 			return true;
 		
 		return false;
@@ -54,13 +53,13 @@ public class Person
 	// Researcher asserts and qeuries
 	void assertResearcher(String Ename)
 	{
-		if (name.compareTo(Ename) == 0)
+		if (getName().compareTo(Ename) == 0)
 			researcher = true;
 	}
 	
 	boolean evaluateResearcher(String Ename)
 	{
-		if ((name.compareTo(Ename) == 0) && (researcher == true))
+		if ((getName().compareTo(Ename) == 0) && (researcher == true))
 			return true;
 		
 		return false;
@@ -69,13 +68,13 @@ public class Person
 	// Manager asserts and qeuries
 	void assertManager(String Ename)
 	{
-		if (name.compareTo(Ename) == 0)
+		if (getName().compareTo(Ename) == 0)
 			manager = true;
 	}
 	
 	boolean evaluateManager(String Ename)
 	{
-		if ((name.compareTo(Ename) == 0) && (manager == true))
+		if ((getName().compareTo(Ename) == 0) && (manager == true))
 			return true;
 		
 		return false;
@@ -84,13 +83,13 @@ public class Person
 	// Smoker asserts and qeuries
 	void assertSmoker(String Ename)
 	{
-		if (name.compareTo(Ename) == 0)
+		if (getName().compareTo(Ename) == 0)
 			smoker = true;
 	}
 	
 	boolean evaluateSmoker(String Ename)
 	{
-		if ((name.compareTo(Ename) == 0) && (smoker == true))
+		if ((getName().compareTo(Ename) == 0) && (smoker == true))
 			return true;
 		
 		return false;
@@ -99,13 +98,13 @@ public class Person
 	// Hacker asserts and qeuries
 	void assertHacker(String Ename)
 	{
-		if (name.compareTo(Ename) == 0)
+		if (getName().compareTo(Ename) == 0)
 			hacker = true;
 	}
 	
 	boolean evaluateHacker(String Ename)
 	{
-		if ((name.compareTo(Ename) == 0) && (hacker == true))
+		if ((getName().compareTo(Ename) == 0) && (hacker == true))
 			return true;
 		
 		return false;
@@ -114,13 +113,13 @@ public class Person
 	// Group asserts and qeuries
 	void assertInGroup(String Ename, String Gname)
 	{
-		if ((name.compareTo(Ename) == 0))
+		if ((getName().compareTo(Ename) == 0))
 			group = Gname;
 	}
 	
 	boolean evaluateInGroup(String Ename, String Gname)
 	{
-		if ((name.compareTo(Ename) == 0) && (group.compareTo(Gname) == 0))
+		if ((getName().compareTo(Ename) == 0) && (group.compareTo(Gname) == 0))
 			return true;
 		
 		return false;
@@ -129,13 +128,13 @@ public class Person
 	// Project asserts and qeuries
 	void assertInProject(String Ename, String Pname)
 	{
-		if ((name.compareTo(Ename) == 0))
+		if ((getName().compareTo(Ename) == 0))
 			project = Pname;
 	}
 	
 	boolean evaluateInProject(String Ename, String Pname)
 	{
-		if ((name.compareTo(Ename) == 0) && (project.compareTo(Pname) == 0))
+		if ((getName().compareTo(Ename) == 0) && (project.compareTo(Pname) == 0))
 			return true;
 		
 		return false;
@@ -144,13 +143,13 @@ public class Person
 	// Heads Group asserts and qeuries
 	void assertHeadsGroup(String Ename, String Gname)
 	{
-		if ((name.compareTo(Ename) == 0))
+		if ((getName().compareTo(Ename) == 0))
 			headsGroup = Gname;
 	}
 	
 	boolean evaluateHeadsGroup(String Ename, String Gname)
 	{
-		if ((name.compareTo(Ename) == 0) && (headsGroup.compareTo(Gname) == 0))
+		if ((getName().compareTo(Ename) == 0) && (headsGroup.compareTo(Gname) == 0))
 			return true;
 		
 		return false;
@@ -159,13 +158,13 @@ public class Person
 	// Heads Project asserts and qeuries
 	void assertHeadsProject(String Ename, String Pname)
 	{
-		if ((name.compareTo(Ename) == 0))
+		if ((getName().compareTo(Ename) == 0))
 			headsProject = Pname;
 	}
 	
 	boolean evaluateHeadsProject(String Ename, String Pname)
 	{
-		if ((name.compareTo(Ename) == 0) && (headsProject.compareTo(Pname) == 0))
+		if ((getName().compareTo(Ename) == 0) && (headsProject.compareTo(Pname) == 0))
 			return true;
 		
 		return false;
@@ -180,7 +179,7 @@ public class Person
 	
 	boolean evaluateWorksWith(String Ename, String Ename2)
 	{
-		if (name.compareTo(Ename) == 0)
+		if (getName().compareTo(Ename) == 0)
 		{
 			int size = worksWith.size();
 			
@@ -197,13 +196,14 @@ public class Person
 	
 	void assertAssignedRoom(String Ename, String Rname)
 	{
-		if (name.compareTo(Ename) == 0)
+		if (getName().compareTo(Ename) == 0)
 			assignedRoom = Rname;
+		assigned++;
 	}
 	
 	boolean evaluateAssignedRoom(String Ename, String Rname)
 	{
-		if ((name.compareTo(Ename) == 0) && (assignedRoom.compareTo(Rname) == 0))
+		if ((getName().compareTo(Ename) == 0) && (assignedRoom.compareTo(Rname) == 0))
 			return true;
 		
 		return false;

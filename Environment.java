@@ -341,21 +341,46 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 
 	@Override
 	public void a_assign_to(String p, String room) throws Exception {
-		if(!e_person(p))
-			a_person(p);
-		if(!e_room(room))
-			a_room(room);
-		for(int i =0;i<myPeople.size();i++){
-			if(myPeople.get(i).evaluatePerson(p))
-				((Person) myPeople.get(i)).assertAssignedRoom(p, room);
-		}
+		int pIndex = -1;
+		int rIndex = -1;
 		
+		for(int i = 0; i<myPeople.size(); i++){
+			if(myPeople.get(i).evaluatePerson(p)){
+				pIndex = i;
+				break;
+			}
+		}
+		for(int i = 0; i < roomNames.size(); i++){
+			if(roomNames.get(i).evaluateRoom(room)){
+				rIndex = i;
+				break;
+			}
+		}
+		if(pIndex == -1 && rIndex == -1){
+			a_person(p);
+			a_room(room);
+			myPeople.get(myPeople.size() - 1).assertAssignedRoom(p, room);
+			roomNames.get(roomNames.size() - 1).assertAssignPerson(myPeople.get(myPeople.size() - 1), room);
+		}
+		else if(pIndex == -1 && rIndex != -1){
+			a_person(p);
+			myPeople.get(myPeople.size() - 1).assertAssignedRoom(p, room);
+			roomNames.get(rIndex).assertAssignPerson(myPeople.get(myPeople.size() - 1), room);
+		}
+		else if(rIndex == -1 && pIndex != -1){
+			a_room(room);
+			myPeople.get(pIndex).assertAssignedRoom(p, room);
+			roomNames.get(roomNames.size() - 1).assertAssignPerson(myPeople.get(pIndex), room);
+		}
+		else{
+			myPeople.get(pIndex).assertAssignedRoom(p, room);
+			roomNames.get(rIndex).assertAssignPerson(myPeople.get(pIndex), room);
+		}
 	}
 
 	@Override
 	public boolean e_assign_to(String p, String room) {
-
-		for(int i =0;i<myPeople.size();i++){
+		for(int i = 0; i < myPeople.size();i++){
 			if(myPeople.get(i).evaluateAssignedRoom(p, room))
 				return true;
 		}

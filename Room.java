@@ -1,10 +1,12 @@
 import java.util.LinkedList;
+import java.util.Vector;
 
 public class Room
 {
 	boolean small;
 	boolean medium;
 	boolean large;
+	Vector<Person> people = new Vector<Person>();
 	
 	String name;
 
@@ -92,5 +94,15 @@ public class Room
 		}
 		
 		return false;
+	}
+	
+	boolean evaluatePerson(){
+		return true;
+	}
+
+	public void assertAssignPerson(Person p, String room) {
+		if (name.compareTo(room) == 0){
+			people.addElement(p);
+		}
 	}
 }
