@@ -181,7 +181,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 		}
 		if (newGroup == groupNames.size()){
 			groupNames.addElement(new Group(grp));
-			if(person.group.equals(null)){
+			if(person.group == null){
 				groupNames.get(newGroup).addPerson(person);
 			}
 			else{
@@ -195,7 +195,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 			}
 		}
 		else{
-			if(person.group.equals(null)){
+			if(person.group == null){
 				groupNames.get(newGroup).addPerson(person);
 			}
 			else{
@@ -233,12 +233,13 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 
 	@Override
 	public void a_project(String p, String prj){
+		int pIndex = -1;
+		
 		if(!e_person(p))
 			a_person(p);
-		for(int i =0;i<myPeople.size();i++){
-			if(myPeople.get(i).evaluatePerson(p))
+		for(pIndex =0; pIndex<myPeople.size(); pIndex++){
+			if(myPeople.get(pIndex).evaluatePerson(p))
 			{
-				int pIndex = i;
 				break;
 			}
 		}
@@ -266,7 +267,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 			}
 			projectNames.get(temp).removePerson(myPeople.get(pIndex));
 		}
-		((Person) myPeople.get(i)).assertInProject(p, prj);
+		((Person) myPeople.get(pIndex)).assertInProject(p, prj);
 	}
 
 	@Override

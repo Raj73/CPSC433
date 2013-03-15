@@ -27,13 +27,13 @@ public class SisI {
 			System.out.println("assigned " + env.myPeople.get(i).assignedRoom);
 		}
 		for (int i = 0; i < env.roomNames.size(); i++){
-			System.out.println("Room " + i + env.roomNames.get(i).name);
+			System.out.println("Room " + i + env.roomNames.get(i).getName());
 		}
 		for (int i = 0; i < env.groupNames.size(); i++){
-			System.out.println("Group " + i + env.groupNames.get(i).name);
+			System.out.println("Group " + i + env.groupNames.get(i).getName());
 		}
 		for (int i = 0; i < env.projectNames.size(); i++){
-			System.out.println("Project " + i + env.projectNames.get(i).name);
+			System.out.println("Project " + i + env.projectNames.get(i).getName());
 		}
 		
 		toFile(env, fileName);
@@ -100,8 +100,8 @@ public class SisI {
 			}
 			writer.write("// Room \n");
 			for (int i = 0; i < env.roomNames.size(); i++){
-				name = env.roomNames.get(i).name;
-				writer.write("room (" + env.roomNames.get(i).name + ")\n");
+				name = env.roomNames.get(i).getName();
+				writer.write("room (" + env.roomNames.get(i).getName() + ")\n");
 				
 				if (env.roomNames.get(i).evaluateLarge(name))
 					writer.write("large-room(" + name +")\n");
@@ -128,14 +128,14 @@ public class SisI {
 			}
 			writer.write("// Groups \n");
 			for (int i = 0; i < env.groupNames.size(); i++){
-				writer.write("group(" + env.groupNames.get(i).name + ")\n");
+				writer.write("group(" + env.groupNames.get(i).getName() + ")\n");
 			}
 			writer.write("// Projects \n");
 			for (int i = 0; i < env.projectNames.size(); i++){
-				writer.write("project(" + env.projectNames.get(i).name + ")\n");
+				writer.write("project(" + env.projectNames.get(i).getName() + ")\n");
 				
-				if (env.projectNames.get(i).evaluateLarge(env.projectNames.get(i).name))
-					writer.write("large-project(" + env.projectNames.get(i).name +")\n");
+				if (env.projectNames.get(i).evaluateLarge(env.projectNames.get(i).getName()))
+					writer.write("large-project(" + env.projectNames.get(i).getName() +")\n");
 			}
 
 			writer.write("// -- END Environment ------------------ \n");

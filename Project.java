@@ -4,7 +4,6 @@ public class Project extends Entity
 
 {
 	boolean large;
-	String name;
 	Vector<Person> projectMembers = new Vector<Person>();
 
 	Project(String Pname)
@@ -15,7 +14,7 @@ public class Project extends Entity
 
 	boolean evaluateProject(String Pname)
 	{
-		if (name.compareTo(Pname) == 0)
+		if (getName().compareTo(Pname) == 0)
 			return true;
 
 		return false;
@@ -23,13 +22,13 @@ public class Project extends Entity
 
   	void assertLarge(String Pname)
 	{
-		if (name.compareTo(Pname) == 0)
+		if (getName().compareTo(Pname) == 0)
 			large = true;
 	}
 
   	boolean evaluateLarge(String Pname)
 	{
-		if ((name.compareTo(Pname) == 0) && (large == true))
+		if ((getName().compareTo(Pname) == 0) && (large == true))
 			return true;
 
 		return false;

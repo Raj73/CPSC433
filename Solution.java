@@ -10,7 +10,7 @@ public int softConstraints(Environment env){
 	for(int i = 0; i < env.myPeople.size(); i++){
 		if(env.myPeople.get(i).headsGroup != null){
 				for(int j = 0; j < env.roomNames.size();j++){
-					if(env.roomNames.get(j).name.equals(env.myPeople.get(j).assignedRoom)){
+					if(env.roomNames.get(j).getName().equals(env.myPeople.get(j).assignedRoom)){
 						if(env.roomNames.get(j).large)
 							penalty = -40;
 					}
@@ -48,7 +48,7 @@ public String hardConstraints(Environment env){
 		}
 		if(env.myPeople.get(i).manager ||env.myPeople.get(i).headsGroup != null || env.myPeople.get(i).headsProject != null){
 				for(int j = 0; j < env.roomNames.size();j++){
-					if(env.roomNames.get(j).name.equals(env.myPeople.get(j).assignedRoom))
+					if(env.roomNames.get(j).getName().equals(env.myPeople.get(j).assignedRoom))
 							constraint4 =false;
 				}
 		}
