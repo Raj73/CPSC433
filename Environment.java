@@ -185,7 +185,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 				groupNames.get(newGroup).addPerson(person);
 			}
 			else{
-				oldGroup = person.group;
+				oldGroup = person.group.getName();
 				int old = 0;
 				while((old <groupNames.size()) && !groupNames.get(old).evaluateGroup(grp)){
 					old++;
@@ -199,7 +199,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 				groupNames.get(newGroup).addPerson(person);
 			}
 			else{
-				oldGroup = person.group;
+				oldGroup = person.group.getName();
 				int old = 0;
 				while((old <groupNames.size()) && !groupNames.get(old).evaluateGroup(grp)){
 					old++;
@@ -259,8 +259,8 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 		
 		if (myPeople.get(pIndex).project != null)
 		{
-			String oldProject = myPeople.get(pIndex).project;
-			temp = 0;
+			String oldProject = myPeople.get(pIndex).project.getName();
+			int temp = 0;
 		
 			while((temp <projectNames.size()) && !projectNames.get(temp).evaluateProject(oldProject)){
 				temp++;
@@ -304,7 +304,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 				groupNames.get(newGroup).addPerson(person);
 			}
 			else{
-				oldGroup = person.headsGroup;
+				oldGroup = person.headsGroup.getName();
 				int old = 0;
 				while((old <groupNames.size()) && !groupNames.get(old).evaluateGroup(grp)){
 					old++;
@@ -318,7 +318,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 				groupNames.get(newGroup).addPerson(person);
 			}
 			else{
-				oldGroup = person.headsGroup;
+				oldGroup = person.headsGroup.getName();
 				int old = 0;
 				while((old <groupNames.size()) && !groupNames.get(old).evaluateGroup(grp)){
 					old++;
@@ -368,8 +368,8 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 		
 		if (myPeople.get(pIndex).headsProject != null)
 		{
-			String oldProject = myPeople.get(pIndex).headsProject;
-			temp = 0;
+			String oldProject = myPeople.get(pIndex).headsProject.getName();
+			int temp = 0;
 		
 			while((temp <projectNames.size()) && !projectNames.get(temp).evaluateProject(oldProject)){
 				temp++;
@@ -414,7 +414,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	}
 
 	@Override
-	public void a_works_with(String p, String p2) {
+	public void a_works_with(String p1, String p2) {
 		int pIndex = -1;
 		int pIndex2 = -1;
 		

@@ -183,7 +183,7 @@ public class Person extends Entity
 		{
 			int size = worksWith.size();
 			
-			if  (int i = 0; i < size; i++)
+			for (int i = 0; i < size; i++)
 			{
 				if (worksWith.get(i).getName().compareTo(Ename2) == 0)
 					return true;
@@ -194,7 +194,7 @@ public class Person extends Entity
 		return false;
 	}
 	
-	void assertAssignedRoom(String Ename, Room Rname)
+	void assertAssignedRoom(String Ename, String Rname)
 	{
 		if (getName().compareTo(Ename) == 0)
 			assignedRoom = Rname;
@@ -203,7 +203,7 @@ public class Person extends Entity
 	
 	boolean evaluateAssignedRoom(String Ename, String Rname)
 	{
-		if ((getName().compareTo(Ename) == 0) && (assignedRoom.getName().compareTo(Rname) == 0))
+		if ((getName().compareTo(Ename) == 0) && (assignedRoom.compareTo(Rname) == 0))
 			return true;
 		
 		return false;
