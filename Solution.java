@@ -7,7 +7,7 @@ public Solution(){
 }
 public int softConstraints(Environment env){
 	int penalty = 0;
-	
+	//this is soft constraint one
 	for(int i = 0; i < env.myPeople.size(); i++){
 		if(env.myPeople.get(i).headsGroup != null){
 			int headRoomIndex = 0;

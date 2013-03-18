@@ -3,15 +3,23 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
-
+/**
+ * Main class that runs the program if more than one argument is put in command line then method
+ * will take the first arugment and try to read it as a file. If no arguments are passed then
+ * a file name will be asked for to check the "goodness" of the solution
+ * @author Bryce
+ *
+ */
 
 public class SisyphusI {
 	public static void main(String[] args) {
+		//The name of the variable for the file name 
 		String fileName = "Zero";
-		int numberofheads =0;
+		//Scanner for the console
 		Scanner console = new Scanner(System.in);
 		
 		final Environment env = Environment.get();
+		//if arguments in command line were greater than one
 		if (args.length>0) {
 			fileName = args[0];
 			env.fromFile(fileName);
@@ -24,28 +32,16 @@ public class SisyphusI {
 			System.out.println(new Solution().hardConstraints(env));
 			System.out.println("penalty: " + new Solution().softConstraints(env));
 		}
-		
-	/*	
-		for (int i = 0; i < env.myPeople.size(); i++){
-			System.out.println("Person " + i + env.myPeople.get(i).getName());
-			System.out.println("	Group " + env.myPeople.get(i).group);
-			System.out.println("	Project " + env.myPeople.get(i).project);
-			System.out.println("assigned " + env.myPeople.get(i).assignedRoom);
-		}
-		for (int i = 0; i < env.roomNames.size(); i++){
-			System.out.println("Room " + i + env.roomNames.get(i).getName());
-		}
-		for (int i = 0; i < env.groupNames.size(); i++){
-			System.out.println("Group " + i + env.groupNames.get(i).getName());
-		}
-		for (int i = 0; i < env.projectNames.size(); i++){
-			System.out.println("Project " + i + env.projectNames.get(i).getName());
-		}
-		*/
-		
+		//output the environment to a file
 		toFile(env, fileName);
 		
 	}
+	
+/**
+ * 	Out puts all the data to a file thats name is that file name .out.
+ * @param env The data that is needed to be outputted to the file
+ * @param fileName the destination of the file to be written to
+ */
 	
 	
 	public static void toFile(Environment env, String fileName){
@@ -61,6 +57,8 @@ public class SisyphusI {
 			writer.write("// -- Environment ------------------\n");
 			writer.write("// People \n");
 			for (int i = 0; i < env.myPeople.size(); i++){
+				
+				//write out people and their attributes
 				name = env.myPeople.get(i).getName();
 				writer.write("person(" + name +")\n");
 				
@@ -105,6 +103,7 @@ public class SisyphusI {
 					worksWith = "";
 				}
 			}
+			//writes out rooms and their attributes
 			writer.write("// Room \n");
 			for (int i = 0; i < env.roomNames.size(); i++){
 				name = env.roomNames.get(i).getName();
@@ -133,10 +132,13 @@ public class SisyphusI {
 					closeWith = "";
 				} 
 			}
+			
+			//writes out the group names 
 			writer.write("// Groups \n");
 			for (int i = 0; i < env.groupNames.size(); i++){
 				writer.write("group(" + env.groupNames.get(i).getName() + ")\n");
 			}
+			//writes out the project names
 			writer.write("// Projects \n");
 			for (int i = 0; i < env.projectNames.size(); i++){
 				writer.write("project(" + env.projectNames.get(i).getName() + ")\n");
@@ -144,8 +146,9 @@ public class SisyphusI {
 				if (env.projectNames.get(i).evaluateLarge(env.projectNames.get(i).getName()))
 					writer.write("large-project(" + env.projectNames.get(i).getName() +")\n");
 			}
-
+			
 			writer.write("// -- END Environment ------------------ \n");
+			//Close the file writer
 			writer.close();
 		}
 		catch(IOException err){
