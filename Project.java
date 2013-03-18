@@ -1,3 +1,4 @@
+package cpsc433;
 import java.util.Vector;
 
 public class Project extends Entity

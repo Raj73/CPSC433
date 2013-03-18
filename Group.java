@@ -1,3 +1,4 @@
+package cpsc433;
 import java.util.Vector;
 
 public class Group extends Entity

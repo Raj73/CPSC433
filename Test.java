@@ -1,4 +1,4 @@
-package trunk;
+package cpsc433;
 /**
  * 
  */
