@@ -15,10 +15,10 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	
 	@SuppressWarnings("unused")
 	private static final String Object = null;
-	LinkedList<Person> myPeople  = new LinkedList<Person>();
+	Vector<Person> myPeople  = new Vector<Person>();
 	Vector<Group> groupNames = new Vector<Group>();
-	LinkedList<Room> roomNames = new LinkedList<Room>();
-	LinkedList<Project> projectNames = new LinkedList<Project>(); 
+	Vector<Room> roomNames = new Vector<Room>();
+	Vector<Project> projectNames = new Vector<Project>(); 
 	
 	/**
 		A constructor that initializes the the environment
@@ -59,7 +59,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	public void a_person(String p) {
 		if(!e_person(p)){
 		Person aperson = new Person(p);
-		myPeople.add(aperson);
+		myPeople.addElement(aperson);
 		}
 	}
 
@@ -394,7 +394,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 			rIndex++;
 		}
 		if (rIndex == projectNames.size()){
-			projectNames.add(new Project(prj));
+			projectNames.addElement(new Project(prj));
 			projectNames.get(rIndex).addPerson(myPeople.get(pIndex));
 		}
 		
@@ -530,7 +530,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 			rIndex++;
 		}
 		if (rIndex == projectNames.size()){
-			projectNames.add(new Project(prj));
+			projectNames.addElement(new Project(prj));
 			projectNames.get(rIndex).addPerson(myPeople.get(pIndex));
 		}
 		
@@ -737,7 +737,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	public void a_room(String r) {
 		if(!e_room(r)){
 		Room aroom = new Room(r);
-		roomNames.add(aroom);
+		roomNames.addElement(aroom);
 		}
 	}
 
@@ -973,7 +973,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	public void a_group(String g) {
 		if(!e_group(g)){
 		Group agroup = new Group(g);
-		groupNames.add(agroup);
+		groupNames.addElement(agroup);
 		}
 	}
 
@@ -1003,7 +1003,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	public void a_project(String p) {
 		if(!e_project(p)){
 		Project aproject = new Project(p);
-		projectNames.add(aproject);
+		projectNames.addElement(aproject);
 		}
 	}
 
