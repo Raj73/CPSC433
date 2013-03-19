@@ -1,10 +1,41 @@
 package cpsc433;
 
+import java.util.LinkedList;
+import java.util.Vector;
+
 public class Solution {
 
 public Solution(){
 	
 }
+
+Vector<Room[]> rooms = new Vector<Room[]>();
+
+public void addSolution(Vector<Room> rms){
+	rooms.add((Room [])rms.toArray());
+}
+
+public void printSol(int index){
+	Room rm;
+	for(int i = 0; i < rooms.get(index).size(); i++){
+		rm = rooms.get(index).get(i);
+		System.out.println("Room " + rm.getName() + " Person 1: " + rm.people.get(0).getName());
+		System.out.println("Room " + rm.getName() + " Person 1: " + rm.people.get(1).getName());
+	}
+	System.out.println("--------------------end of rooms-------------");
+}
+
+public void changeAssign(Environment env){
+	env.roomNames.get(0).removeAssignPerson(env.myPeople.get(0), "C5110");
+	
+	env.roomNames.get(1).removeAssignPerson(env.myPeople.get(1), "C5113");
+	
+	env.roomNames.get(0).assertAssignPerson(env.myPeople.get(1), "C5110");
+	
+	env.roomNames.get(1).assertAssignPerson(env.myPeople.get(0), "C5113");
+	
+}
+
 public int softConstraints(Environment env){
 	int penalty = 0;
 	//this is soft constraint one
@@ -36,14 +67,14 @@ public int softConstraints(Environment env){
 	}
 	for(int i =0; i< env.roomNames.size();i++){
 		
-		for(int j = 0; j < env.roomNames.get(i).people.size(); j++){
+		for(int j = 0; j < env.roomNames.get(i).people.size(); j++){	//go through all the rooms
 			Room room = env.roomNames.get(i);
 			//Constraint 3
-			if(room.people.get(j).headsGroup != null){
+			if(room.people.get(j).headsGroup != null){		//find the group heads
 				Person p = env.roomNames.get(i).people.get(j);
 				Group group = p.group;
 				boolean secClose = false;
-				for(int k = 0; k < group.people.size(); k++){
+				for(int k = 0; k < group.people.size(); k++){	//go through all the people in the group
 					if(group.people.get(k).secretary){
 						if (room.closeWith.contains(group.people.get(k).assignedRoom))
 							secClose = true;
@@ -55,7 +86,7 @@ public int softConstraints(Environment env){
 			}
 			
 			//soft constraint 4
-			if(room.people.get(j).secretary){
+			if(room.people.get(j).secretary){	//find all the secretaries
 				if(room.people.size() == 1)
 					penalty += -5;
 				else if(j == 0){
@@ -69,19 +100,21 @@ public int softConstraints(Environment env){
 				}
 				
 			}
-			//soft contrain 5
-			if(room.people.get(j).manager){
+			if(room.people.get(j).manager){		//find all the managers
 				Person p = env.roomNames.get(i).people.get(j);
 				Group group = p.group;
 				boolean secClose = false;
 				boolean headClose = false;
 				if(p.group != null){
-					for(int k = 0; k < group.people.size(); k++){
-						if(group.people.get(k).secretary){
+					for(int k = 0; k < group.people.size(); k++){		//go through all the ppl in the group
+						//soft contrain 5
+						if(group.people.get(k).secretary){			//find the secretary
 							if (room.closeWith.contains(group.people.get(k).assignedRoom))
 								secClose = true;
 						}
-						if(group.people.get(k).headsGroup != null){			//soft constraint 6
+						//soft constraint 6
+						if(group.heads != null){		//find the group heads
+							//for();
 							if (group.people.get(k).compareTo(p) == 0 || room.closeWith.contains(group.people.get(k).assignedRoom))
 								headClose = true;
 						}

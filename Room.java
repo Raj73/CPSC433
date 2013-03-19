@@ -159,7 +159,7 @@ public class Room extends Entity
 	}
 	public void removeAssignPerson(Person p, String room){
 		if(getName().compareTo(room) == 0){
-			people.remove(p);
+			people.removeElement(p);
 			
 		}
 	}
