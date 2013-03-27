@@ -398,7 +398,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 			projectNames.get(rIndex).addPerson(myPeople.get(pIndex));
 		}
 		
-		else if (!projectNames.get(rIndex).projectMembers.contains(myPeople.get(pIndex)))
+		else if (!projectNames.get(rIndex).getProjectMembers().contains(myPeople.get(pIndex)))
 		{
 			projectNames.get(rIndex).addPerson(myPeople.get(pIndex));
 		}
@@ -534,7 +534,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 			projectNames.get(rIndex).addPerson(myPeople.get(pIndex));
 		}
 		
-		else if (!projectNames.get(rIndex).projectMembers.contains(myPeople.get(pIndex)))
+		else if (!projectNames.get(rIndex).getProjectMembers().contains(myPeople.get(pIndex)))
 		{
 			projectNames.get(rIndex).addPerson(myPeople.get(pIndex));
 		}

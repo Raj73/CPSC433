@@ -3,9 +3,25 @@ import java.util.Vector;
 
 public class Group extends Entity
 {
-	Vector<Person> people = new Vector<Person>();
-	Vector<Person> heads = new Vector<Person>();			//remember to add to environment
+	private Vector<Person> people = new Vector<Person>();
+    private	Vector<Person> heads = new Vector<Person>();			//remember to add to environment
 	
+	public Vector<Person> getPeople() {
+		return people;
+	}
+
+	public void setPeople(Vector<Person> people) {
+		this.people = people;
+	}
+
+	public Vector<Person> getHeads() {
+		return heads;
+	}
+
+	public void setHeads(Vector<Person> heads) {
+		this.heads = heads;
+	}
+
 	Group(String name){
 		super(name);
 	}
