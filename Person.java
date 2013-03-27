@@ -4,18 +4,18 @@ import java.util.Vector;
 public class Person extends Entity
 {
 	// Person qualities
-	boolean secretary;
-	boolean researcher;
-	boolean manager;
-	boolean smoker;
-	boolean hacker;
-	int assigned = 0;
-	Group group;
-	Project project;
-	Group headsGroup;
-	Project headsProject;
-	String assignedRoom = null;
-	Vector<Person> worksWith = new Vector<Person>();
+	private boolean secretary;
+	private boolean researcher;
+	private boolean manager;
+	private boolean smoker;
+	private boolean hacker;
+	private int assigned = 0;					//how many rooms person is assgned
+	private Group group;
+	private Project project;
+	private Group headsGroup;
+	private Project headsProject;
+	private String assignedRoom = null;
+	private Vector<Person> worksWith = new Vector<Person>();
 	
 	// Room qualities
 	
@@ -208,5 +208,49 @@ public class Person extends Entity
 			return true;
 		
 		return false;
+	}
+	
+	boolean getResearcher(){
+		return researcher;
+	}
+	
+	boolean getSecratary(){
+		return secretary;
+	}
+	
+	boolean getmanager(){
+		return manager;
+	}
+	
+	boolean getSmoker(){
+		return smoker;
+	}
+	
+	boolean getHacker(){
+		return hacker;
+	}
+	
+	int getAssigned(){
+		return assigned;
+	}
+	
+	Group getGroup(){
+		return group;
+	}
+	
+	Project getProject(){
+		return project;
+	}
+	
+	Group getHeadsGroup(){
+		return headsGroup;
+	}
+	
+	Project getheadsProject(){
+		return headsProject;
+	}
+	
+	Vector <Person> getWorksWith(){
+		return worksWith;
 	}
 }

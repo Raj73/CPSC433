@@ -1,6 +1,5 @@
 package cpsc433;
 
-import java.util.LinkedList;
 import java.util.Vector;
 
 public class Solution {
@@ -9,10 +8,16 @@ public Solution(){
 	
 }
 
-Vector<Room[]> rooms = new Vector<Room[]>();
+Vector<Vector<Room>> rooms = new Vector<Vector<Room>>();
 
 public void addSolution(Vector<Room> rms){
-	rooms.add((Room [])rms.toArray());
+	Vector<Room> solution = new Vector<Room>();
+	
+	for(int i = 0; i< rms.size(); i++){
+		Room room = new Room(rms.get(i));
+		solution.addElement(room);
+	}
+	rooms.addElement(solution);
 }
 
 public void printSol(int index){
