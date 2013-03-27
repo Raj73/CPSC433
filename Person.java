@@ -218,7 +218,7 @@ public class Person extends Entity
 		return secretary;
 	}
 	
-	boolean getmanager(){
+	boolean getManager(){
 		return manager;
 	}
 	
