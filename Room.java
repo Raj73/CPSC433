@@ -39,7 +39,7 @@ public class Room extends Entity
 	
 	public boolean getLarge()
 	{
-		return Large;
+		return large;
 	}
 	
 	public Vector<Person> getPeople()

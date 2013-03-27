@@ -90,16 +90,16 @@ public class SisyphusI {
 					writer.write("project(" + name + ", " + env.myPeople.get(i).getProject().getName() + ")\n");
 					
 				if (env.myPeople.get(i).getHeadsGroup() != null){
-					writer.write("heads-group(" + name + ", " + env.myPeople.get(i).headsGroup.getName() + ")\n");
+					writer.write("heads-group(" + name + ", " + env.myPeople.get(i).getHeadsGroup().getName() + ")\n");
 				}
 				if (env.myPeople.get(i).getHeadsProject() != null){
-					writer.write("heads-project(" + name + ", " + env.myPeople.get(i).headsProject.getName() + ")\n");
+					writer.write("heads-project(" + name + ", " + env.myPeople.get(i).getHeadsProject().getName() + ")\n");
 				}
-				if (env.myPeople.get(i).worksWith.size() > 0)
+				if (env.myPeople.get(i).getWorksWith().size() > 0)
 				{
-					worksWith = env.myPeople.get(i).worksWith.get(0).getName();
-					for (int j = 1; j < env.myPeople.get(i).worksWith.size(); j++){
-						worksWith = worksWith + ", " + env.myPeople.get(i).worksWith.get(j).getName();
+					worksWith = env.myPeople.get(i).getWorksWith().get(0).getName();
+					for (int j = 1; j < env.myPeople.get(i).getWorksWith().size(); j++){
+						worksWith = worksWith + ", " + env.myPeople.get(i).getWorksWith().get(j).getName();
 					}
 				}
 				
@@ -124,11 +124,11 @@ public class SisyphusI {
 				if (env.roomNames.get(i).evaluateSmall(name))
 					writer.write("small-room(" + name +")\n");
 					
-				if (env.roomNames.get(i).closeWith.size() > 0)
+				if (env.roomNames.get(i).getCloseWith().size() > 0)
 				{
-					closeWith = env.roomNames.get(i).closeWith.get(0);
-					for (int j = 1; j < env.roomNames.get(i).closeWith.size(); j++){
-						closeWith = closeWith + ", " + env.roomNames.get(i).closeWith.get(j);
+					closeWith = env.roomNames.get(i).getCloseWith().get(0);
+					for (int j = 1; j < env.roomNames.get(i).getCloseWith().size(); j++){
+						closeWith = closeWith + ", " + env.roomNames.get(i).getCloseWith().get(j);
 					}
 				}
 				
