@@ -4,8 +4,8 @@ import java.util.Vector;
 public class Project extends Entity
 
 {
-	boolean large;
-	Vector<Person> projectMembers = new Vector<Person>();
+	private boolean large;
+	private Vector<Person> projectMembers = new Vector<Person>();
 
 	Project(String Pname)
 	{
@@ -44,4 +44,25 @@ public class Project extends Entity
 	{
 		projectMembers.removeElement(Ename);
 	}
+
+
+	public boolean isLarge() {
+		return large;
+	}
+
+
+	public void setLarge(boolean large) {
+		this.large = large;
+	}
+
+
+	public Vector<Person> getProjectMembers() {
+		return projectMembers;
+	}
+
+
+	public void setProjectMembers(Vector<Person> projectMembers) {
+		this.projectMembers = projectMembers;
+	}
+	
 }
