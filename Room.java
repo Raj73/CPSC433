@@ -11,53 +11,47 @@ import java.util.Vector;
 public class Room extends Entity
 {
 	//variables
-	boolean small = false;
-	boolean medium = false;
-	boolean large = false;
-	Vector<Person> people = new Vector<Person>();
-	LinkedList<String> closeWith = new LinkedList<String>();
+	private boolean small = false;
+	private boolean medium = false;
+	private boolean large = false;
+	private Vector<Person> people = new Vector<Person>();
+	private LinkedList<String> closeWith = new LinkedList<String>();
 
 /**
  * Constructor that takes a string and calls the constructor of the super class
  * @param Rname a name of a room
  */
+ 
 	Room(String Rname)
 	{
 		super(Rname);
 	}
-	Room(Room room){
-		super(room.getName());
-		small = room.getSmall();
-		medium = room.getMedium();
-		large = room.getLarge();
-		people = room.getPeople();
-		closeWith = room.getCloseWith();
-		
-		
-		
-		
-	}
 
-private LinkedList<String> getCloseWith() {
-		// TODO Auto-generated method stub
-		return closeWith;
-	}
-private Vector<Person> getPeople() {
-		// TODO Auto-generated method stub
-		return people;
-	}
-private boolean getLarge() {
-		// TODO Auto-generated method stub
-		return large;
-	}
-private boolean getMedium() {
-		// TODO Auto-generated method stub
-		return medium;
-	}
-private boolean getSmall() {
-		// TODO Auto-generated method stub
+	public boolean getSmall()
+	{
 		return small;
 	}
+	
+	public boolean getMedium()
+	{
+		return medium;
+	}
+	
+	public boolean getLarge()
+	{
+		return Large;
+	}
+	
+	public Vector<Person> getPeople()
+	{
+		return people;
+	}
+	
+	public LinkedList<String> getCloseWith()
+	{
+		return closeWith;
+	}
+	
 /**
  * Evaluates a room against the current room
  * @param Rname name of a room
@@ -145,10 +139,10 @@ private boolean getSmall() {
 
 	
 /**
- * Takes a the name of the room and a room that they work with and adds that they work with 
+ * Takes a the name of the person and a person that they work with and adds that they work with 
  * to a list of other people that they are close with
- * @param Rname name of the room 
- * @param Rname2 name of the neighbour
+ * @param Rname name of the person 
+ * @param Rname2 name of the co worker
  */
 	void assertCloseWith(String Rname, String Rname2)
 	{
@@ -158,10 +152,10 @@ private boolean getSmall() {
 	
 	
 	/**
-	 * Evaluate if two rooms that are close together
-	 * @param Rname name of the room 
-	 * @param Rname2 name of the room to check against
-	 * @return true if the rooms are close together and false other wise
+	 * Evaluate 
+	 * @param Rname
+	 * @param Rname2
+	 * @return
 	 */
 	boolean evaluateCloseWith(String Rname, String Rname2)
 	{
@@ -183,21 +177,12 @@ private boolean getSmall() {
 	boolean evaluatePerson(){
 		return true;
 	}
-/**
- * Check to see if the name of the room is right then adds the person
- * @param p name of the person to be added
- * @param room name to add the person to
- */
+
 	public void assertAssignPerson(Person p, String room) {
 		if (getName().compareTo(room) == 0){
 			people.addElement(p);
 		}
 	}
-	/**
-	 * Takes some one out of the room
-	 * @param p person who is needed to be take out
-	 * @param room the room that the person needs to be taken out of
-	 */
 	public void removeAssignPerson(Person p, String room){
 		if(getName().compareTo(room) == 0){
 			people.removeElement(p);
