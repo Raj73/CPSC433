@@ -31,10 +31,10 @@ public class SisyphusI {
 			System.out.println("Please enter a valid file name");
 			fileName = console.nextLine();
 			env.fromFile(fileName);
-			s.addSolution(env.roomNames);
+			s.addSolution(env.getRoomNames());
 			s.printSol(0);
 			s.changeAssign(env);
-			s.addSolution(env.roomNames);
+			s.addSolution(env.getRoomNames());
 			s.printSol(0);
 			s.printSol(1);
 		}
@@ -62,44 +62,44 @@ public class SisyphusI {
 			
 			writer.write("// -- Environment ------------------\n");
 			writer.write("// People \n");
-			for (int i = 0; i < env.myPeople.size(); i++){
+			for (int i = 0; i < env.getMyPeople().size(); i++){
 				
 				//write out people and their attributes
-				name = env.myPeople.get(i).getName();
+				name = env.getMyPeople().get(i).getName();
 				writer.write("person(" + name +")\n");
 				
-				if (env.myPeople.get(i).evaluateResearcher(name))
+				if (env.getMyPeople().get(i).evaluateResearcher(name))
 					writer.write("researcher(" + name +")\n");
 					
-				if (env.myPeople.get(i).evaluateSecretary(name))
+				if (env.getMyPeople().get(i).evaluateSecretary(name))
 					writer.write("secretary(" + name +")\n");
 					
-				if (env.myPeople.get(i).evaluateManager(name)){
+				if (env.getMyPeople().get(i).evaluateManager(name)){
 					writer.write("manager(" + name +")\n");
 				}
-				if (env.myPeople.get(i).evaluateSmoker(name))
+				if (env.getMyPeople().get(i).evaluateSmoker(name))
 					writer.write("smoker(" + name +")\n");
 					
-				if (env.myPeople.get(i).evaluateHacker(name))
+				if (env.getMyPeople().get(i).evaluateHacker(name))
 					writer.write("hacker(" + name +")\n");
 					
-				if (env.myPeople.get(i).getGroup() != null)
-					writer.write("group(" + name + ", " + env.myPeople.get(i).getGroup().getName() + ")\n");
+				if (env.getMyPeople().get(i).getGroup() != null)
+					writer.write("group(" + name + ", " + env.getMyPeople().get(i).getGroup().getName() + ")\n");
 				
-				if (env.myPeople.get(i).getProject() != null)
-					writer.write("project(" + name + ", " + env.myPeople.get(i).getProject().getName() + ")\n");
+				if (env.getMyPeople().get(i).getProject() != null)
+					writer.write("project(" + name + ", " + env.getMyPeople().get(i).getProject().getName() + ")\n");
 					
-				if (env.myPeople.get(i).getHeadsGroup() != null){
-					writer.write("heads-group(" + name + ", " + env.myPeople.get(i).getHeadsGroup().getName() + ")\n");
+				if (env.getMyPeople().get(i).getHeadsGroup() != null){
+					writer.write("heads-group(" + name + ", " + env.getMyPeople().get(i).getHeadsGroup().getName() + ")\n");
 				}
-				if (env.myPeople.get(i).getHeadsProject() != null){
-					writer.write("heads-project(" + name + ", " + env.myPeople.get(i).getHeadsProject().getName() + ")\n");
+				if (env.getMyPeople().get(i).getHeadsProject() != null){
+					writer.write("heads-project(" + name + ", " + env.getMyPeople().get(i).getHeadsProject().getName() + ")\n");
 				}
-				if (env.myPeople.get(i).getWorksWith().size() > 0)
+				if (env.getMyPeople().get(i).getWorksWith().size() > 0)
 				{
-					worksWith = env.myPeople.get(i).getWorksWith().get(0).getName();
-					for (int j = 1; j < env.myPeople.get(i).getWorksWith().size(); j++){
-						worksWith = worksWith + ", " + env.myPeople.get(i).getWorksWith().get(j).getName();
+					worksWith = env.getMyPeople().get(i).getWorksWith().get(0).getName();
+					for (int j = 1; j < env.getMyPeople().get(i).getWorksWith().size(); j++){
+						worksWith = worksWith + ", " + env.getMyPeople().get(i).getWorksWith().get(j).getName();
 					}
 				}
 				
@@ -111,24 +111,24 @@ public class SisyphusI {
 			}
 			//writes out rooms and their attributes
 			writer.write("// Room \n");
-			for (int i = 0; i < env.roomNames.size(); i++){
-				name = env.roomNames.get(i).getName();
-				writer.write("room (" + env.roomNames.get(i).getName() + ")\n");
+			for (int i = 0; i < env.getRoomNames().size(); i++){
+				name = env.getRoomNames().get(i).getName();
+				writer.write("room (" + env.getRoomNames().get(i).getName() + ")\n");
 				
-				if (env.roomNames.get(i).evaluateLarge(name))
+				if (env.getRoomNames().get(i).evaluateLarge(name))
 					writer.write("large-room(" + name +")\n");
 					
-				if (env.roomNames.get(i).evaluateMedium(name))
+				if (env.getRoomNames().get(i).evaluateMedium(name))
 					writer.write("medium-room(" + name +")\n");
 					
-				if (env.roomNames.get(i).evaluateSmall(name))
+				if (env.getRoomNames().get(i).evaluateSmall(name))
 					writer.write("small-room(" + name +")\n");
 					
-				if (env.roomNames.get(i).getCloseWith().size() > 0)
+				if (env.getRoomNames().get(i).getCloseWith().size() > 0)
 				{
-					closeWith = env.roomNames.get(i).getCloseWith().get(0);
-					for (int j = 1; j < env.roomNames.get(i).getCloseWith().size(); j++){
-						closeWith = closeWith + ", " + env.roomNames.get(i).getCloseWith().get(j);
+					closeWith = env.getRoomNames().get(i).getCloseWith().get(0);
+					for (int j = 1; j < env.getRoomNames().get(i).getCloseWith().size(); j++){
+						closeWith = closeWith + ", " + env.getRoomNames().get(i).getCloseWith().get(j);
 					}
 				}
 				
@@ -141,16 +141,16 @@ public class SisyphusI {
 			
 			//writes out the group names 
 			writer.write("// Groups \n");
-			for (int i = 0; i < env.groupNames.size(); i++){
-				writer.write("group(" + env.groupNames.get(i).getName() + ")\n");
+			for (int i = 0; i < env.getRoomNames().size(); i++){
+				writer.write("group(" + env.getRoomNames().get(i).getName() + ")\n");
 			}
 			//writes out the project names
 			writer.write("// Projects \n");
-			for (int i = 0; i < env.projectNames.size(); i++){
-				writer.write("project(" + env.projectNames.get(i).getName() + ")\n");
+			for (int i = 0; i < env.getProjectNames().size(); i++){
+				writer.write("project(" + env.getProjectNames().get(i).getName() + ")\n");
 				
-				if (env.projectNames.get(i).evaluateLarge(env.projectNames.get(i).getName()))
-					writer.write("large-project(" + env.projectNames.get(i).getName() +")\n");
+				if (env.getProjectNames().get(i).evaluateLarge(env.getProjectNames().get(i).getName()))
+					writer.write("large-project(" + env.getProjectNames().get(i).getName() +")\n");
 			}
 			
 			writer.write("// -- END Environment ------------------ \n");
