@@ -250,6 +250,10 @@ public class Person extends Entity
 		return headsProject;
 	}
 	
+	String getAssignedRoom(){
+		return assignedRoom;
+	}
+	
 	Vector <Person> getWorksWith(){
 		return worksWith;
 	}
