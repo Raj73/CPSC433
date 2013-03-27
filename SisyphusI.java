@@ -83,16 +83,16 @@ public class SisyphusI {
 				if (env.myPeople.get(i).evaluateHacker(name))
 					writer.write("hacker(" + name +")\n");
 					
-				if (env.myPeople.get(i).group != null)
-					writer.write("group(" + name + ", " + env.myPeople.get(i).group.getName() + ")\n");
+				if (env.myPeople.get(i).getGroup() != null)
+					writer.write("group(" + name + ", " + env.myPeople.get(i).getGroup().getName() + ")\n");
 				
-				if (env.myPeople.get(i).project != null)
-					writer.write("project(" + name + ", " + env.myPeople.get(i).project.getName() + ")\n");
+				if (env.myPeople.get(i).getProject() != null)
+					writer.write("project(" + name + ", " + env.myPeople.get(i).getProject().getName() + ")\n");
 					
-				if (env.myPeople.get(i).headsGroup != null){
+				if (env.myPeople.get(i).getHeadsGroup() != null){
 					writer.write("heads-group(" + name + ", " + env.myPeople.get(i).headsGroup.getName() + ")\n");
 				}
-				if (env.myPeople.get(i).headsProject != null){
+				if (env.myPeople.get(i).getHeadsProject() != null){
 					writer.write("heads-project(" + name + ", " + env.myPeople.get(i).headsProject.getName() + ")\n");
 				}
 				if (env.myPeople.get(i).worksWith.size() > 0)

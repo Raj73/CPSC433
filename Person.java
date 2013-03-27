@@ -246,7 +246,7 @@ public class Person extends Entity
 		return headsGroup;
 	}
 	
-	Project getheadsProject(){
+	Project getHeadsProject(){
 		return headsProject;
 	}
 	
