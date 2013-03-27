@@ -26,6 +26,18 @@ public class Room extends Entity
 	{
 		super(Rname);
 	}
+	Room(Room room){
+		super(room.getName());
+		small = room.getSmall();
+		medium = room.getMedium();
+		large = room.getLarge();
+		people = room.getPeople();
+		
+		
+		
+		
+		
+	}
 
 	public boolean getSmall()
 	{
