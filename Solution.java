@@ -41,6 +41,7 @@ public void changeAssign(Environment env){
 	
 }
 
+/*
 public int softConstraints(Environment env){
 	int penalty = 0;
 	//this is soft constraint one
@@ -142,6 +143,7 @@ public int softConstraints(Environment env){
 	}
 	return penalty;
 }
+*/
 
 
 public String hardConstraints(Environment env){
@@ -162,15 +164,15 @@ public String hardConstraints(Environment env){
 
 	If float(rooms) <= rooms_required*/
 	for(int i = 0; i < env.myPeople.size(); i++){
-		if(env.myPeople.get(i).assignedRoom == null){
+		if(env.myPeople.get(i).getAssignedRoom() == null){
 			constraint1 = false;
 		}
-		if(env.myPeople.get(i).assigned > 1){
+		if(env.myPeople.get(i).getAssigned() > 1){
 			constraint2 = false;
 		}
-		if(env.myPeople.get(i).manager ||env.myPeople.get(i).headsGroup != null || env.myPeople.get(i).headsProject != null){
+		if(env.myPeople.get(i).getManager() ||env.myPeople.get(i).getHeadsGroup() != null || env.myPeople.get(i).getHeadsProject() != null){
 				for(int j = 0; j < env.roomNames.size();j++){
-					if(env.roomNames.get(j).getName().equals(env.myPeople.get(i).assignedRoom)){
+					if(env.roomNames.get(j).getName().equals(env.myPeople.get(i).getAssignedRoom())){
 						if(env.roomNames.get(j).people.size() > 1)
 							constraint4 =false;
 					}
