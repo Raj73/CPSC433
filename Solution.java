@@ -24,20 +24,20 @@ public void printSol(int index){
 	Room rm;
 	for(int i = 0; i < rooms.get(index).size(); i++){
 		rm = rooms.get(index).get(i);
-		System.out.println("Room " + rm.getName() + " Person 1: " + rm.people.get(0).getName());
-		System.out.println("Room " + rm.getName() + " Person 1: " + rm.people.get(1).getName());
+		System.out.println("Room " + rm.getName() + " Person 1: " + rm.getPeople().get(0).getName());
+		System.out.println("Room " + rm.getName() + " Person 1: " + rm.getPeople().get(1).getName());
 	}
 	System.out.println("--------------------end of rooms-------------");
 }
 
 public void changeAssign(Environment env){
-	env.roomNames.get(0).removeAssignPerson(env.myPeople.get(0), "C5110");
+	env.getRoomNames().get(0).removeAssignPerson(env.getMyPeople().get(0), "C5110");
 	
-	env.roomNames.get(1).removeAssignPerson(env.myPeople.get(1), "C5113");
+	env.getRoomNames().get(1).removeAssignPerson(env.getMyPeople().get(1), "C5113");
 	
-	env.roomNames.get(0).assertAssignPerson(env.myPeople.get(1), "C5110");
+	env.getRoomNames().get(0).assertAssignPerson(env.getMyPeople().get(1), "C5110");
 	
-	env.roomNames.get(1).assertAssignPerson(env.myPeople.get(0), "C5113");
+	env.getRoomNames().get(1).assertAssignPerson(env.getMyPeople().get(0), "C5113");
 	
 }
 
@@ -148,6 +148,7 @@ public int softConstraints(Environment env){
 
 public String hardConstraints(Environment env){
 	
+	@SuppressWarnings("unused")
 	int heads = 0;
 	boolean constraint1 = true;
 	boolean constraint2 = true;
@@ -163,24 +164,24 @@ public String hardConstraints(Environment env){
 		Else add .5 to rooms_required
 
 	If float(rooms) <= rooms_required*/
-	for(int i = 0; i < env.myPeople.size(); i++){
-		if(env.myPeople.get(i).getAssignedRoom() == null){
+	for(int i = 0; i < env.getMyPeople().size(); i++){
+		if(env.getMyPeople().get(i).getAssignedRoom() == null){
 			constraint1 = false;
 		}
-		if(env.myPeople.get(i).getAssigned() > 1){
+		if(env.getMyPeople().get(i).getAssigned() > 1){
 			constraint2 = false;
 		}
-		if(env.myPeople.get(i).getManager() ||env.myPeople.get(i).getHeadsGroup() != null || env.myPeople.get(i).getHeadsProject() != null){
-				for(int j = 0; j < env.roomNames.size();j++){
-					if(env.roomNames.get(j).getName().equals(env.myPeople.get(i).getAssignedRoom())){
-						if(env.roomNames.get(j).people.size() > 1)
+		if(env.getMyPeople().get(i).getManager() ||env.getMyPeople().get(i).getHeadsGroup() != null || env.getMyPeople().get(i).getHeadsProject() != null){
+				for(int j = 0; j < env.getRoomNames().size();j++){
+					if(env.getRoomNames().get(j).getName().equals(env.getMyPeople().get(i).getAssignedRoom())){
+						if(env.getRoomNames().get(j).getPeople().size() > 1)
 							constraint4 =false;
 					}
 				}
 		}
 	}
-	for(int i = 0; i < env.roomNames.size();i++){
-		if(env.roomNames.get(i).people.size() > 2)
+	for(int i = 0; i < env.getRoomNames().size();i++){
+		if(env.getRoomNames().get(i).getPeople().size() > 2)
 				constraint3 =false;
 		
 	}
