@@ -1,15 +1,26 @@
 package cpsc433;
-
+import java.util.TreeSet;
 import java.util.Vector;
 
 public class Solution {
-
-public Solution(){
 	
+private Environment env;
+private Vector<Person> people;
+private Vector<Room> rooms;
+private Vector<Assignment> assign;
+private Node Tree = null;
+
+
+public Solution(Environment e){
+	env = e;
+	people = env.getMyPeople();
+	rooms = env.getRoomNames();
 }
 
-Vector<Vector<Room>> rooms = new Vector<Vector<Room>>();
+//Vector<Vector<Room>> rooms = new Vector<Vector<Room>>();
 
+/*
+//deprecated
 public void addSolution(Vector<Room> rms){
 	Vector<Room> solution = new Vector<Room>();
 	
@@ -19,7 +30,9 @@ public void addSolution(Vector<Room> rms){
 	}
 	rooms.addElement(solution);
 }
+*/
 
+/*
 public void printSol(int index){
 	Room rm;
 	for(int i = 0; i < rooms.get(index).size(); i++){
@@ -29,6 +42,7 @@ public void printSol(int index){
 	}
 	System.out.println("--------------------end of rooms-------------");
 }
+*/
 
 public void changeAssign(Environment env){
 	env.getRoomNames().get(0).removeAssignPerson(env.getMyPeople().get(0), "C5110");
@@ -39,6 +53,15 @@ public void changeAssign(Environment env){
 	
 	env.getRoomNames().get(1).assertAssignPerson(env.getMyPeople().get(0), "C5113");
 	
+}
+
+public void createSolution(){
+	for(int i = 0; i < people.size(); i++){
+		
+						
+					
+		
+	}
 }
 
 /*
@@ -146,7 +169,7 @@ public int softConstraints(Environment env){
 */
 
 
-public String hardConstraints(Environment env){
+public String hardConstraints(){
 	
 	@SuppressWarnings("unused")
 	int heads = 0;

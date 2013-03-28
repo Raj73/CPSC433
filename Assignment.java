@@ -7,11 +7,17 @@ public class Assignment
 	private Room room;
 	private Person person1;
 	private Person person2;
-	private Vector<Assignment> children = new Vector<Assignment>();
-	private Assignment parent;
+
 	
 	Assignment(){
+		room =null;
+		person1 =null;
+		person2 = null;
 		
+	}
+	Assignment(Room room, Person person){
+		this.room = room;
+		person1 = person;
 	}
 	
 	public void setRoom(Room r)
@@ -19,21 +25,7 @@ public class Assignment
 		room = r;
 	}
 	
-	public Vector<Assignment> getChildren() {
-		return children;
-	}
-
-	public void setChildren(Vector<Assignment> children) {
-		this.children = children;
-	}
-
-	public Assignment getParent() {
-		return parent;
-	}
-
-	public void setParent(Assignment parent) {
-		this.parent = parent;
-	}
+	
 
 	public Room getRoom()
 	{
