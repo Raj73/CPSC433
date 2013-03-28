@@ -49,6 +49,9 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	private Vector<Person> manager = new Vector<Person>();
 	private Vector<Person> grouphead = new Vector<Person>();
 	private Vector<Person> projectHeads = new Vector<Person>();
+	private Vector<Room> largeRooms = new Vector<Room>();
+	private Vector<Room> mediumRooms = new Vector<Room>();
+	private Vector<Room> smallRooms = new Vector<Room>();
 	
 	
 	public Vector<Person> getMyPeople() {
@@ -89,6 +92,18 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 
 	public static String getObject() {
 		return Object;
+	}
+	
+	public Vector<Person> getLargeRooms() {
+		return largeRooms;
+	}
+
+	public Vector<Person> getMediumRooms() {
+		return mediumRooms;
+	}
+
+	public Vector<Person> getSmallRooms() {
+		return smallRooms;
 	}
 
 	/**
@@ -960,8 +975,10 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 		if(!e_room(r))
 			a_room(r);
 		for(int i =0;i<roomNames.size();i++){
-			if(roomNames.get(i).evaluateRoom(r))
+			if(roomNames.get(i).evaluateRoom(r)){
 				((Room) roomNames.get(i)).assertLarge(r);
+				largeRooms.addElement((Room) roomNames.get(i));
+			}
 		}
 		
 	}
@@ -993,8 +1010,10 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 		if(!e_room(r))
 			a_room(r);
 		for(int i =0;i<roomNames.size();i++){
-			if(roomNames.get(i).evaluateRoom(r))
+			if(roomNames.get(i).evaluateRoom(r)){
 				((Room) roomNames.get(i)).assertMedium(r);
+				mediumRooms.addElement((Room) roomNames.get(i));
+			}
 		}
 		
 	}
@@ -1026,8 +1045,10 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 		if(!e_room(r))
 			a_room(r);
 		for(int i =0;i<roomNames.size();i++){
-			if(roomNames.get(i).evaluateRoom(r))
+			if(roomNames.get(i).evaluateRoom(r)){
 				((Room) roomNames.get(i)).assertSmall(r);
+				largeRooms.addElement((Room) roomNames.get(i));
+			}
 		}
 		
 	}
