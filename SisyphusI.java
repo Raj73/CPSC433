@@ -19,26 +19,76 @@ public class SisyphusI {
 		Scanner console = new Scanner(System.in);
 		
 		final Environment env = Environment.get();
-		Solution s = new Solution();
+		Solution s = new Solution(env);
 		
 		//if arguments in command line were greater than one
 		if (args.length>0) {
 			fileName = args[0];
 			env.fromFile(fileName);
-			System.out.println(new Solution().hardConstraints(env));
+			System.out.println(new Solution(env).hardConstraints());
 		}
-		else{
-			System.out.println("Please enter a valid file name");
-			fileName = console.nextLine();
-			env.fromFile(fileName);
-			s.addSolution(env.getRoomNames());
-			s.printSol(0);
-			s.changeAssign(env);
-			s.addSolution(env.getRoomNames());
-			s.printSol(0);
-			s.printSol(1);
-		}
+//		else{
+//			System.out.println("Please enter a valid file name");
+//			fileName = console.nextLine();
+//			env.fromFile(fileName);
+//			s.addSolution(env.getRoomNames());
+//			s.printSol(0);
+//			s.changeAssign(env);
+//			s.addSolution(env.getRoomNames());
+//			s.printSol(0);
+//			s.printSol(1);
+//		}
 		//output the environment to a file
+		
+		System.out.println("managers");
+		System.out.println("");
+		for(int i = 0; i < env.getManager().size(); i++){
+			System.out.println(env.getManager().get(i).getName());
+		}
+		System.out.println("");
+		
+		System.out.println("secretary");
+		System.out.println("");
+		for(int i = 0; i < env.getSecretary().size(); i++){
+			System.out.println(env.getSecretary().get(i).getName());
+		}
+		System.out.println("");
+		
+		System.out.println("smokers");
+		System.out.println("");
+		for(int i = 0; i < env.getSmoker().size(); i++){
+			System.out.println(env.getSmoker().get(i).getName());
+		}
+		
+		System.out.println("");
+		System.out.println("hackers");
+		System.out.println("");
+		for(int i = 0; i < env.getHacker().size(); i++){
+			System.out.println(env.getHacker().get(i).getName());
+		}
+		System.out.println("");
+		
+		System.out.println("researchers");
+		System.out.println("");
+		for(int i = 0; i < env.getResearcher().size(); i++){
+			System.out.println(env.getResearcher().get(i).getName());
+		}
+		System.out.println("");
+		
+		System.out.println("project heads");
+		System.out.println("");
+		for(int i = 0; i < env.getProjectHeads().size(); i++){
+			System.out.println(env.getProjectHeads().get(i).getName());
+		}
+		System.out.println("");
+		
+		System.out.println("group heads");
+		System.out.println("");
+		for(int i = 0; i < env.getGrouphead().size(); i++){
+			System.out.println(env.getGrouphead().get(i).getName());
+		}
+		System.out.println("");
+		
 		toFile(env, fileName);
 		
 	}

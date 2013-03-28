@@ -29,7 +29,7 @@ public Solution(Environment e){
 	researcher = env.getResearcher();
 	manager = env.getManager();
 	grouphead = env.getGrouphead();
-	projecthead = env.getProjecthead();
+	projecthead = env.getProjectHeads();
 }
 
 //Vector<Vector<Room>> rooms = new Vector<Vector<Room>>();
@@ -76,9 +76,6 @@ public void createSolution(){
 	//assign every person to that room if looking from the perspective of
 	//a room then check the goodness
 	for(int i = 0; i < people.size(); i++){
-		
-						
-					
 		
 	}
 }
