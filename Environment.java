@@ -14,10 +14,42 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	
 	@SuppressWarnings("unused")
 	private static final String Object = null;
+	public Vector<Person> getSecretary() {
+		return secretary;
+	}
+
+	public Vector<Person> getSmoker() {
+		return smoker;
+	}
+
+	public Vector<Person> getHacker() {
+		return hacker;
+	}
+
+	public Vector<Person> getResearcher() {
+		return researcher;
+	}
+
+	public Vector<Person> getManager() {
+		return manager;
+	}
+
+	public Vector<Person> getProjecthead() {
+		return projecthead;
+	}
+
 	private Vector<Person> myPeople  = new Vector<Person>();
 	private Vector<Group> groupNames = new Vector<Group>();
 	private Vector<Room> roomNames = new Vector<Room>();
-	private Vector<Project> projectNames = new Vector<Project>(); 
+	private Vector<Project> projectNames = new Vector<Project>();
+	private Vector<Person> secretary = new Vector<Person>();
+	private Vector<Person> smoker = new Vector<Person>();
+	private Vector<Person> hacker = new Vector<Person>();
+	private Vector<Person> researcher = new Vector<Person>();
+	private Vector<Person> manager = new Vector<Person>();
+	private Vector<Person> grouphead = new Vector<Person>();
+	private Vector<Person> projecthead = new Vector<Person>();
+	
 	
 	public Vector<Person> getMyPeople() {
 		return myPeople;
@@ -127,11 +159,13 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 		@param: String name
 	*/
 	public void a_secretary(String p) {
-		if(!e_person(p))
+		if(!e_person(p)){
 			a_person(p);
+		}
 		for(int i =0;i<myPeople.size();i++){
 			if(myPeople.get(i).evaluatePerson(p))
 				((Person) myPeople.get(i)).assertSecretary(p);
+				secretary.addElement((Person) myPeople.get(i));
 		}
 		
 	}
@@ -165,6 +199,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 		for(int i =0;i<myPeople.size();i++){
 			if(myPeople.get(i).evaluatePerson(p))
 				((Person) myPeople.get(i)).assertResearcher(p);
+				researcher.addElement((Person) myPeople.get(i));
 		}
 		
 	}
@@ -198,6 +233,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 		for(int i =0;i<myPeople.size();i++){
 			if(myPeople.get(i).evaluatePerson(p))
 				((Person) myPeople.get(i)).assertManager(p);
+				manager.addElement((Person) myPeople.get(i));
 		}
 		
 	}
@@ -231,6 +267,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 		for(int i =0;i<myPeople.size();i++){
 			if(myPeople.get(i).evaluatePerson(p))
 				((Person) myPeople.get(i)).assertSmoker(p);
+				smoker.addElement((Person) myPeople.get(i));
 		}
 
 		
@@ -265,6 +302,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 		for(int i =0;i<myPeople.size();i++){
 			if(myPeople.get(i).evaluatePerson(p))
 				((Person) myPeople.get(i)).assertHacker(p);
+				hacker.addElement((Person) myPeople.get(i));
 		}
 
 	}
@@ -527,6 +565,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 		}
 		person.assertInGroup(p, groupNames.get(newGroup));
 		person.assertHeadsGroup(p, groupNames.get(newGroup));
+		grouphead.addElement(person);
 	}
 
 	/**
@@ -590,6 +629,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 		}
 		((Person) myPeople.get(pIndex)).assertInProject(p, projectNames.get(rIndex));
 		((Person) myPeople.get(pIndex)).assertHeadsProject(p, projectNames.get(rIndex));
+		projecthead.addElement((Person) myPeople.get(rIndex));
 	}
 
 	/**
@@ -1094,6 +1134,14 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 				return true;
 		}		
 		return false;
+	}
+
+	public Vector<Person> getGrouphead() {
+		return grouphead;
+	}
+
+	public void setGrouphead(Vector<Person> grouphead) {
+		this.grouphead = grouphead;
 	}
 	
 	}
