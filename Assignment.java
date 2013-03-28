@@ -15,6 +15,9 @@ public class Assignment
 		person2 = null;
 		
 	}
+	Assignment(Room aroom){
+		this.room = aroom;
+	}
 	Assignment(Room room, Person person){
 		this.room = room;
 		person1 = person;

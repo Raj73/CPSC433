@@ -8,13 +8,28 @@ private Environment env;
 private Vector<Person> people;
 private Vector<Room> rooms;
 private Vector<Assignment> assign;
-private Node Tree = null;
+private Node Head = null;
+private Vector<Person> secretary;
+private Vector<Person> smoker;
+private Vector<Person> hacker;
+private Vector<Person> researcher;
+private Vector<Person> manager;
+private Vector<Person> grouphead;
+private Vector<Person> projecthead;
+private Node pointer = null;
 
 
 public Solution(Environment e){
 	env = e;
 	people = env.getMyPeople();
 	rooms = env.getRoomNames();
+	secretary = env.getSecretary();
+	smoker = env.getSmoker();
+	hacker = env.getHacker();
+	researcher = env.getResearcher();
+	manager = env.getManager();
+	grouphead = env.getGrouphead();
+	projecthead = env.getProjecthead();
 }
 
 //Vector<Vector<Room>> rooms = new Vector<Vector<Room>>();
@@ -56,6 +71,10 @@ public void changeAssign(Environment env){
 }
 
 public void createSolution(){
+	// i think we got away from what an or tree is suppose to be last night
+	//we should either go from the perspective of the room or person
+	//assign every person to that room if looking from the perspective of
+	//a room then check the goodness
 	for(int i = 0; i < people.size(); i++){
 		
 						

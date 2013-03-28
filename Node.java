@@ -8,6 +8,7 @@ public class Node {
 	private Vector<Assignment> data;
 	private Vector<Node> childern = new Vector<Node>();
 	
+	@SuppressWarnings("unchecked")
 	Node(Assignment asign, Vector<Assignment> currentasign){
 		this.current = asign;
 		this.data = (Vector<Assignment>) currentasign.clone();
