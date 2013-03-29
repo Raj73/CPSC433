@@ -176,7 +176,7 @@ public class SisyphusI {
 					
 				if (env.getRoomNames().get(i).getCloseWith().size() > 0)
 				{
-					closeWith = env.getRoomNames().get(i).getCloseWith().get(0);
+					closeWith = env.getRoomNames().get(i).getCloseWith().get(0).getName();
 					for (int j = 1; j < env.getRoomNames().get(i).getCloseWith().size(); j++){
 						closeWith = closeWith + ", " + env.getRoomNames().get(i).getCloseWith().get(j);
 					}

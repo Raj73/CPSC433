@@ -8,14 +8,17 @@ private Environment env;
 private Vector<Person> people;
 private Vector<Room> rooms;
 private Vector<Assignment> assign;
-private Node Head = null;
+private Node Head = new Node();
 private Vector<Person> secretary;
 private Vector<Person> smoker;
 private Vector<Person> hacker;
 private Vector<Person> researcher;
 private Vector<Person> manager;
-private Vector<Person> grouphead;
-private Vector<Person> projecthead;
+private Vector<Person> groupHead;
+private Vector<Person> projectHead;
+private Vector<Room> largeRooms;
+private Vector<Room> medRooms;
+private Vector<Room> smRooms;
 private Node pointer = null;
 
 
@@ -28,8 +31,11 @@ public Solution(Environment e){
 	hacker = env.getHacker();
 	researcher = env.getResearcher();
 	manager = env.getManager();
-	grouphead = env.getGrouphead();
-	projecthead = env.getProjectHeads();
+	groupHead = env.getGrouphead();
+	projectHead = env.getProjectHeads();
+	largeRooms = env.getLargeRooms();
+	medRooms = env.getMediumRooms();
+	smRooms = env.getSmallRooms();
 }
 
 //Vector<Vector<Room>> rooms = new Vector<Vector<Room>>();
@@ -75,9 +81,42 @@ public void createSolution(){
 	//we should either go from the perspective of the room or person
 	//assign every person to that room if looking from the perspective of
 	//a room then check the goodness
-	for(int i = 0; i < people.size(); i++){
-		
+	Room room;
+	Person person;
+	
+	for(int i = 0; i < groupHead.size(); i++){
+		person = groupHead.get(i);
+		room = assignHead();
+		Assignment a = new Assignment(room, person);
 	}
+
+}
+
+
+//pop off the rooms from the vectors next time
+private Room assignHead(){
+	Person person;
+	Room candidate = null;
+	for(int i = 0; i < groupHead.size(); i++){
+		person = groupHead.get(i);
+		if(!largeRooms.isEmpty()){
+			for(int k = 0; k < largeRooms.size(); k++){
+				candidate = largeRooms.get(k);
+				for(int j = 0; j < candidate.getCloseWith().size(); j++){
+					if(candidate.getCloseWith().get(j).getPeople().isEmpty() || candidate.getCloseWith().get(j).getPeople().get(0).getHeadsGroup() == null){
+						return candidate;
+					}
+				}
+			}
+		}
+		else if(!smRooms.isEmpty()){
+			return smRooms.get(0);
+		}
+		else{
+			return medRooms.get(0);
+		}
+	}
+	return candidate;
 }
 
 /*

@@ -94,15 +94,15 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 		return Object;
 	}
 	
-	public Vector<Person> getLargeRooms() {
+	public Vector<Room> getLargeRooms() {
 		return largeRooms;
 	}
 
-	public Vector<Person> getMediumRooms() {
+	public Vector<Room> getMediumRooms() {
 		return mediumRooms;
 	}
 
-	public Vector<Person> getSmallRooms() {
+	public Vector<Room> getSmallRooms() {
 		return smallRooms;
 	}
 
@@ -898,9 +898,8 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 			roomNames.get(r1).assertCloseWith(room, roomNames.get(r2));
 			roomNames.get(r2).assertCloseWith(room2, roomNames.get(r1));
 		}
-	
 	}
-
+	
 	/**
 		verify that a room is close to a room.
 		takes in the names of the rooms in string form

@@ -18,6 +18,10 @@ public class Assignment
 	Assignment(Room aroom){
 		this.room = aroom;
 	}
+	Assignment(Person person){
+		person1 = person;
+	}
+	
 	Assignment(Room room, Person person){
 		this.room = room;
 		person1 = person;

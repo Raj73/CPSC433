@@ -58,7 +58,7 @@ public class Room extends Entity
 		return people;
 	}
 	
-	public LinkedList<String> getCloseWith()
+	public Vector<Room> getCloseWith()
 	{
 		return closeWith;
 	}
@@ -158,7 +158,7 @@ public class Room extends Entity
 	void assertCloseWith(String Rname, Room Rname2)
 	{
 		if ((Rname2.getName().compareTo(Rname) != 0) && (!evaluateCloseWith(Rname, Rname2.getName())))
-			closeWith.add(Rname2);
+			closeWith.addElement(Rname2);
 	}
 	
 	
