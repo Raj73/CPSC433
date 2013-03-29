@@ -881,22 +881,27 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 		if(r1 == -1 && r2 == -1){
 			a_room(room);
 			a_room(room2);
-			roomNames.get(roomNames.size() - 2).assertCloseWith(room, room2);
-			roomNames.get(roomNames.size() - 1).assertCloseWith(room2, room);	
+			roomNames.get(roomNames.size() - 2).assertCloseWith(room,  roomNames.get(roomNames.size() - 1));
+			roomNames.get(roomNames.size() - 1).assertCloseWith(room2, roomNames.get(roomNames.size() - 2));	
 		}
 		else if(r1 == -1){
 			a_room(room);
-			roomNames.get(roomNames.size() - 1).assertCloseWith(room, room2);
-			roomNames.get(r2).assertCloseWith(room2, room);	
+			roomNames.get(roomNames.size() - 1).assertCloseWith(room, roomNames.get(r2));
+			roomNames.get(r2).assertCloseWith(room2, roomNames.get(roomNames.size() - 1));	
 		}
 		else if (r2 == -1){
 			a_room(room2);
-			roomNames.get(roomNames.size() - 1).assertCloseWith(room2, room);
-			roomNames.get(r1).assertCloseWith(room, room2);	
+			roomNames.get(roomNames.size() - 1).assertCloseWith(room2, roomNames.get(r1));
+			roomNames.get(r1).assertCloseWith(room, roomNames.get(roomNames.size() - 1));	
 		}
 		else{
-			roomNames.get(r1).assertCloseWith(room, room2);
-			roomNames.get(r2).assertCloseWith(room2, room);
+			roomNames.get(r1).assertCloseWith(room, roomNames.get(r2));
+			roomNames.get(r2).assertCloseWith(room2, roomNames.get(r1));
+		}
+		
+		else{
+			myPeople.get(pIndex).assertWorksWith(p1, myPeople.get(pIndex2));
+			myPeople.get(pIndex2).assertWorksWith(p2, myPeople.get(pIndex));
 		}
 	}
 
