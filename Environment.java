@@ -898,11 +898,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 			roomNames.get(r1).assertCloseWith(room, roomNames.get(r2));
 			roomNames.get(r2).assertCloseWith(room2, roomNames.get(r1));
 		}
-		
-		else{
-			myPeople.get(pIndex).assertWorksWith(p1, myPeople.get(pIndex2));
-			myPeople.get(pIndex2).assertWorksWith(p2, myPeople.get(pIndex));
-		}
+	
 	}
 
 	/**
@@ -928,7 +924,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 		
 		if (!(r1 == -1 || r2 == -1) && roomNames.get(r1).evaluateCloseWith(room, room2) && roomNames.get(r2).evaluateCloseWith(room2, room))
 			return true;
-			
+		
 		return false;
 	}
 

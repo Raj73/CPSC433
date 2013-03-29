@@ -157,7 +157,7 @@ public class Room extends Entity
  */
 	void assertCloseWith(String Rname, Room Rname2)
 	{
-		if ((Rname2.getName().compareTo(Rname) != 0) && (!evaluateCloseWith(Rname, Rname2)))
+		if ((Rname2.getName().compareTo(Rname) != 0) && (!evaluateCloseWith(Rname, Rname2.getName())))
 			closeWith.add(Rname2);
 	}
 	
@@ -168,7 +168,7 @@ public class Room extends Entity
 	 * @param Rname2
 	 * @return
 	 */
-	boolean evaluateCloseWith(String Rname, Room Rname2)
+	boolean evaluateCloseWith(String Rname, String Rname2)
 	{
 		if (getName().compareTo(Rname) == 0)
 		{
@@ -176,7 +176,7 @@ public class Room extends Entity
 			
 			for (int i = 0; i < size; i++)
 			{
-				if (closeWith.get(i).getName().compareTo(Rname2.getName()) == 0)
+				if (closeWith.get(i).getName().compareTo(Rname2) == 0)
 						return true;
 			}
 			return false;
