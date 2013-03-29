@@ -1,5 +1,4 @@
 package cpsc433;
-import java.util.LinkedList;
 import java.util.Vector;
 
 
@@ -15,7 +14,7 @@ public class Room extends Entity
 	private boolean medium = false;
 	private boolean large = false;
 	private Vector<Person> people = new Vector<Person>();
-	private LinkedList<String> closeWith = new LinkedList<String>();
+	private Vector<Room> closeWith = new Vector<Room>();
 
 /**
  * Constructor that takes a string and calls the constructor of the super class
@@ -156,9 +155,9 @@ public class Room extends Entity
  * @param Rname name of the person 
  * @param Rname2 name of the co worker
  */
-	void assertCloseWith(String Rname, String Rname2)
+	void assertCloseWith(String Rname, Room Rname2)
 	{
-		if ((Rname2.compareTo(Rname) != 0) && (!evaluateCloseWith(Rname, Rname2)))
+		if ((Rname2.getName().compareTo(Rname) != 0) && (!evaluateCloseWith(Rname, Rname2)))
 			closeWith.add(Rname2);
 	}
 	
@@ -169,7 +168,7 @@ public class Room extends Entity
 	 * @param Rname2
 	 * @return
 	 */
-	boolean evaluateCloseWith(String Rname, String Rname2)
+	boolean evaluateCloseWith(String Rname, Room Rname2)
 	{
 		if (getName().compareTo(Rname) == 0)
 		{
@@ -177,7 +176,7 @@ public class Room extends Entity
 			
 			for (int i = 0; i < size; i++)
 			{
-				if (closeWith.get(i).compareTo(Rname2) == 0)
+				if (closeWith.get(i).getName().compareTo(Rname2.getName()) == 0)
 						return true;
 			}
 			return false;
