@@ -8,10 +8,8 @@ public class Node {
 	private Vector<Assignment> data;
 	private Vector<Node> childern = new Vector<Node>();
 	
-	Node(){
-		
-		this.parent = null;
-		
+	Node(){	
+		this.parent = null;		
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -47,7 +45,4 @@ public class Node {
 	public void setChildern(Vector<Node> childern) {
 		this.childern = childern;
 	}
-
-	
-
 }

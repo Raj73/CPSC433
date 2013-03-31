@@ -87,37 +87,21 @@ public void createSolution(){
 	
 	for(int i = 0; i < groupHead.size(); i++){
 		person = groupHead.get(i);
-<<<<<<< .mine
 		person.setAssignedRoom();
 		room = assignHead(person);
-=======
-		person.setAssignRoom();
-		room = assignHead();
->>>>>>> .r99
 		Assignment a = new Assignment(room, person);
-<<<<<<< .mine
 		assign.addElement(a);
 		Node temp = new Node(a, assign);
 		temp.setParent(currentNode);
 		currentNode.addChild(temp);
 		currentNode = temp;
-=======
-		assign.addElement(a);
-		Node temp = new Node(a, assign);
-		temp.setParent(currentNode);
-		currentNode.addChild(temp);
-		
-		
-		
->>>>>>> .r99
 	}
 
 }
 
 
 //pop off the rooms from the vectors next time
-private Room assignHead(){
-	Person person;
+private Room assignHead(Person person){
 	Room candidate = null;
 	for(int i = 0; i < groupHead.size(); i++){
 		person = groupHead.get(i);
@@ -126,17 +110,21 @@ private Room assignHead(){
 				candidate = largeRooms.get(k);
 				for(int j = 0; j < candidate.getCloseWith().size(); j++){
 					if(candidate.getCloseWith().get(j).getPeople().isEmpty() || candidate.getCloseWith().get(j).getPeople().get(0).getHeadsGroup() == null){
+						largeRooms.removeElementAt(k);
 						return candidate;
 					}
 				}
 			}
 		}
 		else if(!smRooms.isEmpty()){
-			return smRooms.get(0);
+			candidate = smRooms.get(0);
+			smRooms.removeElementAt(0);
+			return candidate;
 		}
 		else{
-			return medRooms.get(0);
-		}
+			candidate = medRooms.get(0);
+			medRooms.removeElementAt(0);
+			return candidate;		}
 	}
 	return candidate;
 }
