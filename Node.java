@@ -19,7 +19,9 @@ public class Node {
 		this.current = asign;
 		this.data = (Vector<Assignment>) currentasign.clone();
 	}
-	
+	public void addChild(Node child){
+		childern.addElement(child);
+	}
 	public Node() {
 		// TODO Auto-generated constructor stub
 	}

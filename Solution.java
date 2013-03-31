@@ -7,7 +7,7 @@ public class Solution {
 private Environment env;
 private Vector<Person> people;
 private Vector<Room> rooms;
-private Vector<Assignment> assign;
+private Vector<Assignment> assign = new Vector<Assignment>();
 private Node Head = new Node();
 private Vector<Person> secretary;
 private Vector<Person> smoker;
@@ -83,39 +83,47 @@ public void createSolution(){
 	//a room then check the goodness
 	Room room;
 	Person person;
+	currentNode = Head;
 	
 	for(int i = 0; i < groupHead.size(); i++){
 		person = groupHead.get(i);
-		room = assignHead(person);
+		person.setAssignRoom();
+		room = assignHead();
 		Assignment a = new Assignment(room, person);
+		assign.addElement(a);
+		Node temp = new Node(a, assign);
+		temp.setParent(currentNode);
+		currentNode.addChild(temp);
+		
+		
+		
 	}
 
 }
 
 
 //pop off the rooms from the vectors next time
-private Room assignHead(Person person){
+private Room assignHead(){
+	Person person;
 	Room candidate = null;
-	if(!largeRooms.isEmpty()){
-		for(int k = 0; k < largeRooms.size(); k++){
-			candidate = largeRooms.get(k);
-			for(int j = 0; j < candidate.getCloseWith().size(); j++){
-				if(candidate.getCloseWith().get(j).getPeople().isEmpty() || candidate.getCloseWith().get(j).getPeople().get(0).getHeadsGroup() == null){
-					largeRooms.removeElementAt(k);
-					return candidate;
+	for(int i = 0; i < groupHead.size(); i++){
+		person = groupHead.get(i);
+		if(!largeRooms.isEmpty()){
+			for(int k = 0; k < largeRooms.size(); k++){
+				candidate = largeRooms.get(k);
+				for(int j = 0; j < candidate.getCloseWith().size(); j++){
+					if(candidate.getCloseWith().get(j).getPeople().isEmpty() || candidate.getCloseWith().get(j).getPeople().get(0).getHeadsGroup() == null){
+						return candidate;
+					}
 				}
 			}
 		}
-	}
-	else if(!smRooms.isEmpty()){
-		candidate = smRooms.get(0);
-		smRooms.removeElementAt(0);
-		return candidate;
-	}
-	else{
-		candidate = medRooms.get(0);
-		medRooms.removeElementAt(0);
-		return candidate;
+		else if(!smRooms.isEmpty()){
+			return smRooms.get(0);
+		}
+		else{
+			return medRooms.get(0);
+		}
 	}
 	return candidate;
 }
