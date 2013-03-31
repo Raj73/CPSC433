@@ -20,6 +20,10 @@ public class Node {
 		this.data = (Vector<Assignment>) currentasign.clone();
 	}
 	
+	public Node() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public Node getParent() {
 		return parent;
 	}
