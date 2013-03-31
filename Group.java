@@ -33,6 +33,9 @@ public class Group extends Entity
 	void removePerson(Person p){
 		people.removeElement(p);
 	}
+	void romoveHead(Person p){
+		heads.remove(p);
+	}
 	
 	boolean evaluateGroup(String Gname)
 	{
