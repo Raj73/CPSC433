@@ -22,9 +22,6 @@ public class Node {
 	public void addChild(Node child){
 		childern.addElement(child);
 	}
-	public Node() {
-		// TODO Auto-generated constructor stub
-	}
 
 	public Node getParent() {
 		return parent;
@@ -50,5 +47,7 @@ public class Node {
 	public void setChildern(Vector<Node> childern) {
 		this.childern = childern;
 	}
+
+	
 
 }

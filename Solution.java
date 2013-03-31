@@ -87,9 +87,21 @@ public void createSolution(){
 	
 	for(int i = 0; i < groupHead.size(); i++){
 		person = groupHead.get(i);
+<<<<<<< .mine
+		person.setAssignedRoom();
+		room = assignHead(person);
+=======
 		person.setAssignRoom();
 		room = assignHead();
+>>>>>>> .r99
 		Assignment a = new Assignment(room, person);
+<<<<<<< .mine
+		assign.addElement(a);
+		Node temp = new Node(a, assign);
+		temp.setParent(currentNode);
+		currentNode.addChild(temp);
+		currentNode = temp;
+=======
 		assign.addElement(a);
 		Node temp = new Node(a, assign);
 		temp.setParent(currentNode);
@@ -97,6 +109,7 @@ public void createSolution(){
 		
 		
 		
+>>>>>>> .r99
 	}
 
 }
@@ -255,7 +268,7 @@ public String hardConstraints(){
 		if(env.getMyPeople().get(i).getAssignedRoom() == null){
 			constraint1 = false;
 		}
-		if(env.getMyPeople().get(i).getAssigned() > 1){
+		if(!env.getMyPeople().get(i).getAssigned()){
 			constraint2 = false;
 		}
 		if(env.getMyPeople().get(i).getManager() ||env.getMyPeople().get(i).getHeadsGroup() != null || env.getMyPeople().get(i).getHeadsProject() != null){
