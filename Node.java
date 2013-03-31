@@ -8,6 +8,12 @@ public class Node {
 	private Vector<Assignment> data;
 	private Vector<Node> childern = new Vector<Node>();
 	
+	Node(){
+		
+		this.parent = null;
+		
+	}
+	
 	@SuppressWarnings("unchecked")
 	Node(Assignment asign, Vector<Assignment> currentasign){
 		this.current = asign;
