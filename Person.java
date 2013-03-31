@@ -9,7 +9,7 @@ public class Person extends Entity
 	private boolean manager;
 	private boolean smoker;
 	private boolean hacker;
-	private int assigned = 0;					//how many rooms person is assgned
+	private boolean assigned = false;					//how many rooms person is assgned
 	private Group group;
 	private Project project;
 	private Group headsGroup;
@@ -195,19 +195,16 @@ public class Person extends Entity
 		return false;
 	}
 	
-	void assertAssignedRoom(String Ename, String Rname)
-	{
-		if (getName().compareTo(Ename) == 0)
-			assignedRoom = Rname;
-		assigned++;
-	}
-	
 	boolean evaluateAssignedRoom(String Ename, String Rname)
 	{
 		if ((getName().compareTo(Ename) == 0) && (assignedRoom.compareTo(Rname) == 0))
 			return true;
 		
 		return false;
+	}
+	
+	void setAssignedRoom(){
+		assigned = true;
 	}
 	
 	boolean getResearcher(){
@@ -230,7 +227,7 @@ public class Person extends Entity
 		return hacker;
 	}
 	
-	int getAssigned(){
+	boolean getAssigned(){
 		return assigned;
 	}
 	
