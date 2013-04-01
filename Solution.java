@@ -348,7 +348,7 @@ public void goodness(Node currentNode)
 	{
 		for(int j = 0; j < room.getCloseWith().size(); j++)
 		{
-			if(currentNode.getData().get(i).getRoom().evaluateRoom(room.getCloseWith().get(j).getName()))
+			if(currentNode.getData().get(i) != null && currentNode.getData().get(i).getRoom().evaluateRoom(room.getCloseWith().get(j).getName()))
 				closeRooms.addElement(i);
 		}
 	}
@@ -532,6 +532,7 @@ public void goodness(Node currentNode)
 		}
 	}
 	
+	}
 	// C 13 may reciprocate?
 	
 	if (person2 != null)
