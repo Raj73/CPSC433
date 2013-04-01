@@ -116,6 +116,8 @@ public void createSolution(){
 		bestNode = currentNode.getChildern().get(0);
 		while(bestNode == null){												//take the alt path since node has no children
 			currentNode = currentNode.getParent();
+			assign = currentNode.getData();
+			people = currentNode.getCurrentPeople();
 			for(int i = 0; i < currentNode.getChildern().size(); i++){
 				if(currentNode.getChildern().get(i).isTraveled()){
 					currentNode.getChildern().removeElementAt(i);
