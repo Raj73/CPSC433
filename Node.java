@@ -34,6 +34,10 @@ public class Node {
 	public void setTraveled() {
 		this.traveled = true;
 	}
+	public Vector<Person> getCurrentPeople() {
+		return currentPeople;
+	}
+
 	public boolean isTraveled() {
 		return traveled;
 	}
