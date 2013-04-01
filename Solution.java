@@ -354,7 +354,7 @@ public void goodness(Node currentNode)
 	{
 		if (!room.getLarge())
 		{
-			penalty = penalty - 40;
+			penalty = penalty - 40;	//c1
 		}
 		
 		int membersCloseToo = 0;
@@ -363,57 +363,101 @@ public void goodness(Node currentNode)
 		{
 			if (person1.getGroup().evaluateGroup(currentNode.getData().get(closeRooms.get(i)).getPerson1().getGroup().getName()))
 				membersCloseToo++;
-			if (person1.getGroup().evaluateGroup(currentNode.getData().get(closeRooms.get(i)).getPerson2().getGroup().getName()))
-				membersCloseToo++;
+			if (currentNode.getData().get(closeRooms.get(i)).getPerson2() != null)
+			{
+				if (person1.getGroup().evaluateGroup(currentNode.getData().get(closeRooms.get(i)).getPerson2().getGroup().getName()))
+					membersCloseToo++;
+			}
 		}
 		
-		penalty = penalty - ((person1.getGroup().getPeople().size() - membersCloseToo) * 2);
+		penalty = penalty - ((person1.getGroup().getPeople().size() - membersCloseToo) * 2);	//c2
 		
 		
 		for (int i = 0; i < closeRooms.size(); i++)
 		{
 			if (currentNode.getData().get(closeRooms.get(i)).getPerson1().getSecratary() && currentNode.getData().get(closeRooms.get(i)).getPerson1().getGroup().evaluateGroup(person1.getGroup().getName()))
-					{
-				penalty = penalty - 30;
-				break;
-					}
-			
-			if (currentNode.getData().get(closeRooms.get(i)).getPerson2().getSecratary())
 			{
-				penalty = penalty - 30;
+				penalty = penalty - 30;	//c3
 				break;
+			}
+			
+			if (currentNode.getData().get(closeRooms.get(i)).getPerson2() != null)
+			{
+				else if (currentNode.getData().get(closeRooms.get(i)).getPerson2().getSecratary() && currentNode.getData().get(closeRooms.get(i)).getPerson2().getGroup().evaluateGroup(person1.getGroup().getName()))
+				{
+					penalty = penalty - 30;	//c3
+					break;
+				}
 			}
 		}
 	}
 	
 	if (person1.getHeadsProject() != null)
 	{
-		//c8 c9 c10
 		int membersCloseToo = 0;
 		
 		for (int i = 0; i < closeRooms.size(); i++)
 		{
 			if (person1.getProject().evaluateProject(currentNode.getData().get(closeRooms.get(i)).getPerson1().getProject().getName()))
 				membersCloseToo++;
-			if (person1.getProject().evaluateProject(currentNode.getData().get(closeRooms.get(i)).getPerson2().getProject().getName()))
-				membersCloseToo++;
+				
+			if (currentNode.getData().get(closeRooms.get(i)).getPerson2() != null)
+			{
+				if (person1.getProject().evaluateProject(currentNode.getData().get(closeRooms.get(i)).getPerson2().getProject().getName()))
+					membersCloseToo++;
+			}
 		}
 		
-		penalty = penalty - ((person1.getGroup().getPeople().size() - membersCloseToo) * 2);
+		penalty = penalty - ((person1.getProject().getPeople().size() - membersCloseToo) * 2); //c8
 		
-		for (int i = 0; i < closeRooms.size(); i++)
+		if (person1.getProject().isLarge())
 		{
-			if (currentNode.getData().get(closeRooms.get(i)).getPerson1().getSecratary() || currentNode.getData().get(closeRooms.get(i)).getPerson2().getSecratary())
+			for (int i = 0; i < closeRooms.size(); i++)
 			{
-				penalty = penalty - 30;
-				break;
+				if (currentNode.getData().get(closeRooms.get(i)).getPerson1().getSecratary() && currentNode.getData().get(closeRooms.get(i)).getPerson1().getProject().evaluateProject(person1.getProject().getName()))
+				{
+					penalty = penalty - 30;	//c9
+					break;
+				}
+				
+				if (currentNode.getData().get(closeRooms.get(i)).getPerson2() != null)
+				{
+					else if (currentNode.getData().get(closeRooms.get(i)).getPerson2().getSecratary() && currentNode.getData().get(closeRooms.get(i)).getPerson2().getProject().evaluateProject(person1.getProject().getName()))
+					{
+						penalty = penalty - 30;	//c9
+						break;
+					}
+				}
+			}
+			
+			for (int i = 0; i < closeRooms.size(); i++)
+			{
+				if (currentNode.getData().get(closeRooms.get(i)).getPerson1().getHeadsGroup() != null && currentNode.getData().get(closeRooms.get(i)).getPerson1().getHeadsGroup().evaluateGroup(person1.getGroup().getName()))
+				{
+					penalty = penalty - 10;	//c10
+					break;
+				}
 			}
 		}
 	}
 	
-	if (person1.getSecratary() || person2.getSecratary())
+	if (person1.getSecratary())
 	{
-		//c4 c13
+		if (Person2 != null)
+		{
+			if (!person2.getSecratary())
+			{
+				penalty = penalty - 5;	//c4
+			}
+		}
+	}
+	
+	else if (Person2 != null)
+	{
+		if (!person1.getSecratary() && person2.getSecratary())
+		{
+			penalty = penalty - 5;	//c4
+		}
 	}
 	
 	if (person1.getManager())
@@ -423,31 +467,40 @@ public void goodness(Node currentNode)
 	
 	if (person1.getSmoker())
 	{
-		if (!person2.getSmoker())
+		if (Person2 != null)
+		{
+			if (!person2.getSmoker())
+			{
+				penalty = penalty - 50;
+			}
+		}
+	}
+	
+	else if (!person1.getSmoker() && Person2 != null)
+	{
+		if (person2.getSmoker())
 		{
 			penalty = penalty - 50;
 		}
-	}
-	
-	else if (person2.getSmoker())
-	{
-		penalty = penalty - 50;
-	}
 	
 	// C 13 may reciprocate?
-	if (!person1.getSecratary() && !person2.getSecratary())
+	
+	if (Person2 != null)
 	{
-		if (person1.getHacker())
+		if (!person1.getSecratary() && !person2.getSecratary())
 		{
-			if (!person2.getHacker())
+			if (person1.getHacker())
+			{
+				if (!person2.getHacker())
+				{
+					penalty = penalty - 2;
+				}
+			}
+			
+			else if (person2.getHacker())
 			{
 				penalty = penalty - 2;
 			}
-		}
-		
-		else if (person2.getHacker())
-		{
-			penalty = penalty - 2;
 		}
 	}
 	
