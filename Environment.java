@@ -555,10 +555,24 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 		while((newGroup <groupNames.size()) && !groupNames.get(newGroup).evaluateGroup(grp)){
 			newGroup++;
 		}
-		if (newGroup == groupNames.size()){
-			groupNames.addElement(new Group(grp));
-			if(person.getHeadsGroup() == null){
-				groupNames.get(newGroup).addPerson(person);
+		if (newGroup == groupNames.size()){							//the group doesnt exist yet
+			groupNames.addElement(new Group(grp));					//make new group
+			if(person.getHeadsGroup() == null){						//person isnt a group head of anything yet
+				groupNames.get(newGroup).addHead(person);			//add person as the head of the group
+			}
+			else{													//remove person from old group and add into new group
+				oldGroup = person.getHeadsGroup().getName();
+				int old = 0;
+				while((old <groupNames.size()) && !groupNames.get(old).evaluateGroup(grp)){
+					old++;
+				}
+				groupNames.get(old).removeHead(person);
+				groupNames.get(newGroup).addHead(person);
+			}
+		}
+		else{														//group already exists
+			if(person.getHeadsGroup() == null){						//person not head of any group yet	
+				groupNames.get(newGroup).addHead(person);
 			}
 			else{
 				oldGroup = person.getHeadsGroup().getName();
@@ -566,25 +580,10 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 				while((old <groupNames.size()) && !groupNames.get(old).evaluateGroup(grp)){
 					old++;
 				}
-				groupNames.get(old).removePerson(person);
-				groupNames.get(newGroup).addPerson(person);  
+				groupNames.get(old).removeHead(person);
+				groupNames.get(newGroup).addHead(person);
 			}
 		}
-		else{
-			if(person.getHeadsGroup() == null){
-				groupNames.get(newGroup).addPerson(person);
-			}
-			else{
-				oldGroup = person.getHeadsGroup().getName();
-				int old = 0;
-				while((old <groupNames.size()) && !groupNames.get(old).evaluateGroup(grp)){
-					old++;
-				}
-				groupNames.get(old).removePerson(person);
-				groupNames.get(newGroup).addPerson(person);
-			}
-		}
-		person.assertInGroup(p, groupNames.get(newGroup));
 		person.assertHeadsGroup(p, groupNames.get(newGroup));
 		grouphead.addElement(person);
 	}

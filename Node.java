@@ -5,6 +5,7 @@ import java.util.Vector;
 public class Node {
 	private Node parent;
 	private Assignment current;
+	private Vector<Person> currentPeople;
 	private Vector<Assignment> data;
 	private Vector<Node> childern = new Vector<Node>();
 	
@@ -13,9 +14,10 @@ public class Node {
 	}
 	
 	@SuppressWarnings("unchecked")
-	Node(Assignment asign, Vector<Assignment> currentasign){
+	Node(Assignment asign, Vector<Assignment> currentasign, Vector<Person> people){
 		this.current = asign;
-		this.data = (Vector<Assignment>) currentasign.clone();
+		this.data = (Vector<Assignment>)currentasign.clone();
+		this.currentPeople = (Vector<Person>)people.clone();
 	}
 	public void addChild(Node child){
 		childern.addElement(child);

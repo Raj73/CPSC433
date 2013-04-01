@@ -84,10 +84,22 @@ public void createSolution(){
 	Room room;
 	Person person;
 	currentNode = Head;
+
+	while(!people.isEmpty()){
+		Person p = people.get(0);
+		for(int j = 0; j < rooms.size(); j++){
+			Assignment a = new Assignment(rooms.get(j), p);
+			goodness(a);
+			Node temp = new Node(a, assign, people);
+			temp.setParent(currentNode);
+			currentNode.addChild(temp);
+		}
+		
+	}
 	
-	for(int i = 0; i < groupHead.size(); i++){
+	
+/*	for(int i = 0; i < groupHead.size(); i++){
 		person = groupHead.get(i);
-		person.setAssignedRoom();
 		room = assignHead(person);
 		Assignment a = new Assignment(room, person);
 		assign.addElement(a);
@@ -95,36 +107,81 @@ public void createSolution(){
 		temp.setParent(currentNode);
 		currentNode.addChild(temp);
 		currentNode = temp;
+		person.setAssignedRoom();
 	}
+	for(int i = 0; i < projectHead.size(); i++){
+		person = projectHead.get(i);
+		if(!person.getAssigned()){
+			room = assignProjectHead(person);
+			Assignment a = new Assignment(room, person);
+			assign.addElement(a);
+			Node temp = new Node(a, assign);
+			temp.setParent(currentNode);
+			currentNode.addChild(temp);
+			currentNode = temp;
+			person.setAssignedRoom();
+		}
+	}
+*/
+	
 
 }
-
+/**
+ * 
+ * 
+ * @param person
+ * @return
+ */
+private Room assignProjectHead(Person person){
+	Room candidate = null;
+	if(person.getHeadsProject().isLarge()){
+		Group g = person.getGroup();
+			for(int i = 0; i < assign.size(); i++){
+				Person p = assign.get(i).getPerson1();
+				Room r;
+				if(p.getHeadsGroup().equals(g)){
+					r = assign.get(i).getRoom();
+					
+				}
+			}
+	}
+	
+	
+	if(!smRooms.isEmpty()){
+		candidate = smRooms.get(0);
+		smRooms.removeElementAt(0);
+		return candidate;
+	}
+	else if(!){
+		
+	}
+	
+	return candidate;
+}
 
 //pop off the rooms from the vectors next time
 private Room assignHead(Person person){
 	Room candidate = null;
-	for(int i = 0; i < groupHead.size(); i++){
-		person = groupHead.get(i);
-		if(!largeRooms.isEmpty()){
-			for(int k = 0; k < largeRooms.size(); k++){
-				candidate = largeRooms.get(k);
-				for(int j = 0; j < candidate.getCloseWith().size(); j++){
-					if(candidate.getCloseWith().get(j).getPeople().isEmpty() || candidate.getCloseWith().get(j).getPeople().get(0).getHeadsGroup() == null){
-						largeRooms.removeElementAt(k);
-						return candidate;
-					}
+	if(!largeRooms.isEmpty()){
+		for(int k = 0; k < largeRooms.size(); k++){
+			candidate = largeRooms.get(k);
+			for(int j = 0; j < candidate.getCloseWith().size(); j++){
+				if(candidate.getCloseWith().get(j).getPeople().isEmpty() || candidate.getCloseWith().get(j).getPeople().get(0).getHeadsGroup() == null){
+					largeRooms.removeElementAt(k);
+					return candidate;
 				}
 			}
 		}
-		else if(!smRooms.isEmpty()){
-			candidate = smRooms.get(0);
-			smRooms.removeElementAt(0);
-			return candidate;
-		}
-		else{
-			candidate = medRooms.get(0);
-			medRooms.removeElementAt(0);
-			return candidate;		}
+	}
+	else if(!smRooms.isEmpty()){
+		candidate = smRooms.get(0);
+		smRooms.removeElementAt(0);
+		return candidate;
+	}
+	else{
+		candidate = medRooms.get(0);
+		medRooms.removeElementAt(0);
+		return candidate;		
 	}
 	return candidate;
 }

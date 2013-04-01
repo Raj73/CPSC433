@@ -10,16 +10,12 @@ public class Group extends Entity
 		return people;
 	}
 
-	public void setPeople(Vector<Person> people) {
-		this.people = people;
-	}
-
 	public Vector<Person> getHeads() {
 		return heads;
 	}
 
-	public void setHeads(Vector<Person> heads) {
-		this.heads = heads;
+	public void addHead(Person head) {
+		heads.addElement(head);
 	}
 
 	Group(String name){
@@ -33,7 +29,7 @@ public class Group extends Entity
 	void removePerson(Person p){
 		people.removeElement(p);
 	}
-	void romoveHead(Person p){
+	void removeHead(Person p){
 		heads.remove(p);
 	}
 	

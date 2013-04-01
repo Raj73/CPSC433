@@ -31,11 +31,6 @@ public class Room extends Entity
 		medium = room.getMedium();
 		large = room.getLarge();
 		people = room.getPeople();
-		
-		
-		
-		
-		
 	}
 
 	public boolean getSmall()

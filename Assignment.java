@@ -7,7 +7,7 @@ public class Assignment
 	private Room room;
 	private Person person1;
 	private Person person2;
-
+	private int goodness;
 	
 	Assignment(){
 		room =null;
