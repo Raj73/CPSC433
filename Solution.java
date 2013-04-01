@@ -85,6 +85,7 @@ public void createSolution(){
 	Person person;
 	currentNode = Head;
 	Node bestNode = Head;
+	int backedout = 0;
 
 	for(int j = 0; j < rooms.size(); j++){
 		Assignment a = new Assignment(rooms.get(j));
@@ -113,14 +114,22 @@ public void createSolution(){
 				currentNode.addChild(temp);
 			}
 		}
-		bestNode = currentNode.getChildern().get(0);
+		if(currentNode.getChildern().size() == 0){
+			bestNode = null;
+			backedout++;
+			
+		}
+		else{
+			bestNode = currentNode.getChildern().get(0);
+		}
 		while(bestNode == null){												//take the alt path since node has no children
 			currentNode = currentNode.getParent();
-			assign = currentNode.getData();
+			System.out.println("alt");
 			people = currentNode.getCurrentPeople();
 			for(int i = 0; i < currentNode.getChildern().size(); i++){
 				if(currentNode.getChildern().get(i).isTraveled()){
 					currentNode.getChildern().removeElementAt(i);
+					break;
 				}
 			}
 			bestNode = currentNode.getChildern().get(0);
@@ -139,7 +148,18 @@ public void createSolution(){
 		currentNode = bestNode;
 		currentNode.setTraveled();
 		people.removeElementAt(0);
+		//System.out.println(currentNode.getCurrent().toString());
 		System.out.println("people left: " + people.size());
+		for(int i=0;i<currentNode.getData().size();i++){
+			System.out.println(currentNode.getData().get(i).toString());
+		}
+		System.out.println("current assign \n"+ currentNode.getCurrent().toString());
+		System.out.println("-------------");
+		System.out.println("backed out: " + backedout);
+		for(int i=0;i<people.size();i++){
+			System.out.println(people.get(i).getName());
+		}
+		
 	}
 	
 	
@@ -348,7 +368,7 @@ public void goodness(Node currentNode)
 	{
 		for(int j = 0; j < room.getCloseWith().size(); j++)
 		{
-			if(currentNode.getData().get(i) != null && currentNode.getData().get(i).getRoom().evaluateRoom(room.getCloseWith().get(j).getName()))
+			if(currentNode.getData().get(i).getPerson1() != null && currentNode.getData().get(i).getRoom().evaluateRoom(room.getCloseWith().get(j).getName()))
 				closeRooms.addElement(i);
 		}
 	}
@@ -364,9 +384,9 @@ public void goodness(Node currentNode)
 		
 		for (int i = 0; i < closeRooms.size(); i++)
 		{
-			System.out.println(person1.getName());
-			System.out.println(person1.getGroup().getName());
-			System.out.println(currentNode.getData().get(closeRooms.get(i)).getRoom().getName());
+//			System.out.println(person1.getName());
+//			System.out.println(person1.getGroup().getName());
+//			System.out.println(currentNode.getData().get(closeRooms.get(i)).getRoom().getName());
 
 			if (person1.getGroup().evaluateGroup(currentNode.getData().get(closeRooms.get(i)).getPerson1().getGroup().getName()))
 				membersCloseToo++;
@@ -405,10 +425,12 @@ public void goodness(Node currentNode)
 		
 		for (int i = 0; i < closeRooms.size(); i++)
 		{
-			if (person1.getProject().evaluateProject(currentNode.getData().get(closeRooms.get(i)).getPerson1().getProject().getName()))
-				membersCloseToo++;
+			if(currentNode.getData().get(closeRooms.get(i)).getPerson1().getProject()!= null){
+				if (person1.getProject().evaluateProject(currentNode.getData().get(closeRooms.get(i)).getPerson1().getProject().getName()))
+					membersCloseToo++;
+			}
 				
-			if (currentNode.getData().get(closeRooms.get(i)).getPerson2() != null)
+			if (currentNode.getData().get(closeRooms.get(i)).getPerson2() != null && currentNode.getData().get(closeRooms.get(i)).getPerson2().getProject()!= null)
 			{
 				if (person1.getProject().evaluateProject(currentNode.getData().get(closeRooms.get(i)).getPerson2().getProject().getName()))
 					membersCloseToo++;
@@ -532,7 +554,6 @@ public void goodness(Node currentNode)
 		}
 	}
 	
-	}
 	// C 13 may reciprocate?
 	
 	if (person2 != null)
