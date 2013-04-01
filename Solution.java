@@ -84,17 +84,56 @@ public void createSolution(){
 	Room room;
 	Person person;
 	currentNode = Head;
+	Node bestNode = Head;
 
-	while(!people.isEmpty()){
+	for(int j = 0; j < rooms.size(); j++){
+		Assignment a = new Assignment(rooms.get(j));
+		assign.addElement(a);
+	}
+	
+	while(!people.isEmpty()){								//loops  until all people have been assigned to a room
 		Person p = people.get(0);
-		for(int j = 0; j < rooms.size(); j++){
-			Assignment a = new Assignment(rooms.get(j), p);
-			goodness(a);
-			Node temp = new Node(a, assign, people);
-			temp.setParent(currentNode);
-			currentNode.addChild(temp);
+		for(int i = 0; i < assign.size(); i++){
+			if(p.getHeadsGroup() != null || p.getHeadsProject() != null || p.getManager()){
+				if(assign.get(i).getPerson1() == null){
+					Assignment a = new Assignment(assign.get(i));
+					Node temp = new Node(a, assign, people);
+					temp.setParent(currentNode);
+					goodness(temp);
+					currentNode.addChild(temp);
+				}
+			}
+			else if(!assign.get(i).getisHead()&& assign.get(i).getPerson2() == null){
+				Assignment a = new Assignment(assign.get(i));
+				Node temp = new Node(assign.get(i), assign, people);
+				temp.setParent(currentNode);
+				goodness(temp);
+				currentNode.addChild(temp);	
+			}
 		}
-		
+		bestNode = currentNode.getChildern().get(0);
+		if(bestNode != null){												//take the alt path since node has no children
+			currentNode = currentNode.getParent();
+			for(int i = 0; i < currentNode.getChildern().size(); i++){
+				if(currentNode.getChildern().get(i).getTraveled()){
+					currentNode.getChildern().removeElementAt(i);
+				}
+			}
+		}
+		for(int i = 1; i < currentNode.getChildern().size(); i++){
+			if(bestNode.getGoodness() < currentNode.getChildern().get(i).getGoodness() && !currentNode.getChildern().get(i).getTraveled()){
+				bestNode = currentNode.getChildern().get(i);
+			}
+		}
+		for(int i = 0; i < assign.size(); i++){
+			if(assign.get(i).getRoom().equals(bestNode.getCurrent().getRoom())){
+				assign.set(i, bestNode.getCurrent());
+				break;
+			}
+		}
+		currentNode = bestNode;
+		currentNode.setTraveled();
+		people.removeElement(0);
 	}
 	
 	
@@ -124,8 +163,8 @@ public void createSolution(){
 	}
 */
 	
-
 }
+
 /**
  * 
  * 
