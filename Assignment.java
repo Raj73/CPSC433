@@ -7,12 +7,20 @@ public class Assignment
 	private Room room;
 	private Person person1;
 	private Person person2;
-	private int goodness;
+	private	boolean head = false;
+
 	
 	Assignment(){
 		room =null;
 		person1 =null;
 		person2 = null;
+		
+	}
+	Assignment(Assignment anassigment){
+		this.room = anassigment.getRoom();
+		this.person1 = anassigment.getPerson1();
+		this.person2 = anassigment.getPerson2();
+		
 		
 	}
 	Assignment(Room aroom){
@@ -27,6 +35,7 @@ public class Assignment
 		person1 = person;
 	}
 	
+
 	public void setRoom(Room r)
 	{
 		room = r;
@@ -53,9 +62,24 @@ public class Assignment
 	{
 		person2 = p;
 	}
+	public void assertPerson(Person p){
+		if(person1 == null){
+			person1 = p;
+			if((p.getHeadsGroup() != null )|| (p.getHeadsProject() != null )|| p.getManager())
+				head = true;
+				
+		}
+		else{
+			
+			person2 = p;
+		}
+	}
 	
 	public Person getPerson2()
 	{
 		return person2;
+	}
+	public boolean isHead() {
+		return head;
 	}
 }

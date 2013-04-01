@@ -5,10 +5,14 @@ import java.util.Vector;
 public class Node {
 	private Node parent;
 	private Assignment current;
-	private Vector<Person> currentPeople;
-	private Vector<Assignment> data;
+	private Vector<Person> currentPeople = new Vector<Person>();
+	private Vector<Assignment> data = new Vector<Assignment>();
 	private Vector<Node> childern = new Vector<Node>();
+	private int goodness;
+	private boolean traveled = false;
 	
+	
+
 	Node(){	
 		this.parent = null;		
 	}
@@ -16,8 +20,26 @@ public class Node {
 	@SuppressWarnings("unchecked")
 	Node(Assignment asign, Vector<Assignment> currentasign, Vector<Person> people){
 		this.current = asign;
-		this.data = (Vector<Assignment>)currentasign.clone();
-		this.currentPeople = (Vector<Person>)people.clone();
+		for(int i = 0; i < currentasign.size(); i++){			
+			data.addElement(new Assignment(currentasign.get(i)));
+		}
+		for(int i = 0; i < people.size(); i++){			
+			currentPeople.addElement(people.get(i));
+		}
+		
+	}
+	public int getGoodness() {
+		return goodness;
+	}
+	public void setTraveled() {
+		this.traveled = true;
+	}
+	public boolean isTraveled() {
+		return traveled;
+	}
+
+	public void setGoodness(int goodness) {
+		this.goodness = goodness;
 	}
 	public void addChild(Node child){
 		childern.addElement(child);
