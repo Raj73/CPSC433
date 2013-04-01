@@ -97,6 +97,7 @@ public void createSolution(){
 			if(p.getHeadsGroup() != null || p.getHeadsProject() != null || p.getManager()){
 				if(assign.get(i).getPerson1() == null){
 					Assignment a = new Assignment(assign.get(i));
+					a.assertPerson(p);
 					Node temp = new Node(a, assign, people);
 					temp.setParent(currentNode);
 					goodness(temp);
@@ -105,20 +106,22 @@ public void createSolution(){
 			}
 			else if(!assign.get(i).isHead()&& assign.get(i).getPerson2() == null){
 				Assignment a = new Assignment(assign.get(i));
-				Node temp = new Node(assign.get(i), assign, people);
+				a.assertPerson(p);
+				Node temp = new Node(a, assign, people);
 				temp.setParent(currentNode);
 				goodness(temp);
 				currentNode.addChild(temp);
 			}
 		}
 		bestNode = currentNode.getChildern().get(0);
-		if(bestNode != null){												//take the alt path since node has no children
+		while(bestNode == null){												//take the alt path since node has no children
 			currentNode = currentNode.getParent();
 			for(int i = 0; i < currentNode.getChildern().size(); i++){
 				if(currentNode.getChildern().get(i).isTraveled()){
 					currentNode.getChildern().removeElementAt(i);
 				}
 			}
+			bestNode = currentNode.getChildern().get(0);
 		}
 		for(int i = 1; i < currentNode.getChildern().size(); i++){
 			if(bestNode.getGoodness() < currentNode.getChildern().get(i).getGoodness() && !currentNode.getChildern().get(i).isTraveled()){
@@ -474,6 +477,8 @@ public void goodness(Node currentNode)
 			penalty = penalty - 25;
 		}
 	}
+	
+	currentNode.setGoodness(penalty);
 }
 
 public String hardConstraints(){
@@ -526,4 +531,8 @@ public String hardConstraints(){
 		result = result + "Hard constraint 4 was not met \n";
 	return result;
 }
+public Node getSolution(){
+	return currentNode;
+}
+
 }

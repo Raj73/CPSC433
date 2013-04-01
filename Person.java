@@ -4,11 +4,11 @@ import java.util.Vector;
 public class Person extends Entity
 {
 	// Person qualities
-	private boolean secretary;
-	private boolean researcher;
-	private boolean manager;
-	private boolean smoker;
-	private boolean hacker;
+	private boolean secretary = false;
+	private boolean researcher = false;
+	private boolean manager = false;
+	private boolean smoker = false;
+	private boolean hacker = false;
 	private boolean assigned = false;					//how many rooms person is assgned
 	private Group group;
 	private Project project;
@@ -16,6 +16,7 @@ public class Person extends Entity
 	private Project headsProject;
 	private String assignedRoom = null;
 	private Vector<Person> worksWith = new Vector<Person>();
+	private int roomsAssigned = 0;
 	
 	// Room qualities
 	
@@ -49,6 +50,13 @@ public class Person extends Entity
 			return true;
 		
 		return false;
+	}
+	
+	void assertAssignedRoom(String Ename, String Rname)
+	{
+		if (getName().compareTo(Ename) == 0)
+	    assignedRoom = Rname;
+	    roomsAssigned++;
 	}
 	
 	// Researcher asserts and qeuries

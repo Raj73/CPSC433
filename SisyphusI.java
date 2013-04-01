@@ -25,7 +25,14 @@ public class SisyphusI {
 		if (args.length>0) {
 			fileName = args[0];
 			env.fromFile(fileName);
-			System.out.println(new Solution(env).hardConstraints());
+			s.createSolution();
+			Node n = s.getSolution();
+			System.out.println("Assignments--------");
+			for(int i = 0; i < n.getData().size(); i++){
+				System.out.println(n.getData().get(i).toString());
+			}
+//			System.out.println(new Solution(env).hardConstraints());
+			
 		}
 //		else{
 //			System.out.println("Please enter a valid file name");
