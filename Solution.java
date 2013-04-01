@@ -103,19 +103,19 @@ public void createSolution(){
 					currentNode.addChild(temp);
 				}
 			}
-			else if(!assign.get(i).getisHead()&& assign.get(i).getPerson2() == null){
+			else if(!assign.get(i).isHead()&& assign.get(i).getPerson2() == null){
 				Assignment a = new Assignment(assign.get(i));
 				Node temp = new Node(assign.get(i), assign, people);
 				temp.setParent(currentNode);
 				goodness(temp);
-				currentNode.addChild(temp);	
+				currentNode.addChild(temp);
 			}
 		}
 		bestNode = currentNode.getChildern().get(0);
 		if(bestNode != null){												//take the alt path since node has no children
 			currentNode = currentNode.getParent();
 			for(int i = 0; i < currentNode.getChildern().size(); i++){
-				if(currentNode.getChildern().get(i).getTraveled()){
+				if(currentNode.getChildern().get(i).isTraveled()){
 					currentNode.getChildern().removeElementAt(i);
 				}
 			}
