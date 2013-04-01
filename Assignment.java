@@ -82,4 +82,20 @@ public class Assignment
 	public boolean isHead() {
 		return head;
 	}
+	public String toString(){
+		String mystring = "";
+		if(person1 != null){
+			mystring += String.format("assign-to(%s, %s)",person1.getName(),room.getName());
+
+		
+		}
+		if(person2 !=null){
+			mystring += "\n";
+			mystring  += String.format("assign-to(%s, %s)",person2.getName(),room.getName());
+		}
+		
+		
+		return mystring;
+		
+	}
 }
