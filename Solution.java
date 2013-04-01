@@ -138,7 +138,8 @@ public void createSolution(){
 		}
 		currentNode = bestNode;
 		currentNode.setTraveled();
-		people.removeElement(0);
+		people.removeElementAt(0);
+		System.out.println("people left: " + people.size());
 	}
 	
 	
@@ -363,6 +364,10 @@ public void goodness(Node currentNode)
 		
 		for (int i = 0; i < closeRooms.size(); i++)
 		{
+			System.out.println(person1.getName());
+			System.out.println(person1.getGroup().getName());
+			System.out.println(currentNode.getData().get(closeRooms.get(i)).getRoom().getName());
+
 			if (person1.getGroup().evaluateGroup(currentNode.getData().get(closeRooms.get(i)).getPerson1().getGroup().getName()))
 				membersCloseToo++;
 			if (currentNode.getData().get(closeRooms.get(i)).getPerson2() != null)
@@ -410,7 +415,7 @@ public void goodness(Node currentNode)
 			}
 		}
 		
-		penalty = penalty - ((person1.getProject().getPeople().size() - membersCloseToo) * 2); //c8
+		penalty = penalty - ((person1.getProject().getProjectMembers().size() - membersCloseToo) * 2); //c8
 		
 		if (person1.getProject().isLarge())
 		{
@@ -445,7 +450,7 @@ public void goodness(Node currentNode)
 	
 	if (person1.getSecratary())
 	{
-		if (Person2 != null)
+		if (person2 != null)
 		{
 			if (!person2.getSecratary())
 			{
@@ -454,7 +459,7 @@ public void goodness(Node currentNode)
 		}
 	}
 	
-	else if (Person2 != null)
+	else if (person2 != null)
 	{
 		if (!person1.getSecratary() && person2.getSecratary())
 		{
@@ -510,7 +515,7 @@ public void goodness(Node currentNode)
 	
 	if (person1.getSmoker())
 	{
-		if (Person2 != null)
+		if (person2 != null)
 		{
 			if (!person2.getSmoker())
 			{
@@ -519,16 +524,17 @@ public void goodness(Node currentNode)
 		}
 	}
 	
-	else if (!person1.getSmoker() && Person2 != null)
+	else if (!person1.getSmoker() && person2 != null)
 	{
 		if (person2.getSmoker())
 		{
 			penalty = penalty - 50;
 		}
+	}
 	
 	// C 13 may reciprocate?
 	
-	if (Person2 != null)
+	if (person2 != null)
 	{
 		if (!person1.getSecratary() && !person2.getSecratary())
 		{
