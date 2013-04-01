@@ -137,6 +137,154 @@ public void createSolution(){
 	}
 	
 	
+private int goodness(Node currentNode)
+{
+	Room room = currentNode.getCurrent().getRoom();
+	Person person1 = currentNode.getCurrent().getPerson1();
+	Person person2 = currentNode.getCurrent().getPerson2();
+	int penalty;
+	
+	Vector<Integer> closeRooms = new Vector<Integer>();
+	
+	//get data indexes of all the rooms that are close with the current room
+	for(int i = 0; i < data.size(); i++)
+	{
+		for(int j = 0; j < room.getCloseWith().size(); j++)
+		{
+			if(data.get(i).getRoom().evaluateRoom(room.getCloseWith().get(j).getName()))
+				closeRooms.addElement(i);
+		}
+	}
+	
+	if (person1.getHeadsGroup() != null)
+	{
+		if (!room.getLarge())
+		{
+			penalty = penalty - 40;
+		}
+		
+		int membersCloseToo = 0;
+		
+		for (int i = 0; i < closeRooms.size(); i++)
+		{
+			if (person1.getGroup.evaluateGroup(data.get(closeRooms.get(i)).getPerson1().getGroup().getName()))
+				membersCloseToo++;
+			if (person1.getGroup.evaluateGroup(data.get(closeRooms.get(i)).getPerson2().getGroup().getName()))
+				membersCloseToo++;
+		}
+		
+		penalty = penalty - ((person1.getGroup.getPeople().size() - membersCloseToo) * 2);
+		
+		
+		for (int i = 0; i < closeRooms.size(); i++)
+		{
+			if (data.get(closeRooms.get(i)).getPerson1().getSecratary() && data.get(closeRooms.get(i)).getPerson1().getGroup().evaluateGroup(person1.getGroup().getName())
+			{
+				penalty = penalty - 30;
+				break;
+			}
+			
+			if (data.get(closeRooms.get(i)).getPerson2().getSecratary())
+			{
+				penalty = penalty - 30;
+				break;
+			}
+		}
+	}
+	
+	if (person1.getHeadsProject() != null)
+	{
+		//c8 c9 c10
+		int membersCloseToo = 0;
+		
+		for (int i = 0; i < closeRooms.size(); i++)
+		{
+			if (person1.getProject.evaluateProject(data.get(closeRooms.get(i)).getPerson1().getProject().getName()))
+				membersCloseToo++;
+			if (person1.getProject.evaluateProject(data.get(closeRooms.get(i)).getPerson2().getProject().getName()))
+				membersCloseToo++;
+		}
+		
+		penalty = penalty - ((person1.getGroup.getPeople().size() - membersCloseToo) * 2);
+		
+		for (int i = 0; i < closeRooms.size(); i++)
+		{
+			if (data.get(closeRooms.get(i)).getPerson1().getSecratary() || data.get(closeRooms.get(i)).getPerson2().getSecratary())
+			{
+				penalty = penalty - 30;
+				break;
+			}
+		}
+	}
+	
+	if (person1.getSecratary() || person2.getSecratary())
+	{
+		//c4 c13
+	}
+	
+	if (person1.getManager())
+	{
+		//c5 c6 c7
+	}
+	
+	if (person1.getSmoker())
+	{
+		if (!person2.getSmoker())
+		{
+			penalty = penalty - 50;
+		}
+	}
+	
+	else if (person2.getSmoker())
+	{
+		penalty = penalty - 50;
+	}
+
+	// C 13 may reciprocate?
+	if (!person1.getSecratary() && !person2.getSecratary())
+	{
+		if (person1.getHacker())
+		{
+			if (!person2.getHacker())
+			{
+				penalty = penalty - 2;
+			}
+		}
+		
+		else if (person2.getHacker())
+		{
+			penalty = penalty - 2;
+		}
+	}
+	
+	if (room != null)
+	{
+		if (person1 != null && person2 != null)
+		{
+			penalty = penalty - 4;
+		}
+	}
+	
+	if (room != null)
+	{
+		if (person1 != null && person2 != null)
+		{
+			if(person1.evaluateWorksWith(person1.getName(), person2.getName()))
+			{
+				penalty = penalty - 3;
+			}
+		}
+	}
+	
+	if (room.getSmall())
+	{
+		if (person1 != null && person2 != null)
+		{
+			penalty = penalty - 25;
+		}
+	}
+}
+
 /*	for(int i = 0; i < groupHead.size(); i++){
 		person = groupHead.get(i);
 		room = assignHead(person);
