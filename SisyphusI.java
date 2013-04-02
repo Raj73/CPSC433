@@ -19,12 +19,12 @@ public class SisyphusI {
 		Scanner console = new Scanner(System.in);
 		
 		final Environment env = Environment.get();
-		Solution s = new Solution(env);
 		
 		//if arguments in command line were greater than one
 		if (args.length>0) {
 			fileName = args[0];
 			env.fromFile(fileName);
+			Solution s = new Solution(env);
 			s.createSolution();
 			Node n = s.getSolution();
 			System.out.println("Assignments--------");

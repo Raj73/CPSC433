@@ -1,4 +1,5 @@
 package cpsc433;
+import java.util.PriorityQueue;
 import java.util.TreeSet;
 import java.util.Vector;
 
@@ -7,8 +8,8 @@ public class Solution {
 private Environment env;
 private Vector<Person> people;
 private Vector<Room> rooms;
-private Vector<Assignment> assign = new Vector<Assignment>();
-private Node Head = new Node();
+private Vector<Assignment> assignList = new Vector<Assignment>();
+private Node Head;
 private Vector<Person> secretary;
 private Vector<Person> smoker;
 private Vector<Person> hacker;
@@ -20,6 +21,7 @@ private Vector<Room> largeRooms;
 private Vector<Room> medRooms;
 private Vector<Room> smRooms;
 private Node currentNode = null;
+private PriorityQueue<Node> solutions = new PriorityQueue<Node>();
 
 
 public Solution(Environment e){
@@ -36,6 +38,7 @@ public Solution(Environment e){
 	largeRooms = env.getLargeRooms();
 	medRooms = env.getMediumRooms();
 	smRooms = env.getSmallRooms();
+	Head = new Node(env);
 }
 
 //Vector<Vector<Room>> rooms = new Vector<Vector<Room>>();
@@ -76,72 +79,121 @@ public void changeAssign(Environment env){
 	
 }
 
+public Node transition(Node currentNode){
+	if(!currentNode.isComplete()){
+		if(!currentNode.isTraveled())
+			currentNode.makeChildren();
+		Node bestChild = currentNode.selectChild();
+		if(bestChild == null){
+			return currentNode.getParent();
+		}
+		else{
+			return bestChild;
+		}
+	}
+	else{
+		solutions.add(currentNode);
+	}
+	return currentNode.getParent();
+}
+
+
 public void createSolution(){
 	// i think we got away from what an or tree is suppose to be last night
 	//we should either go from the perspective of the room or person
 	//assign every person to that room if looking from the perspective of
 	//a room then check the goodness
-	Room room;
-	Person person;
+//	Room room;
+//	Person person;
 	currentNode = Head;
-	Node bestNode = Head;
-	int backedout = 0;
-
-	for(int j = 0; j < rooms.size(); j++){
-		Assignment a = new Assignment(rooms.get(j));
-		assign.addElement(a);
+//	Node bestNode = Head;
+//	int backedout = 0;
+	
+	for(int j=0;j<Head.getCurrentPeople().size();j++){
+		System.out.println(Head.getCurrentPeople().get(j).getName());
 	}
 	
-	while(!people.isEmpty()){								//loops  until all people have been assigned to a room
-		Person p = people.get(0);
-		for(int i = 0; i < assign.size(); i++){
+	for(int i =0; i < 10000 ; i++){
+		currentNode = transition(currentNode);
+		System.out.println("current assign \n"+ currentNode.getCurrent().toString());
+		System.out.println("-------------");
+		for(int j =0;j<currentNode.getData().size();j++){
+			System.out.println(currentNode.getData().get(j).toString());
+		}
+		for(int j=0;j<currentNode.getCurrentPeople().size();j++){
+			System.out.println(currentNode.getCurrentPeople().get(j).getName());
+		}
+	}
+	System.out.println("********************solution((((((((((((((((((((((((((((((((((((((");
+	for(int i = 0; i<solutions.peek().getData().size(); i++){
+		System.out.println(solutions.peek().getData().get(i).toString());
+	}
+	
+//	for(int j = 0; j < rooms.size(); j++){
+//		Assignment a = new Assignment(rooms.get(j));
+//		assignList.addElement(a);
+//	}
+//	currentNode.setData(assignList);			//hackjob
+	
+//	while(!people.isEmpty()){								//loops  until all people have been assigned to a room
+/*		Person p = people.get(0);
+		for(int i = 0; i < assignList.size(); i++){
 			if(p.getHeadsGroup() != null || p.getHeadsProject() != null || p.getManager()){
-				if(assign.get(i).getPerson1() == null){
-					Assignment a = new Assignment(assign.get(i));
+				if(assignList.get(i).getPerson1() == null){
+					Assignment a = new Assignment(assignList.get(i));
 					a.assertPerson(p);
-					Node temp = new Node(a, assign, people);
+					Node temp = new Node(a, assignList, people);
 					temp.setParent(currentNode);
 					goodness(temp);
 					currentNode.addChild(temp);
 				}
 			}
-			else if(!assign.get(i).isHead()&& assign.get(i).getPerson2() == null){
-				Assignment a = new Assignment(assign.get(i));
+			else if(!assignList.get(i).isHead()&& assignList.get(i).getPerson2() == null){
+				Assignment a = new Assignment(assignList.get(i));
 				a.assertPerson(p);
-				Node temp = new Node(a, assign, people);
+				Node temp = new Node(a, assignList, people);
 				temp.setParent(currentNode);
 				goodness(temp);
 				currentNode.addChild(temp);
 			}
-		}
-		if(currentNode.getChildern().size() == 0){
-			bestNode = null;
-			backedout++;
-			
-		}
-		else{
-			bestNode = currentNode.getChildern().get(0);
-		}
-		while(bestNode == null){												//take the alt path since node has no children
+		}*/
+/*		
+		
+		while(currentNode.getChildern().size() == 0){
 			currentNode = currentNode.getParent();
-			System.out.println("alt");
-			people = currentNode.getCurrentPeople();
 			for(int i = 0; i < currentNode.getChildern().size(); i++){
 				if(currentNode.getChildern().get(i).isTraveled()){
 					currentNode.getChildern().removeElementAt(i);
 					break;
 				}
 			}
-			bestNode = currentNode.getChildern().get(0);
+			people = currentNode.getCurrentPeople();
+			assignList = currentNode.getData();
+			backedout++;
 		}
-		for(int i = 1; i < currentNode.getChildern().size(); i++){
+		bestNode = currentNode.getChildern().get(0);
+*/
+//		while(bestNode == null){												//take the alt path since node has no children
+//			currentNode = currentNode.getParent();
+//			System.out.println("alt");
+//			people = currentNode.getCurrentPeople();
+//			assign = currentNode.getData();
+//			for(int i = 0; i < currentNode.getChildern().size(); i++){
+//				if(currentNode.getChildern().get(i).isTraveled()){
+//					currentNode.getChildern().removeElementAt(i);
+//					break;
+//				}
+//			}
+//			bestNode = currentNode.getChildern().get(0);
+//		}
+/*		for(int i = 1; i < currentNode.getChildern().size(); i++){
 			if(bestNode.getGoodness() < currentNode.getChildern().get(i).getGoodness() && !currentNode.getChildern().get(i).isTraveled()){
 				bestNode = currentNode.getChildern().get(i);
 			}
 		}
-		for(int i = 0; i < assign.size(); i++){
-			if(assign.get(i).getRoom().equals(bestNode.getCurrent().getRoom())){
-				assign.set(i, bestNode.getCurrent());
+		for(int i = 0; i < assignList.size(); i++){
+			if(assignList.get(i).getRoom().equals(bestNode.getCurrent().getRoom())){
+				assignList.set(i, bestNode.getCurrent());
 				break;
 			}
 		}
@@ -160,8 +212,8 @@ public void createSolution(){
 			System.out.println(people.get(i).getName());
 		}
 		
-	}
-	
+	//}
+	*/
 	
 
 /*	for(int i = 0; i < groupHead.size(); i++){
@@ -202,11 +254,11 @@ private Room assignProjectHead(Person person){
 	Room candidate = null;
 	if(person.getHeadsProject().isLarge()){
 		Group g = person.getGroup();
-			for(int i = 0; i < assign.size(); i++){
-				Person p = assign.get(i).getPerson1();
+			for(int i = 0; i < assignList.size(); i++){
+				Person p = assignList.get(i).getPerson1();
 				Room r;
 				if(p.getHeadsGroup().equals(g)){
-					r = assign.get(i).getRoom();
+					r = assignList.get(i).getRoom();
 					
 				}
 			}
