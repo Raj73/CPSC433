@@ -23,7 +23,7 @@ public class Node {
 		for(int i = 0; i < currentasign.size(); i++){			
 			data.addElement(new Assignment(currentasign.get(i)));
 		}
-		for(int i = 0; i < people.size(); i++){			
+		for(int i = 1; i < people.size()-1; i++){			
 			currentPeople.addElement(people.get(i));
 		}
 		
