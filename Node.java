@@ -136,6 +136,15 @@ public class Node implements Comparable<Node> {
 		Person person2 = currentNode.getCurrent().getPerson2();
 		int penalty = 0;
 		
+		if(person1.getHeadsGroup() != null || person1.getHeadsProject() != null || person1.getManager()){
+			if(person2 != null){
+				penalty = 0;
+			}
+			else if (room.getLarge() && person1.getHeadsGroup() != null){
+				penalty += 100;
+			}
+		}
+		
 		if(person1.evaluateResearcher(person1.getName()))
 		{
 			if(room.getMedium())
