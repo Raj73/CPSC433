@@ -136,16 +136,20 @@ public class Node implements Comparable<Node> {
 		Person person2 = currentNode.getCurrent().getPerson2();
 		int penalty = 0;
 		
-		if(person1.getHeadsGroup() != null || person1.getHeadsProject() != null || person1.getManager()){
-			if(person2 != null){
+		if(person1 != null && person2 != null){
+			if(person1.getHeadsGroup() != null || person1.getHeadsProject() != null || person1.getManager()){
 				penalty = 0;
 			}
-			else if (room.getLarge() && person1.getHeadsGroup() != null){
+			else if(person2.getHeadsGroup() != null || person2.getHeadsProject() != null || person2.getManager()){
+				penalty = 0;
+			}
+		}
+		else if(person1.getHeadsGroup() != null || person1.getHeadsProject() != null || person1.getManager()){
+			if (room.getLarge() && person1.getHeadsGroup() != null){
 				penalty += 100;
 			}
 		}
-		
-		if(person1.evaluateResearcher(person1.getName()))
+		else if(person1.getResearcher())
 		{
 			if(room.getMedium())
 				penalty += 100;
@@ -154,6 +158,7 @@ public class Node implements Comparable<Node> {
 			else if(room.getSmall())
 				penalty += 10;
 		}
+
 		currentNode.setGoodness(penalty);
 	}
 
