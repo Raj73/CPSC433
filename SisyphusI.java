@@ -22,7 +22,7 @@ public class SisyphusI {
 		long startTime = System.currentTimeMillis();
 		int transCount = 0;
 		int bestGoodness = 999999999;
-		Node n;
+		Node n = null;
 		
 		final Environment env = Environment.get();
 		
