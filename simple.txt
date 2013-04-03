@@ -1,0 +1,19 @@
+// the YQT group staff descriptions
+researcher(Werner)
+group(Werner, YQT)
+smoker(Werner)
+secretary(Werner)
+
+researcher(Angi)
+group(Angi, YQT)
+heads-group(Angi, YQT)
+
+// project descriptions
+large-project(EULISP)
+
+// room sizes
+small-room (C5113)
+large-room (C5120)
+
+// room proximity
+close(C5113, C5120)
