@@ -74,7 +74,7 @@ public class Node implements Comparable<Node> {
 				newChildren.add(temp);
 			}
 		}
-		children = newChildren;
+		//children = newChildren;
 		return newChildren;
 	}
 	

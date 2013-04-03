@@ -456,5 +456,7 @@ public String hardConstraints(){
 public Node getSolution(){
 	return solutions.poll();
 }
-
+public Node checkSolution(){
+	return solutions.peek();
+}
 }
