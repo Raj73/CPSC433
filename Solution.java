@@ -131,28 +131,31 @@ public void createSolution(){
 }
 
 
-
 public void goodness(Node currentNode)
 {
-	private Vector<Assignment> data = currentNode.getData();
+	Vector<Assignment> data = currentNode.getData();
+	Room room;
+	Person person1;
+	Person person2;
 	
-	for(int ID = 0; ID < room.getCloseWith().size(); ID++)
+	for(int ID = 0; ID < data.size(); ID++)
 	{
-		if (person1 != null)
-			continue;
-		private Room room = currentNode.data.get(ID).getRoom();
-		private Person person1 = currentNode.data.get(ID).getPerson1();
-		private Person person2 = currentNode.data.get(ID).getPerson2();
+		room = data.get(ID).getRoom();
+		person1 = data.get(ID).getPerson1();
+		person2 = data.get(ID).getPerson2();
 		int penalty = 0;
+		
+		if (person1 == null)
+			continue;
 		
 		Vector<Integer> closeRooms = new Vector<Integer>();
 		
 		//get data indexes of all the rooms that are close with the current room
-		for(int i = 0; i < currentNode.data.size(); i++)
+		for(int i = 0; i < data.size(); i++)
 		{
 			for(int j = 0; j < room.getCloseWith().size(); j++)
 			{
-				if(currentNode.data.get(i).getPerson1() != null && currentNode.data.get(i).getRoom().evaluateRoom(room.getCloseWith().get(j).getName()))
+				if(data.get(i).getPerson1() != null && data.get(i).getRoom().evaluateRoom(room.getCloseWith().get(j).getName()))
 					closeRooms.addElement(i);
 			}
 		}
@@ -169,11 +172,11 @@ public void goodness(Node currentNode)
 			
 			for (int i = 0; i < closeRooms.size(); i++)
 			{
-				if (person1.getGroup().evaluateGroup(currentNode.data.get(closeRooms.get(i)).getPerson1().getGroup().getName()))
+				if (person1.getGroup().evaluateGroup(data.get(closeRooms.get(i)).getPerson1().getGroup().getName()))
 					membersCloseToo++;
-				if (currentNode.data.get(closeRooms.get(i)).getPerson2() != null)
+				if (data.get(closeRooms.get(i)).getPerson2() != null)
 				{
-					if (person1.getGroup().evaluateGroup(currentNode.data.get(closeRooms.get(i)).getPerson2().getGroup().getName()))
+					if (person1.getGroup().evaluateGroup(data.get(closeRooms.get(i)).getPerson2().getGroup().getName()))
 						membersCloseToo++;
 				}
 			}
@@ -184,16 +187,16 @@ public void goodness(Node currentNode)
 			
 			for (int i = 0; i < closeRooms.size(); i++)
 			{
-				if (currentNode.data.get(closeRooms.get(i)).getPerson1().getSecratary() && currentNode.data.get(closeRooms.get(i)).getPerson1().getGroup().evaluateGroup(person1.getGroup().getName()))
+				if (data.get(closeRooms.get(i)).getPerson1().getSecratary() && data.get(closeRooms.get(i)).getPerson1().getGroup().evaluateGroup(person1.getGroup().getName()))
 				{
 					penalty = penalty - 30;	//c3
 					System.out.println("c3");
 					break;
 				}
 				
-				else if (currentNode.data.get(closeRooms.get(i)).getPerson2() != null)
+				else if (data.get(closeRooms.get(i)).getPerson2() != null)
 				{
-					if (currentNode.data.get(closeRooms.get(i)).getPerson2().getSecratary() && currentNode.data.get(closeRooms.get(i)).getPerson2().getGroup().evaluateGroup(person1.getGroup().getName()))
+					if (data.get(closeRooms.get(i)).getPerson2().getSecratary() && data.get(closeRooms.get(i)).getPerson2().getGroup().evaluateGroup(person1.getGroup().getName()))
 					{
 						penalty = penalty - 30;	//c3
 						System.out.println("c3");
@@ -209,14 +212,14 @@ public void goodness(Node currentNode)
 			
 			for (int i = 0; i < closeRooms.size(); i++)
 			{
-				if(currentNode.data.get(closeRooms.get(i)).getPerson1().getProject()!= null){
-					if (person1.getProject().evaluateProject(currentNode.data.get(closeRooms.get(i)).getPerson1().getProject().getName()))
+				if(data.get(closeRooms.get(i)).getPerson1().getProject()!= null){
+					if (person1.getProject().evaluateProject(data.get(closeRooms.get(i)).getPerson1().getProject().getName()))
 						membersCloseToo++;
 				}
 					
-				if (currentNode.data.get(closeRooms.get(i)).getPerson2() != null && currentNode.data.get(closeRooms.get(i)).getPerson2().getProject()!= null)
+				if (data.get(closeRooms.get(i)).getPerson2() != null && data.get(closeRooms.get(i)).getPerson2().getProject()!= null)
 				{
-					if (person1.getProject().evaluateProject(currentNode.data.get(closeRooms.get(i)).getPerson2().getProject().getName()))
+					if (person1.getProject().evaluateProject(data.get(closeRooms.get(i)).getPerson2().getProject().getName()))
 						membersCloseToo++;
 				}
 			}
@@ -228,16 +231,16 @@ public void goodness(Node currentNode)
 			{
 				for (int i = 0; i < closeRooms.size(); i++)
 				{
-					if (currentNode.data.get(closeRooms.get(i)).getPerson1().getSecratary() && currentNode.data.get(closeRooms.get(i)).getPerson1().getGroup().evaluateGroup(person1.getProject().getName()))
+					if (data.get(closeRooms.get(i)).getPerson1().getSecratary() && data.get(closeRooms.get(i)).getPerson1().getGroup().evaluateGroup(person1.getProject().getName()))
 					{
 						penalty = penalty - 30;	//c9
 						System.out.println("c9");
 						break;
 					}
 					
-					else if (currentNode.data.get(closeRooms.get(i)).getPerson2() != null)
+					else if (data.get(closeRooms.get(i)).getPerson2() != null)
 					{
-						if (currentNode.data.get(closeRooms.get(i)).getPerson2().getSecratary() && currentNode.data.get(closeRooms.get(i)).getPerson2().getGroup().evaluateGroup(person1.getGroup().getName()))
+						if (data.get(closeRooms.get(i)).getPerson2().getSecratary() && data.get(closeRooms.get(i)).getPerson2().getGroup().evaluateGroup(person1.getGroup().getName()))
 						{
 							penalty = penalty - 30;	//c9
 							System.out.println("c9");
@@ -248,7 +251,7 @@ public void goodness(Node currentNode)
 				
 				for (int i = 0; i < closeRooms.size(); i++)
 				{
-					if (currentNode.data.get(closeRooms.get(i)).getPerson1().getHeadsGroup() != null && currentNode.data.get(closeRooms.get(i)).getPerson1().getHeadsGroup().evaluateGroup(person1.getGroup().getName()))
+					if (data.get(closeRooms.get(i)).getPerson1().getHeadsGroup() != null && data.get(closeRooms.get(i)).getPerson1().getHeadsGroup().evaluateGroup(person1.getGroup().getName()))
 					{
 						penalty = penalty - 10;	//c10
 						System.out.println("c10");
@@ -285,12 +288,12 @@ public void goodness(Node currentNode)
 			
 			for (int i = 0; i < closeRooms.size(); i++)
 			{
-				if (person1.getGroup().evaluateGroup(currentNode.data.get(closeRooms.get(i)).getPerson1().getGroup().getName()))
+				if (person1.getGroup().evaluateGroup(data.get(closeRooms.get(i)).getPerson1().getGroup().getName()))
 					membersCloseToo++;
 					
-				if (currentNode.data.get(closeRooms.get(i)).getPerson2() != null)
+				if (data.get(closeRooms.get(i)).getPerson2() != null)
 				{
-					if (person1.getGroup().evaluateGroup(currentNode.data.get(closeRooms.get(i)).getPerson2().getGroup().getName()))
+					if (person1.getGroup().evaluateGroup(data.get(closeRooms.get(i)).getPerson2().getGroup().getName()))
 						membersCloseToo++;
 				}
 			}
@@ -300,16 +303,16 @@ public void goodness(Node currentNode)
 			
 			for (int i = 0; i < closeRooms.size(); i++)
 			{
-				if (currentNode.data.get(closeRooms.get(i)).getPerson1().getSecratary() && currentNode.data.get(closeRooms.get(i)).getPerson1().getGroup().evaluateGroup(person1.getGroup().getName()))
+				if (data.get(closeRooms.get(i)).getPerson1().getSecratary() && data.get(closeRooms.get(i)).getPerson1().getGroup().evaluateGroup(person1.getGroup().getName()))
 				{
 					penalty = penalty - 30;	//c5
 					System.out.println("c5");
 					break;
 				}
 				
-				else if (currentNode.data.get(closeRooms.get(i)).getPerson2() != null)
+				else if (data.get(closeRooms.get(i)).getPerson2() != null)
 				{
-					if (currentNode.data.get(closeRooms.get(i)).getPerson2().getSecratary() && currentNode.data.get(closeRooms.get(i)).getPerson2().getGroup().evaluateGroup(person1.getGroup().getName()))
+					if (data.get(closeRooms.get(i)).getPerson2().getSecratary() && data.get(closeRooms.get(i)).getPerson2().getGroup().evaluateGroup(person1.getGroup().getName()))
 					{
 						penalty = penalty - 30;	//c5
 						System.out.println("c5");
@@ -320,7 +323,7 @@ public void goodness(Node currentNode)
 			
 			for (int i = 0; i < closeRooms.size(); i++)
 			{
-				if (currentNode.data.get(closeRooms.get(i)).getPerson1().getHeadsGroup() != null && currentNode.data.get(closeRooms.get(i)).getPerson1().getHeadsGroup().evaluateGroup(person1.getGroup().getName()))
+				if (data.get(closeRooms.get(i)).getPerson1().getHeadsGroup() != null && data.get(closeRooms.get(i)).getPerson1().getHeadsGroup().evaluateGroup(person1.getGroup().getName()))
 				{
 					penalty = penalty - 10;	//c6
 					System.out.println("c6");
