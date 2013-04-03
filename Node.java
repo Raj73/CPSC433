@@ -146,7 +146,7 @@ public class Node implements Comparable<Node> {
 		Person person2 = currentNode.getCurrent().getPerson2();
 		int penalty = 0;
 		
-		if(person1.getHeadsGroup() != null){			//assigned a group head
+		if(person1.getHeadsGroup() != null){			//first person a group head
 			if (room.getMedium() || room.getSmall()){
 				penalty += 40;
 			}
@@ -172,6 +172,22 @@ public class Node implements Comparable<Node> {
 			}
 			if((person1.getSecratary() && !person2.getSecratary()) || (person1.getSecratary() && !person2.getSecratary())){		//both should be secratary
 				penalty += 10;
+			}
+			if(person1.getProject() != null && person2.getProject() != null){
+				if(person1.getProject().equals(person2.getProject())){
+					penalty += 7;			//shared rooms should not be in the same project
+				}
+			}
+			if(person1.getWorksWith().size() < 0 && person2.getWorksWith().size() < 0){
+				for(int i = 0; i < person1.getWorksWith().size(); i++){
+					if(person1.getWorksWith().get(i).equals(person2)){
+						break;			//people need to work together
+					}
+				}
+			}
+			
+			if(room.getSmall()){
+				penalty += 25;		//two people shouldnt share a small room
 			}
 		}
 		currentNode.setGoodness(penalty);
