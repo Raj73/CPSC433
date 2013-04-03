@@ -18,6 +18,11 @@ public class SisyphusI {
 		//Scanner for the console
 		Scanner console = new Scanner(System.in);
 		
+		long startTime = System.currentTimeMillis();
+		int transCount = 0;
+		int bestGoodness;
+		Node n;
+		
 		final Environment env = Environment.get();
 		
 		//if arguments in command line were greater than one
@@ -25,8 +30,20 @@ public class SisyphusI {
 			fileName = args[0];
 			env.fromFile(fileName);
 			Solution s = new Solution(env);
-			s.createSolution();
-			Node n = s.getSolution();
+			for(;; transCount++){
+				s.transition();
+				n = s.checkSolution();
+				n.getGoodness();
+				if(n != null){
+					if(n.getGoodness() < bestGoodness){
+						System.out.println("------Current Assignments--------");
+						for(int i = 0; i < n.getData().size(); i++){
+							System.out.println(n.getData().get(i).toString());
+						}
+						System.out.println("The goodness of this solution: " + n.getGoodness());
+					}
+				}
+			}
 			if(n == null){
 				System.out.println("***********No solution found******************");
 			}
@@ -39,18 +56,6 @@ public class SisyphusI {
 			}
 		}
 		System.out.println("");
-//		else{
-//			System.out.println("Please enter a valid file name");
-//			fileName = console.nextLine();
-//			env.fromFile(fileName);
-//			s.addSolution(env.getRoomNames());
-//			s.printSol(0);
-//			s.changeAssign(env);
-//			s.addSolution(env.getRoomNames());
-//			s.printSol(0);
-//			s.printSol(1);
-//		}
-		//output the environment to a file
 		
 		System.out.println("managers");
 		System.out.println("");
