@@ -22,6 +22,7 @@ private Vector<Room> medRooms;
 private Vector<Room> smRooms;
 private Node currentNode = null;
 private PriorityQueue<Node> solutions = new PriorityQueue<Node>();
+private PriorityQueue<Node> queueNodes = new PriorityQueue<Node>();
 
 
 public Solution(Environment e){
@@ -79,24 +80,31 @@ public void changeAssign(Environment env){
 	
 }
 
-public Node transition(Node currentNode){
+public void transition(){
+	if(currentNode == null)
+		currentNode = Head;
+	PriorityQueue<Node> mytemp;
+	Node tempNode;
+	int projectedGoodness;
+
 	if(!currentNode.isComplete()){
-		if(!currentNode.isTraveled())
-			currentNode.makeChildren();
-		Node bestChild = currentNode.selectChild();
-		if(bestChild == null){
-			return currentNode.getParent();
+		mytemp = currentNode.makeChildren();
+		while(mytemp.peek() != null){
+			tempNode = mytemp.poll();
+			projectedGoodness = tempNode.getGoodness();
+			projectedGoodness = projectedGoodness + (tempNode.getCurrentPeople().size() * 20); //20 is just an arbritary number
+			tempNode.setGoodness(projectedGoodness);
+			queueNodes.add(tempNode);
 		}
-		else{
-			System.out.println("Assignment Taken: " + bestChild.getCurrent().toString());
-			return bestChild;
 		}
-	}
 	else{
 		goodness(currentNode);
 		solutions.add(currentNode);
+		
 	}
-	return currentNode.getParent();
+		currentNode = queueNodes.poll();
+		
+	
 }
 
 
@@ -107,8 +115,8 @@ public void createSolution(){
 		System.out.println(Head.getCurrentPeople().get(j).getName());
 	}
 	
-	for(int i =0; i < 5 ; i++){
-		currentNode = transition(currentNode);
+	for(int i =0; i < 10000 ; i++){
+		
 		if(currentNode != null && currentNode.getCurrent() != null){
 			System.out.println("current assign \n"+ currentNode.getCurrent().toString());
 			System.out.println("-------------");

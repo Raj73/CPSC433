@@ -45,7 +45,7 @@ public class Node implements Comparable<Node> {
 		
 	}
 	
-	public void makeChildren(){
+	public PriorityQueue<Node> makeChildren(){
 		PriorityQueue<Node> newChildren = new PriorityQueue<Node>();
 		Person p = currentPeople.get(0);
 		
@@ -74,8 +74,8 @@ public class Node implements Comparable<Node> {
 				newChildren.add(temp);
 			}
 		}
-		
 		children = newChildren;
+		return newChildren;
 	}
 	
 	public Node selectChild(){
