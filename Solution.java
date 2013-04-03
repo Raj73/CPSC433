@@ -401,7 +401,7 @@ public void goodness(Node currentNode)
 			}
 		}
 		
-		currentNode.setGoodness(penalty*(-1));
+		currentNode.setGoodness(-penalty);
 	}
 }
 

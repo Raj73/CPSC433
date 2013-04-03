@@ -12,6 +12,7 @@ import java.util.Scanner;
  */
 
 public class SisyphusI {
+	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 		//The name of the variable for the file name 
 		String fileName = "Zero";
@@ -20,7 +21,7 @@ public class SisyphusI {
 		
 		long startTime = System.currentTimeMillis();
 		int transCount = 0;
-		int bestGoodness;
+		int bestGoodness = 999999999;
 		Node n;
 		
 		final Environment env = Environment.get();
@@ -32,17 +33,23 @@ public class SisyphusI {
 			Solution s = new Solution(env);
 			for(;; transCount++){
 				s.transition();
+				if(s.treeSize() == 0){
+					System.out.println("***********Tree fully traversed***********");
+					break;
+				}
 				n = s.checkSolution();
-				n.getGoodness();
 				if(n != null){
 					if(n.getGoodness() < bestGoodness){
+						bestGoodness = n.getGoodness();
 						System.out.println("------Current Assignments--------");
 						for(int i = 0; i < n.getData().size(); i++){
 							System.out.println(n.getData().get(i).toString());
 						}
+						System.out.println("Transition* " + transCount);
 						System.out.println("The goodness of this solution: " + n.getGoodness());
 					}
 				}
+				if ((System.currentTimeMillis() - startTime) > 2000) break;
 			}
 			if(n == null){
 				System.out.println("***********No solution found******************");
