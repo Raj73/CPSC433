@@ -49,18 +49,23 @@ public class Node implements Comparable<Node> {
 		PriorityQueue<Node> newChildren = new PriorityQueue<Node>();
 		Person p = currentPeople.get(0);
 		
+		System.out.println("*********************Person: " + p.getName());
+		
+		
 		for(int i = 0; i < data.size(); i++){
-			if(p.getHeadsGroup() != null || p.getHeadsProject() != null || p.getManager()){
+			if(p.getHeadsGroup() != null || p.getHeadsProject() != null || p.getManager()){		// only put heads into empty rooms
 				if(data.get(i).getPerson1() == null){
 					Assignment a = new Assignment(data.get(i));
 					a.assertPerson(p);
+					a.setHead(true);
 					Node temp = new Node(a, data, currentPeople);
 					temp.setParent(this);
 					goodness(temp);
 					newChildren.add(temp);
 				}
 			}
-			else if(!data.get(i).isHead()&& data.get(i).getPerson2() == null){
+			else if(!data.get(i).isHead()&& data.get(i).getPerson2() == null && !data.get(i).isHead()){		//dont make child if head already in room
+//				System.out.println(data.get(i).isHead());
 				Assignment a = new Assignment(data.get(i));
 				a.assertPerson(p);
 				Node temp = new Node(a, data, currentPeople);
@@ -68,7 +73,6 @@ public class Node implements Comparable<Node> {
 				goodness(temp);
 				newChildren.add(temp);
 			}
-			
 		}
 		
 		children = newChildren;
@@ -76,7 +80,13 @@ public class Node implements Comparable<Node> {
 	
 	public Node selectChild(){
 		setTraveled();
-		return children.poll();
+		Node node;
+		
+		node = children.poll();
+		if(children.peek() != null){
+			System.out.println("2nd best assignment " + children.peek().getCurrent().toString());
+		}		
+		return node;
 	}
 	
 	public boolean isComplete(){
@@ -129,36 +139,41 @@ public class Node implements Comparable<Node> {
 		this.children = childern;
 	}
 	
-	public void goodness(Node currentNode)
+	public void goodness(Node currentNode)		//calculate the projected goodness of the assignment
 	{
 		Room room = currentNode.getCurrent().getRoom();
 		Person person1 = currentNode.getCurrent().getPerson1();
 		Person person2 = currentNode.getCurrent().getPerson2();
 		int penalty = 0;
 		
-		if(person1 != null && person2 != null){
-			if(person1.getHeadsGroup() != null || person1.getHeadsProject() != null || person1.getManager()){
-				penalty = 0;
-			}
-			else if(person2.getHeadsGroup() != null || person2.getHeadsProject() != null || person2.getManager()){
-				penalty = 0;
+		if(person1.getHeadsGroup() != null){			//assigned a group head
+			if (room.getMedium() || room.getSmall()){
+				penalty += 40;
 			}
 		}
-		else if(person1.getHeadsGroup() != null || person1.getHeadsProject() != null || person1.getManager()){
-			if (room.getLarge() && person1.getHeadsGroup() != null){
-				penalty += 100;
-			}
-		}
-		else if(person1.getResearcher())
+		else if(person1.getResearcher())				//a researcher and not group head
 		{
-			if(room.getMedium())
-				penalty += 100;
-			else if(room.getLarge())
-				penalty += 0;
+			if(room.getLarge())
+				penalty += 40;
 			else if(room.getSmall())
-				penalty += 10;
+				penalty += 25;
 		}
-
+		
+		if(person2 == null){					// only one person in the room
+			if(!person1.getManager() || person1.getHeadsProject() == null){		//prioritize putting non-heads into their own room
+				penalty += 20;
+			}
+		}
+		
+		if(person2 != null){						//two people in a room
+			penalty += 4;							//better to have your own office
+			if((person1.getSmoker() && !person2.getSmoker()) || (person2.getSmoker() && !person1.getSmoker())){		//both should be smokers
+				penalty += 50;
+			}
+			if((person1.getSecratary() && !person2.getSecratary()) || (person1.getSecratary() && !person2.getSecratary())){		//both should be secratary
+				penalty += 10;
+			}
+		}
 		currentNode.setGoodness(penalty);
 	}
 

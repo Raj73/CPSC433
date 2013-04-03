@@ -7,21 +7,20 @@ public class Assignment
 	private Room room;
 	private Person person1;
 	private Person person2;
-	private	boolean head = false;
+	private	boolean head;
 
 	
 	Assignment(){
 		room =null;
 		person1 =null;
 		person2 = null;
-		
+		head = false;
 	}
-	Assignment(Assignment anassigment){
-		this.room = anassigment.getRoom();
-		this.person1 = anassigment.getPerson1();
-		this.person2 = anassigment.getPerson2();
-		
-		
+	Assignment(Assignment anAssignment){
+		this.room = anAssignment.getRoom();
+		this.person1 = anAssignment.getPerson1();
+		this.person2 = anAssignment.getPerson2();
+		this.head = anAssignment.isHead();
 	}
 	Assignment(Room aroom){
 		this.room = aroom;
@@ -81,6 +80,9 @@ public class Assignment
 	}
 	public boolean isHead() {
 		return head;
+	}
+	public void setHead(boolean head) {
+		this.head = head;
 	}
 	public String toString(){
 		String mystring = "";

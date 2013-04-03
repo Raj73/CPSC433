@@ -88,10 +88,12 @@ public Node transition(Node currentNode){
 			return currentNode.getParent();
 		}
 		else{
+			System.out.println("Assignment Taken: " + bestChild.getCurrent().toString());
 			return bestChild;
 		}
 	}
 	else{
+		goodness(currentNode);
 		solutions.add(currentNode);
 	}
 	return currentNode.getParent();
@@ -99,21 +101,13 @@ public Node transition(Node currentNode){
 
 
 public void createSolution(){
-	// i think we got away from what an or tree is suppose to be last night
-	//we should either go from the perspective of the room or person
-	//assign every person to that room if looking from the perspective of
-	//a room then check the goodness
-//	Room room;
-//	Person person;
 	currentNode = Head;
-//	Node bestNode = Head;
-//	int backedout = 0;
 	
 	for(int j=0;j<Head.getCurrentPeople().size();j++){
 		System.out.println(Head.getCurrentPeople().get(j).getName());
 	}
 	
-	for(int i =0; i < 10000 ; i++){
+	for(int i =0; i < 100 ; i++){
 		currentNode = transition(currentNode);
 		System.out.println("current assign \n"+ currentNode.getCurrent().toString());
 		System.out.println("-------------");
@@ -124,287 +118,9 @@ public void createSolution(){
 			System.out.println(currentNode.getCurrentPeople().get(j).getName());
 		}
 	}
-	System.out.println("********************solution((((((((((((((((((((((((((((((((((((((");
-	for(int i = 0; i<solutions.peek().getData().size(); i++){
-		System.out.println(solutions.peek().getData().get(i).toString());
-	}
-	
-//	for(int j = 0; j < rooms.size(); j++){
-//		Assignment a = new Assignment(rooms.get(j));
-//		assignList.addElement(a);
-//	}
-//	currentNode.setData(assignList);			//hackjob
-	
-//	while(!people.isEmpty()){								//loops  until all people have been assigned to a room
-/*		Person p = people.get(0);
-		for(int i = 0; i < assignList.size(); i++){
-			if(p.getHeadsGroup() != null || p.getHeadsProject() != null || p.getManager()){
-				if(assignList.get(i).getPerson1() == null){
-					Assignment a = new Assignment(assignList.get(i));
-					a.assertPerson(p);
-					Node temp = new Node(a, assignList, people);
-					temp.setParent(currentNode);
-					goodness(temp);
-					currentNode.addChild(temp);
-				}
-			}
-			else if(!assignList.get(i).isHead()&& assignList.get(i).getPerson2() == null){
-				Assignment a = new Assignment(assignList.get(i));
-				a.assertPerson(p);
-				Node temp = new Node(a, assignList, people);
-				temp.setParent(currentNode);
-				goodness(temp);
-				currentNode.addChild(temp);
-			}
-		}*/
-/*		
-		
-		while(currentNode.getChildern().size() == 0){
-			currentNode = currentNode.getParent();
-			for(int i = 0; i < currentNode.getChildern().size(); i++){
-				if(currentNode.getChildern().get(i).isTraveled()){
-					currentNode.getChildern().removeElementAt(i);
-					break;
-				}
-			}
-			people = currentNode.getCurrentPeople();
-			assignList = currentNode.getData();
-			backedout++;
-		}
-		bestNode = currentNode.getChildern().get(0);
-*/
-//		while(bestNode == null){												//take the alt path since node has no children
-//			currentNode = currentNode.getParent();
-//			System.out.println("alt");
-//			people = currentNode.getCurrentPeople();
-//			assign = currentNode.getData();
-//			for(int i = 0; i < currentNode.getChildern().size(); i++){
-//				if(currentNode.getChildern().get(i).isTraveled()){
-//					currentNode.getChildern().removeElementAt(i);
-//					break;
-//				}
-//			}
-//			bestNode = currentNode.getChildern().get(0);
-//		}
-/*		for(int i = 1; i < currentNode.getChildern().size(); i++){
-			if(bestNode.getGoodness() < currentNode.getChildern().get(i).getGoodness() && !currentNode.getChildern().get(i).isTraveled()){
-				bestNode = currentNode.getChildern().get(i);
-			}
-		}
-		for(int i = 0; i < assignList.size(); i++){
-			if(assignList.get(i).getRoom().equals(bestNode.getCurrent().getRoom())){
-				assignList.set(i, bestNode.getCurrent());
-				break;
-			}
-		}
-		currentNode = bestNode;
-		currentNode.setTraveled();
-		people.removeElementAt(0);
-		//System.out.println(currentNode.getCurrent().toString());
-		System.out.println("people left: " + people.size());
-		for(int i=0;i<currentNode.getData().size();i++){
-			System.out.println(currentNode.getData().get(i).toString());
-		}
-		System.out.println("current assign \n"+ currentNode.getCurrent().toString());
-		System.out.println("-------------");
-		System.out.println("backed out: " + backedout);
-		for(int i=0;i<people.size();i++){
-			System.out.println(people.get(i).getName());
-		}
-		
-	//}
-	*/
-	
-
-/*	for(int i = 0; i < groupHead.size(); i++){
-		person = groupHead.get(i);
-		room = assignHead(person);
-		Assignment a = new Assignment(room, person);
-		assign.addElement(a);
-		Node temp = new Node(a, assign);
-		temp.setParent(currentNode);
-		currentNode.addChild(temp);
-		currentNode = temp;
-		person.setAssignedRoom();
-	}
-	for(int i = 0; i < projectHead.size(); i++){
-		person = projectHead.get(i);
-		if(!person.getAssigned()){
-			room = assignProjectHead(person);
-			Assignment a = new Assignment(room, person);
-			assign.addElement(a);
-			Node temp = new Node(a, assign);
-			temp.setParent(currentNode);
-			currentNode.addChild(temp);
-			currentNode = temp;
-			person.setAssignedRoom();
-		}
-	}
-*/
-	
 }
 
-/**
- * 
- * 
- * @param person
- * @return
- */
-private Room assignProjectHead(Person person){
-	Room candidate = null;
-	if(person.getHeadsProject().isLarge()){
-		Group g = person.getGroup();
-			for(int i = 0; i < assignList.size(); i++){
-				Person p = assignList.get(i).getPerson1();
-				Room r;
-				if(p.getHeadsGroup().equals(g)){
-					r = assignList.get(i).getRoom();
-					
-				}
-			}
-	}
-	
-	
-	if(!smRooms.isEmpty()){
-		candidate = smRooms.get(0);
-		smRooms.removeElementAt(0);
-		return candidate;
-	}
-	
-	
-	return candidate;
-}
 
-//pop off the rooms from the vectors next time
-private Room assignHead(Person person){
-	Room candidate = null;
-	if(!largeRooms.isEmpty()){
-		for(int k = 0; k < largeRooms.size(); k++){
-			candidate = largeRooms.get(k);
-			for(int j = 0; j < candidate.getCloseWith().size(); j++){
-				if(candidate.getCloseWith().get(j).getPeople().isEmpty() || candidate.getCloseWith().get(j).getPeople().get(0).getHeadsGroup() == null){
-					largeRooms.removeElementAt(k);
-					return candidate;
-				}
-			}
-		}
-	}
-	else if(!smRooms.isEmpty()){
-		candidate = smRooms.get(0);
-		smRooms.removeElementAt(0);
-		return candidate;
-	}
-	else{
-		candidate = medRooms.get(0);
-		medRooms.removeElementAt(0);
-		return candidate;		
-	}
-	return candidate;
-}
-
-/*
-public int softConstraints(Environment env){
-	int penalty = 0;
-	//this is soft constraint one
-	for(int i = 0; i < env.myPeople.size(); i++){
-		if(env.myPeople.get(i).headsGroup != null){
-			int headRoomIndex = 0;
-			for(headRoomIndex = 0; headRoomIndex < env.roomNames.size(); headRoomIndex++){
-				if(env.roomNames.get(headRoomIndex).getName().equals(env.myPeople.get(headRoomIndex).assignedRoom)){
-					if(!env.roomNames.get(headRoomIndex).large){
-						penalty = -40;
-					}
-					break;
-				}
-			}
-			//soft 2 here
-			String group = env.myPeople.get(i).headsGroup.getName();
-			int groupIndex = 0;
-			while((groupIndex <env.groupNames.size()) && !env.groupNames.get(groupIndex).evaluateGroup(group)){
-				groupIndex++;
-			}
-			
-			for(int person = 0; person < env.groupNames.get(groupIndex).people.size(); person++){
-				int wherethepersonis = env.roomNames.get(headRoomIndex).closeWith.indexOf(env.groupNames.get(groupIndex).people.get(person).assignedRoom);
-				if(wherethepersonis == -1)
-					penalty += -2;
-						
-			}
-		}
-	}
-	for(int i =0; i< env.roomNames.size();i++){
-		
-		for(int j = 0; j < env.roomNames.get(i).people.size(); j++){	//go through all the rooms
-			Room room = env.roomNames.get(i);
-			//Constraint 3
-			if(room.people.get(j).headsGroup != null){		//find the group heads
-				Person p = env.roomNames.get(i).people.get(j);
-				Group group = p.group;
-				boolean secClose = false;
-				for(int k = 0; k < group.people.size(); k++){	//go through all the people in the group
-					if(group.people.get(k).secretary){
-						if (room.closeWith.contains(group.people.get(k).assignedRoom))
-							secClose = true;
-					}
-				}
-				if(!secClose){
-					penalty += -30;
-				}
-			}
-			
-			//soft constraint 4
-			if(room.people.get(j).secretary){	//find all the secretaries
-				if(room.people.size() == 1)
-					penalty += -5;
-				else if(j == 0){
-					if(!room.people.get(1).secretary){
-						penalty += -5;
-					}
-				}
-				else if(j == 1){
-					if(!room.people.get(0).secretary)
-					penalty += -5;
-				}
-				
-			}
-			if(room.people.get(j).manager){		//find all the managers
-				Person p = env.roomNames.get(i).people.get(j);
-				Group group = p.group;
-				boolean secClose = false;
-				boolean headClose = false;
-				if(p.group != null){
-					for(int k = 0; k < group.people.size(); k++){		//go through all the ppl in the group
-						//soft contrain 5
-						if(group.people.get(k).secretary){			//find the secretary
-							if (room.closeWith.contains(group.people.get(k).assignedRoom))
-								secClose = true;
-						}
-						//soft constraint 6
-						if(group.heads != null){		//find the group heads
-							//for();
-							if (group.people.get(k).compareTo(p) == 0 || room.closeWith.contains(group.people.get(k).assignedRoom))
-								headClose = true;
-						}
-					}
-				}
-				if(!secClose){
-					penalty += -20;
-				}
-				if(!headClose){
-					penalty += -20;
-				}
-				
-				
-			}
-			
-			
-		}
-		
-			
-	}
-	return penalty;
-}
-*/
 
 public void goodness(Node currentNode)
 {
@@ -436,10 +152,6 @@ public void goodness(Node currentNode)
 		
 		for (int i = 0; i < closeRooms.size(); i++)
 		{
-//			System.out.println(person1.getName());
-//			System.out.println(person1.getGroup().getName());
-//			System.out.println(currentNode.getData().get(closeRooms.get(i)).getRoom().getName());
-
 			if (person1.getGroup().evaluateGroup(currentNode.getData().get(closeRooms.get(i)).getPerson1().getGroup().getName()))
 				membersCloseToo++;
 			if (currentNode.getData().get(closeRooms.get(i)).getPerson2() != null)
@@ -708,7 +420,7 @@ public String hardConstraints(){
 	return result;
 }
 public Node getSolution(){
-	return currentNode;
+	return solutions.poll();
 }
 
 }

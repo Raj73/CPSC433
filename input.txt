@@ -87,6 +87,7 @@ large-project(ASERTI)
 large-project(MLT)
 
 // room sizes
+small-room (C5112)
 small-room (C5113)
 small-room (C5114)
 small-room (C5115)
@@ -96,6 +97,7 @@ large-room (C5119)
 large-room (C5120)
 medium-room (C5121)
 medium-room (C5122)
+medium-room (C5123)
 
 // room proximity
 close(C5113, C5114)

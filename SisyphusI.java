@@ -27,13 +27,18 @@ public class SisyphusI {
 			Solution s = new Solution(env);
 			s.createSolution();
 			Node n = s.getSolution();
-			System.out.println("Assignments--------");
-			for(int i = 0; i < n.getData().size(); i++){
-				System.out.println(n.getData().get(i).toString());
+			if(n == null){
+				System.out.println("***********No solution found******************");
 			}
-//			System.out.println(new Solution(env).hardConstraints());
-			
+			else{
+				System.out.println("------Best Assignments--------");
+				for(int i = 0; i < n.getData().size(); i++){
+					System.out.println(n.getData().get(i).toString());
+				}
+				System.out.println("The goodness of this solution: " + n.getGoodness());
+			}
 		}
+		System.out.println("");
 //		else{
 //			System.out.println("Please enter a valid file name");
 //			fileName = console.nextLine();
@@ -96,7 +101,7 @@ public class SisyphusI {
 		}
 		System.out.println("");
 		
-		toFile(env, fileName);
+//		toFile(env, fileName);
 		
 	}
 	
