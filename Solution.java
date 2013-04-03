@@ -462,6 +462,6 @@ public Node checkSolution(){
 	return solutions.peek();
 }
 public int treeSize(){
-	return solutions.size();
+	return queueNodes.size();
 }
 }
