@@ -8,7 +8,7 @@ public class Node implements Comparable<Node> {
 	private Assignment current;
 	private Vector<Person> currentPeople = new Vector<Person>();
 	private Vector<Assignment> data = new Vector<Assignment>();
-	private PriorityQueue<Node> children = new PriorityQueue<Node>();
+	private PriorityQueue<Node> children;
 	private int goodness;
 	private boolean traveled = false;
 	
@@ -74,7 +74,7 @@ public class Node implements Comparable<Node> {
 				newChildren.add(temp);
 			}
 		}
-		//children = newChildren;
+		children = newChildren;
 		return newChildren;
 	}
 	
