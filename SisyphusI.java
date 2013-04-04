@@ -33,34 +33,34 @@ public class SisyphusI {
 			Solution s = new Solution(env);
 			for(;; transCount++){
 				s.transition();
-				System.out.println("Transition* " + transCount);
+				//System.out.println("Transition* " + transCount);
 				n = s.checkSolution();
 				if(n != null){
 					if(n.getGoodness() < bestGoodness){
 						bestGoodness = n.getGoodness();
-						System.out.println("------Current Assignments--------");
+						//System.out.println("------Current Assignments--------");
 						for(int i = 0; i < n.getData().size(); i++){
 							System.out.println(n.getData().get(i).toString());
 						}
 						
-						System.out.println("The goodness of this solution: " + n.getGoodness());
+						//System.out.println("The goodness of this solution: " + n.getGoodness());
 					}
 				}
-				if ((System.currentTimeMillis() - startTime) > 2000) break;
+				if ((System.currentTimeMillis() - startTime) > 5000) break;
 				if(s.treeSize() == 0 && s.getCurrentNode().getCurrentPeople().size() == 0){
-					System.out.println("***********Tree fully traversed***********");
+					//System.out.println("***********Tree fully traversed***********");
 					break;
 				}
 			}
 			if(n == null){
-				System.out.println("***********No solution found******************");
+				//System.out.println("***********No solution found******************");
 			}
 			else{
-				System.out.println("------Best Assignments--------");
+				//System.out.println("------Best Assignments--------");
 				for(int i = 0; i < n.getData().size(); i++){
 					System.out.println(n.getData().get(i).toString());
 				}
-				System.out.println("The goodness of this solution: " + n.getGoodness());
+				//System.out.println("The goodness of this solution: " + n.getGoodness());
 			}
 		}
 		System.out.println("");

@@ -49,7 +49,7 @@ public class Node implements Comparable<Node> {
 		PriorityQueue<Node> newChildren = new PriorityQueue<Node>();
 		Person p = currentPeople.get(0);
 		
-		System.out.println("*********************Person: " + p.getName());
+		//System.out.println("*********************Person: " + p.getName());
 		
 		
 		for(int i = 0; i < data.size(); i++){
