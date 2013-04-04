@@ -10,8 +10,8 @@ public class Person extends Entity
 	private boolean smoker = false;
 	private boolean hacker = false;
 	private boolean assigned = false;					//how many rooms person is assgned
-	private Group group;
-	private Project project;
+	private Group group = new Group("");
+	private Project project = new Project("");
 	private Group headsGroup;
 	private Project headsProject;
 	private String assignedRoom = null;

@@ -405,55 +405,65 @@ public void goodness(Node currentNode)
 	}
 }
 
-public String hardConstraints(){
-	
-	@SuppressWarnings("unused")
-	int heads = 0;
-	boolean constraint1 = true;
-	boolean constraint2 = true;
-	boolean constraint3 = true;
-	boolean constraint4 = true;
-	String result = "";
-	
-	/* for finding the hard constraints
-	
-	For each person
-		If manager add 1 to rooms_required
-		If head add 1 to rooms_required
-		Else add .5 to rooms_required
-
-	If float(rooms) <= rooms_required*/
-	for(int i = 0; i < env.getMyPeople().size(); i++){
-		if(env.getMyPeople().get(i).getAssignedRoom() == null){
-			constraint1 = false;
-		}
-		if(!env.getMyPeople().get(i).getAssigned()){
-			constraint2 = false;
-		}
-		if(env.getMyPeople().get(i).getManager() ||env.getMyPeople().get(i).getHeadsGroup() != null || env.getMyPeople().get(i).getHeadsProject() != null){
-				for(int j = 0; j < env.getRoomNames().size();j++){
-					if(env.getRoomNames().get(j).getName().equals(env.getMyPeople().get(i).getAssignedRoom())){
-						if(env.getRoomNames().get(j).getPeople().size() > 1)
-							constraint4 =false;
-					}
-				}
-		}
-	}
-	for(int i = 0; i < env.getRoomNames().size();i++){
-		if(env.getRoomNames().get(i).getPeople().size() > 2)
-				constraint3 =false;
+	public String hardConstraints(){
 		
-	}
+		@SuppressWarnings("unused")
+		int heads = 0;
+		boolean constraint1 = true;
+		boolean constraint2 = true;
+		boolean constraint3 = true;
+		boolean constraint4 = true;
+		String result = "";
+		
+		/* for finding the hard constraints
+		
+		For each person
+			If manager add 1 to rooms_required
+			If head add 1 to rooms_required
+			Else add .5 to rooms_required
 	
-	if(!constraint1)
-		result = result + "Hard constraint 1 was not met \n";
-	if(!constraint2)
-		result = result + "Hard constraint 2 was not met \n";
-	if(!constraint3)
-		result = result + "Hard constraint 3 was not met \n";
-	if(!constraint4)
-		result = result + "Hard constraint 4 was not met \n";
-	return result;
+		If float(rooms) <= rooms_required*/
+		for(int i = 0; i < env.getMyPeople().size(); i++){
+			if(env.getMyPeople().get(i).getAssignedRoom() == null){
+				constraint1 = false;
+			}
+			if(!env.getMyPeople().get(i).getAssigned()){
+				constraint2 = false;
+			}
+			if(env.getMyPeople().get(i).getManager() ||env.getMyPeople().get(i).getHeadsGroup() != null || env.getMyPeople().get(i).getHeadsProject() != null){
+					for(int j = 0; j < env.getRoomNames().size();j++){
+						if(env.getRoomNames().get(j).getName().equals(env.getMyPeople().get(i).getAssignedRoom())){
+							if(env.getRoomNames().get(j).getPeople().size() > 1)
+								constraint4 =false;
+						}
+					}
+			}
+		}
+		for(int i = 0; i < env.getRoomNames().size();i++){
+			if(env.getRoomNames().get(i).getPeople().size() > 2)
+					constraint3 =false;
+			
+		}
+		
+		if(!constraint1)
+			result = result + "Hard constraint 1 was not met \n";
+		if(!constraint2)
+			result = result + "Hard constraint 2 was not met \n";
+		if(!constraint3)
+			result = result + "Hard constraint 3 was not met \n";
+		if(!constraint4)
+			result = result + "Hard constraint 4 was not met \n";
+		return result;
+	}
+	public Node getSolution(){
+		return solutions.poll();
+	}
+	public Node checkSolution(){
+		return solutions.peek();
+	}
+	public int treeSize(){
+		return solutions.size();
+	}
 }
 public Node getSolution(){
 	return solutions.poll();
