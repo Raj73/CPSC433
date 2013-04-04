@@ -397,7 +397,7 @@ public void goodness(Node currentNode)
 		{
 			if (person1 != null && person2 != null)
 			{
-				if(person1.evaluateWorksWith(person1.getName(), person2.getName()))
+				if(!person1.evaluateWorksWith(person1.getName(), person2.getName()))
 				{
 					penalty = penalty - 6;
 					System.out.println("c15");
