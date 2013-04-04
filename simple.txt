@@ -8,6 +8,9 @@ researcher(Angi)
 group(Angi, YQT)
 heads-group(Angi, YQT)
 
+researcher(BRUCE)
+smoker(BRUCE)
+
 // project descriptions
 large-project(EULISP)
 

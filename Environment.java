@@ -398,7 +398,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 		}
 		if (newGroup == groupNames.size()){
 			groupNames.addElement(new Group(grp));
-			if(person.getGroup() == null){
+			if(person.getGroup().getName().compareTo("") == 0){
 				groupNames.get(newGroup).addPerson(person);
 			}
 			else{
@@ -412,7 +412,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 			}
 		}
 		else{
-			if(person.getGroup() == null){
+			if(person.getGroup().getName().compareTo("") == 0){
 				groupNames.get(newGroup).addPerson(person);
 			}
 			else{
@@ -500,7 +500,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 			projectNames.get(rIndex).addPerson(myPeople.get(pIndex));
 		}
 		
-		if (myPeople.get(pIndex).getProject() != null)
+		if (myPeople.get(pIndex).getProject().getName().compareTo("") != 0)
 		{
 			String oldProject = myPeople.get(pIndex).getProject().getName();
 			int temp = 0;
