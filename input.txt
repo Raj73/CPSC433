@@ -65,10 +65,6 @@ heads-project(Hans, "BABYLON Product")
 smoker(Hans)
 works-with(Hans,{Michael})
 
-manager(Eva)
-group(Eva, YQT)
-works-with(Eva,{Thomas, Ulrike, Monika})
-
 researcher(Joachim)
 group(Joachim, YQT)
 project(Joachim, ASERTI)

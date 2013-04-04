@@ -43,7 +43,7 @@ public class SisyphusI {
 							System.out.println(n.getData().get(i).toString());
 						}
 						
-						//System.out.println("The goodness of this solution: " + n.getGoodness());
+						System.out.println("The goodness of this solution: " + n.getGoodness());
 					}
 				}
 				if ((System.currentTimeMillis() - startTime) > 5000) break;
