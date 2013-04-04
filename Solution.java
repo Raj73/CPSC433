@@ -455,16 +455,7 @@ public void goodness(Node currentNode)
 			result = result + "Hard constraint 4 was not met \n";
 		return result;
 	}
-	public Node getSolution(){
-		return solutions.poll();
-	}
-	public Node checkSolution(){
-		return solutions.peek();
-	}
-	public int treeSize(){
-		return solutions.size();
-	}
-}
+
 public Node getSolution(){
 	return solutions.poll();
 }
