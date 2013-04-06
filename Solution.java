@@ -92,7 +92,7 @@ public void transition(){
 		while(mytemp.peek() != null){
 			tempNode = mytemp.poll();
 			projectedGoodness = tempNode.getGoodness();
-			projectedGoodness = projectedGoodness + (tempNode.getCurrentPeople().size() * 20); //20 is just an arbritary number
+			projectedGoodness = projectedGoodness + (tempNode.getCurrentPeople().size() * 10); //20 is just an arbritary number, projected goodness
 			tempNode.setGoodness(projectedGoodness);
 			queueNodes.add(tempNode);
 		}
@@ -106,30 +106,6 @@ public void transition(){
 		
 	
 }
-
-
-public void createSolution(){
-	currentNode = Head;
-	
-	for(int j=0;j<Head.getCurrentPeople().size();j++){
-		System.out.println(Head.getCurrentPeople().get(j).getName());
-	}
-	
-	for(int i =0; i < 10000 ; i++){
-		
-		if(currentNode != null && currentNode.getCurrent() != null){
-			//System.out.println("current assign \n"+ currentNode.getCurrent().toString());
-			//System.out.println("-------------");
-		}
-		for(int j =0;j<currentNode.getData().size();j++){
-			//System.out.println(currentNode.getData().get(j).toString());
-		}
-		for(int j=0;j<currentNode.getCurrentPeople().size();j++){
-			//System.out.println(currentNode.getCurrentPeople().get(j).getName());
-		}
-	}
-}
-
 
 public void goodness(Node currentNode)
 {

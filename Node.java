@@ -49,7 +49,7 @@ public class Node implements Comparable<Node> {
 		PriorityQueue<Node> newChildren = new PriorityQueue<Node>();
 		Person p = currentPeople.get(0);
 		
-		System.out.println("*********************Person: " + p.getName());
+//		System.out.println("*********************Person: " + p.getName());
 		
 		
 		for(int i = 0; i < data.size(); i++){
@@ -65,7 +65,6 @@ public class Node implements Comparable<Node> {
 				}
 			}
 			else if(!data.get(i).isHead()&& data.get(i).getPerson2() == null && !data.get(i).isHead()){		//dont make child if head already in room
-//				System.out.println(data.get(i).isHead());
 				Assignment a = new Assignment(data.get(i));
 				a.assertPerson(p);
 				Node temp = new Node(a, data, currentPeople);
@@ -139,16 +138,45 @@ public class Node implements Comparable<Node> {
 		this.children = childern;
 	}
 	
-	public void goodness(Node currentNode)		//calculate the projected goodness of the assignment
+	public void goodness(Node currentNode)		//calculate the current goodness of the assignment
 	{
 		Room room = currentNode.getCurrent().getRoom();
 		Person person1 = currentNode.getCurrent().getPerson1();
 		Person person2 = currentNode.getCurrent().getPerson2();
+		Vector <Assignment> aList = currentNode.data;
 		int penalty = 0;
 		
 		if(person1.getHeadsGroup() != null){			//first person a group head
 			if (room.getMedium() || room.getSmall()){
 				penalty += 40;
+			}
+			
+			Vector <Room> closeRooms = room.getCloseWith();
+			boolean secFound = false;						//secratary flag
+			
+			for(int i = 0; i < aList.size(); i++){			//going through all the assignments
+				for(int j = 0; j < closeRooms.size(); j++){		//going through all the close rooms
+					if(aList.get(i).getRoom().equals(closeRooms.get(j))){	//if assigned room is a close room
+						if(aList.get(i).getPerson1() != null){		//person1 in room
+							if(aList.get(i).getPerson1().getSecratary()){		//first person a sec
+								secFound = true;
+								break;
+							}
+							if(aList.get(i).getPerson2() != null){	//person2 in room
+								if(aList.get(i).getPerson2().getSecratary()){	//second person a sec
+									secFound = true;
+									break;
+								}
+							}
+						}
+					}	
+				}
+				if(secFound){
+					break;
+				}
+			}
+			if(!secFound){
+				penalty += 30;
 			}
 		}
 		else if(person1.getResearcher())				//a researcher and not group head

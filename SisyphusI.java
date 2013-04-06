@@ -33,29 +33,25 @@ public class SisyphusI {
 			Solution s = new Solution(env);
 			for(;; transCount++){
 				s.transition();
-				System.out.println("Transition* " + transCount);
+				System.out.println("Transition* " + transCount);				// number of transitions done
 				n = s.checkSolution();
 				if(n != null){
 					if(n.getGoodness() < bestGoodness){
 						bestGoodness = n.getGoodness();
-						//System.out.println("------Current Assignments--------");
+						System.out.println("------New Best--------");
 						for(int i = 0; i < n.getData().size(); i++){
 							System.out.println(n.getData().get(i).toString());
 						}
-						
-						System.out.println("The goodness of this solution: " + n.getGoodness());
 					}
 				}
-				if ((System.currentTimeMillis() - startTime) > 5000) break;
-				System.out.println(s.getCurrentNode());
-				//System.out.println(s.getCurrentNode().getCurrentPeople());
+				if ((System.currentTimeMillis() - startTime) > 15000) break;
 				if((s.getCurrentNode() == null)||(s.treeSize() == 0 && s.getCurrentNode().getCurrentPeople().size() == 0)){
-					//System.out.println("***********Tree fully traversed***********");
+					System.out.println("***********Tree fully traversed***********");
 					break;
 				}
 			}
 			if(n == null){
-				//System.out.println("***********No solution found******************");
+				System.out.println("***********No solution found******************");
 			}
 			else{
 				System.out.println("------Best Assignments--------");
@@ -65,6 +61,8 @@ public class SisyphusI {
 				System.out.println("The goodness of this solution: " + n.getGoodness());
 			}
 		}
+		System.out.println("Total Time: " + (System.currentTimeMillis() - startTime) + "ms");
+		
 		System.out.println("");
 		
 		System.out.println("managers");
