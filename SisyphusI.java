@@ -63,6 +63,8 @@ public class SisyphusI {
 					System.out.println(n.getData().get(i).toString());
 				}
 				System.out.println("The goodness of this solution: " + n.getGoodness());
+				
+				s.goodness(n);
 			}
 		}
 		System.out.println("Total Time: " + (System.currentTimeMillis() - startTime) + "ms");
