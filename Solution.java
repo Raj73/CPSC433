@@ -129,7 +129,7 @@ public void goodness(Node currentNode)
 			
 			penalty = penalty - ((person1.getGroup().getPeople().size() - 1 - membersCloseToo) * 2);	//
 
-			System.out.println("c2 is: " +(person1.getGroup().getPeople().size() - 1 - membersCloseToo) * 2);
+			if (membersCloseToo < closeRooms.size() - 1 ) System.out.println("c2 is: " +(person1.getGroup().getPeople().size() - 1 - membersCloseToo) * 2);
 			
 			penalty = penalty - 30;
 			for (int i = 0; i < closeRooms.size(); i++)
@@ -146,7 +146,7 @@ public void goodness(Node currentNode)
 					if (data.get(closeRooms.get(i)).getPerson2().getSecratary() && data.get(closeRooms.get(i)).getPerson2().getGroup().evaluateGroup(person1.getGroup().getName()))
 					{
 						penalty = penalty + 30;	//c3
-						System.out.println("c3 canceeled");
+						System.out.println("c3 canceled");
 						break;
 					}
 				}
@@ -172,7 +172,8 @@ public void goodness(Node currentNode)
 			}
 			
 			penalty = penalty - ((person1.getProject().getProjectMembers().size() - 1 - membersCloseToo) * 2); //c8
-			System.out.println("c8");
+			
+			if (membersCloseToo < closeRooms.size() - 1 ) System.out.println("c8");
 			
 			if (person1.getProject().isLarge())
 			{
@@ -247,7 +248,7 @@ public void goodness(Node currentNode)
 			}
 			
 			penalty = penalty - ((person1.getGroup().getPeople().size() - 1 - membersCloseToo) * 2); //c7
-			System.out.println("c7");
+			if (membersCloseToo < closeRooms.size() - 1 ) System.out.println("c7");
 			
 			penalty = penalty - 30;
 			for (int i = 0; i < closeRooms.size(); i++)
