@@ -44,7 +44,7 @@ public class SisyphusI {
 						}
 					}
 				}
-				if ((System.currentTimeMillis() - startTime) > 15000) break;
+				if ((System.currentTimeMillis() - startTime) > 5000) break;
 				if((s.getCurrentNode() == null)||(s.treeSize() == 0 && s.getCurrentNode().getCurrentPeople().size() == 0)){
 					System.out.println("***********Tree fully traversed***********");
 					break;
@@ -54,6 +54,7 @@ public class SisyphusI {
 				System.out.println("***********No solution found******************");
 			}
 			else{
+				System.out.println("Solutions generated: " + (s.getSolutionSize()+1));
 				System.out.println("------Best Assignments--------");
 				for(int i = 0; i < n.getData().size(); i++){
 					System.out.println(n.getData().get(i).toString());
@@ -63,57 +64,48 @@ public class SisyphusI {
 		}
 		System.out.println("Total Time: " + (System.currentTimeMillis() - startTime) + "ms");
 		
+		System.out.println("Total People: " + env.getMyPeople().size());
 		System.out.println("");
-		
-		System.out.println("managers");
-		System.out.println("");
-		for(int i = 0; i < env.getManager().size(); i++){
-			System.out.println(env.getManager().get(i).getName());
-		}
-		System.out.println("");
-		
 		System.out.println("secretary");
-		System.out.println("");
 		for(int i = 0; i < env.getSecretary().size(); i++){
 			System.out.println(env.getSecretary().get(i).getName());
 		}
 		System.out.println("");
 		
 		System.out.println("smokers");
-		System.out.println("");
 		for(int i = 0; i < env.getSmoker().size(); i++){
 			System.out.println(env.getSmoker().get(i).getName());
 		}
+		System.out.println("");
 		
-		System.out.println("");
 		System.out.println("hackers");
-		System.out.println("");
 		for(int i = 0; i < env.getHacker().size(); i++){
 			System.out.println(env.getHacker().get(i).getName());
 		}
 		System.out.println("");
 		
 		System.out.println("researchers");
-		System.out.println("");
 		for(int i = 0; i < env.getResearcher().size(); i++){
 			System.out.println(env.getResearcher().get(i).getName());
 		}
 		System.out.println("");
 		
-		System.out.println("project heads");
+		System.out.println("managers");
+		for(int i = 0; i < env.getManager().size(); i++){
+			System.out.println(env.getManager().get(i).getName());
+		}
 		System.out.println("");
+		
+		System.out.println("project heads");
 		for(int i = 0; i < env.getProjectHeads().size(); i++){
 			System.out.println(env.getProjectHeads().get(i).getName());
 		}
 		System.out.println("");
 		
 		System.out.println("group heads");
-		System.out.println("");
 		for(int i = 0; i < env.getGrouphead().size(); i++){
 			System.out.println(env.getGrouphead().get(i).getName());
 		}
-		System.out.println("");
-		
 //		toFile(env, fileName);
 		
 	}

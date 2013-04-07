@@ -42,44 +42,6 @@ public Solution(Environment e){
 	Head = new Node(env);
 }
 
-//Vector<Vector<Room>> rooms = new Vector<Vector<Room>>();
-
-/*
-//deprecated
-public void addSolution(Vector<Room> rms){
-	Vector<Room> solution = new Vector<Room>();
-	
-	for(int i = 0; i< rms.size(); i++){
-		Room room = new Room(rms.get(i));
-		solution.addElement(room);
-	}
-	rooms.addElement(solution);
-}
-*/
-
-/*
-public void printSol(int index){
-	Room rm;
-	for(int i = 0; i < rooms.get(index).size(); i++){
-		rm = rooms.get(index).get(i);
-		System.out.println("Room " + rm.getName() + " Person 1: " + rm.getPeople().get(0).getName());
-		System.out.println("Room " + rm.getName() + " Person 1: " + rm.getPeople().get(1).getName());
-	}
-	System.out.println("--------------------end of rooms-------------");
-}
-*/
-
-public void changeAssign(Environment env){
-	env.getRoomNames().get(0).removeAssignPerson(env.getMyPeople().get(0), "C5110");
-	
-	env.getRoomNames().get(1).removeAssignPerson(env.getMyPeople().get(1), "C5113");
-	
-	env.getRoomNames().get(0).assertAssignPerson(env.getMyPeople().get(1), "C5110");
-	
-	env.getRoomNames().get(1).assertAssignPerson(env.getMyPeople().get(0), "C5113");
-	
-}
-
 public void transition(){
 	if(currentNode == null)
 		currentNode = Head;
@@ -92,7 +54,7 @@ public void transition(){
 		while(mytemp.peek() != null){
 			tempNode = mytemp.poll();
 			projectedGoodness = tempNode.getGoodness();
-			projectedGoodness = projectedGoodness + (tempNode.getCurrentPeople().size() * 10); //20 is just an arbritary number, projected goodness
+			projectedGoodness = projectedGoodness + (tempNode.getCurrentPeople().size()*5); //just an arbritary number, projected goodness, 2 or 1 may cause out of memory
 			tempNode.setGoodness(projectedGoodness);
 			queueNodes.add(tempNode);
 		}
@@ -103,8 +65,6 @@ public void transition(){
 		
 	}
 		currentNode = queueNodes.poll();
-		
-	
 }
 
 public void goodness(Node currentNode)
@@ -451,6 +411,10 @@ public Node getSolution(){
 public Node checkSolution(){
 	return solutions.peek();
 }
+public int getSolutionSize(){
+	return solutions.size();
+}
+
 public Node getCurrentNode() {
 	return currentNode;
 }
