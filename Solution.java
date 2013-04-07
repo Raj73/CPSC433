@@ -6,20 +6,7 @@ import java.util.Vector;
 public class Solution {
 	
 private Environment env;
-private Vector<Person> people;
-private Vector<Room> rooms;
-private Vector<Assignment> assignList = new Vector<Assignment>();
 private Node Head;
-private Vector<Person> secretary;
-private Vector<Person> smoker;
-private Vector<Person> hacker;
-private Vector<Person> researcher;
-private Vector<Person> manager;
-private Vector<Person> groupHead;
-private Vector<Person> projectHead;
-private Vector<Room> largeRooms;
-private Vector<Room> medRooms;
-private Vector<Room> smRooms;
 private Node currentNode = null;
 private PriorityQueue<Node> solutions = new PriorityQueue<Node>();
 private PriorityQueue<Node> queueNodes = new PriorityQueue<Node>();
@@ -27,18 +14,6 @@ private PriorityQueue<Node> queueNodes = new PriorityQueue<Node>();
 
 public Solution(Environment e){
 	env = e;
-	people = env.getMyPeople();
-	rooms = env.getRoomNames();
-	secretary = env.getSecretary();
-	smoker = env.getSmoker();
-	hacker = env.getHacker();
-	researcher = env.getResearcher();
-	manager = env.getManager();
-	groupHead = env.getGrouphead();
-	projectHead = env.getProjectHeads();
-	largeRooms = env.getLargeRooms();
-	medRooms = env.getMediumRooms();
-	smRooms = env.getSmallRooms();
 	Head = new Node(env);
 }
 

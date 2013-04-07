@@ -540,7 +540,8 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 	public void a_heads_group(String p, String grp) {
 		int i = 0;
 		Person person;
-		if(!e_person(p))
+		a_group(p, grp);
+		if(!e_person(p))			//add person into person list if hes not already there
 			a_person(p);
 		for(i =0;i<myPeople.size();i++){
 			if(myPeople.get(i).evaluatePerson(p)){
@@ -549,7 +550,6 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 		}
 		
 		person = myPeople.get(i);
-		String oldGroup;
 		
 		int newGroup =0;
 		while((newGroup <groupNames.size()) && !groupNames.get(newGroup).evaluateGroup(grp)){
@@ -561,13 +561,12 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 				groupNames.get(newGroup).addHead(person);			//add person as the head of the group
 			}
 			else{													//remove person from old group and add into new group
-				oldGroup = person.getHeadsGroup().getName();
 				int old = 0;
 				while((old <groupNames.size()) && !groupNames.get(old).evaluateGroup(grp)){
 					old++;
 				}
-				groupNames.get(old).removeHead(person);
-				groupNames.get(newGroup).addHead(person);
+				groupNames.get(old).removeHead(person);			//remove as head
+				groupNames.get(newGroup).addHead(person);		//add as head
 			}
 		}
 		else{														//group already exists
@@ -575,7 +574,6 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 				groupNames.get(newGroup).addHead(person);
 			}
 			else{
-				oldGroup = person.getHeadsGroup().getName();
 				int old = 0;
 				while((old <groupNames.size()) && !groupNames.get(old).evaluateGroup(grp)){
 					old++;
@@ -586,6 +584,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 		}
 		person.assertHeadsGroup(p, groupNames.get(newGroup));
 		grouphead.addElement(person);
+		
 	}
 
 	/**

@@ -24,7 +24,7 @@ public class SisyphusI {
 		int bestGoodness = 999999999;
 		Node n = null;
 		int linesRead = 0;
-		int runTime = 5000;
+		int runTime = 10000;
 		
 		final Environment env = Environment.get();
 		
@@ -32,8 +32,8 @@ public class SisyphusI {
 		if (args.length>0) {
 			fileName = args[0];
 			linesRead = env.fromFile(fileName);
-			linesRead /= 50;
-			runTime = runTime - linesRead - 1;
+			linesRead /= 10;
+			runTime = runTime - linesRead - 2;
 			Solution s = new Solution(env);
 			
 			if(s.hardConstraints()){
@@ -43,10 +43,7 @@ public class SisyphusI {
 					if(n != null){
 						if(n.getGoodness() < bestGoodness){
 							bestGoodness = n.getGoodness();
-							System.out.println("------New Best--------");
-							for(int i = 0; i < n.getData().size(); i++){
-								System.out.println(n.getData().get(i).toString());
-							}
+							System.out.println("New Best at transition: " + transCount);
 						}
 					}
 					if ((System.currentTimeMillis() - startTime) > runTime) break;
@@ -55,6 +52,7 @@ public class SisyphusI {
 						break;
 					}
 				}
+				System.out.println("");
 				System.out.println("Transitions done: " + transCount);
 			}
 			if(n == null){
@@ -115,6 +113,17 @@ public class SisyphusI {
 		System.out.println("group heads");
 		for(int i = 0; i < env.getGrouphead().size(); i++){
 			System.out.println(env.getGrouphead().get(i).getName());
+		}
+		System.out.println("");
+		
+		System.out.println("groups");
+		for(int i = 0; i < env.getGroupNames().size(); i++){
+			System.out.println(env.getGroupNames().get(i).getName());
+			System.out.println("members:");
+			for(int j = 0; j<env.getGroupNames().get(i).getPeople().size(); j++){
+				System.out.println(env.getGroupNames().get(i).getPeople().get(j).getName());
+			}
+			System.out.println("");
 		}
 //		toFile(env, fileName);
 	}

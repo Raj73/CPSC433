@@ -1,4 +1,4 @@
-// the YQT group staff descriptions
+
 //10
 researcher(Werner)
 group(Werner, YQT)
@@ -243,3 +243,6 @@ close(C24, C14)
 close(C24, C15)
 close(C25, C11)
 close(C25, C12)
+close(C26, C27)
+close(C27, C30)
+close(C27, C31)
