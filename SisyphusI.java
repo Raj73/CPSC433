@@ -46,7 +46,7 @@ public class SisyphusI {
 							}
 						}
 					}
-					if ((System.currentTimeMillis() - startTime) > 5000) break;
+					if ((System.currentTimeMillis() - startTime) > 10000) break;
 					if((s.getCurrentNode() == null)||(s.treeSize() == 0 && s.getCurrentNode().getCurrentPeople().size() == 0)){
 						System.out.println("***********Tree fully traversed***********");
 						break;
@@ -113,7 +113,6 @@ public class SisyphusI {
 			System.out.println(env.getGrouphead().get(i).getName());
 		}
 //		toFile(env, fileName);
-		
 	}
 	
 /**
