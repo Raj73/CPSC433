@@ -22,9 +22,10 @@ public class SisyphusI {
 		long startTime = System.currentTimeMillis();
 		int transCount = 0;
 		int bestGoodness = 999999999;
-		Node n = null;
+		Node bestNode = null;
+		Node tempNode = null;
 		int linesRead = 0;
-		int runTime = 10000;
+		int givenTime = 5000;
 		
 		final Environment env = Environment.get();
 		
@@ -33,16 +34,24 @@ public class SisyphusI {
 			fileName = args[0];
 			linesRead = env.fromFile(fileName);
 			linesRead /= 10;
-			runTime = runTime - linesRead - 2;
+			int runTime = givenTime - linesRead - 2;
 			Solution s = new Solution(env);
+			
+			if(runTime <= 0){
+				runTime = givenTime - 2;
+			}
 			
 			if(s.hardConstraints()){
 				for(;; transCount++){
 					s.transition();
-					n = s.checkSolution();
-					if(n != null){
-						if(n.getGoodness() < bestGoodness){
-							bestGoodness = n.getGoodness();
+					tempNode = s.checkSolution();
+					if(tempNode != null){
+						if(bestNode == null){
+							bestNode = tempNode;
+							System.out.println("New Best at transition: " + transCount);
+						}
+						else if(tempNode.getGoodness() < bestNode.getGoodness()){
+							bestNode = tempNode;
 							System.out.println("New Best at transition: " + transCount);
 						}
 					}
@@ -55,77 +64,111 @@ public class SisyphusI {
 				System.out.println("");
 				System.out.println("Transitions done: " + transCount);
 			}
-			if(n == null){
+			if(bestNode == null){
 				System.out.println("***********No solution found******************");
 			}
 			else{
 				System.out.println("Solutions generated: " + (s.getSolutionSize()+1));
 				System.out.println("------Best Assignments--------");
-				for(int i = 0; i < n.getData().size(); i++){
-					System.out.println(n.getData().get(i).toString());
+				for(int i = 0; i < bestNode.getData().size(); i++){
+					System.out.println(bestNode.getData().get(i).toString());
 				}
-				System.out.println("The goodness of this solution: " + n.getGoodness());
+				System.out.println("The goodness of this solution: " + bestNode.getGoodness());
 				
-				s.goodness(n);
+				s.goodness(bestNode);
 			}
-		}
-		System.out.println("Total Time: " + (System.currentTimeMillis() - startTime) + "ms");
-		
-		System.out.println("Total People: " + env.getMyPeople().size());
-		System.out.println("Total Rooms: " + env.getRoomNames().size());
-		System.out.println("");
-		System.out.println("secretary");
-		for(int i = 0; i < env.getSecretary().size(); i++){
-			System.out.println(env.getSecretary().get(i).getName());
-		}
-		System.out.println("");
-		
-		System.out.println("smokers");
-		for(int i = 0; i < env.getSmoker().size(); i++){
-			System.out.println(env.getSmoker().get(i).getName());
-		}
-		System.out.println("");
-		
-		System.out.println("hackers");
-		for(int i = 0; i < env.getHacker().size(); i++){
-			System.out.println(env.getHacker().get(i).getName());
-		}
-		System.out.println("");
-		
-		System.out.println("researchers");
-		for(int i = 0; i < env.getResearcher().size(); i++){
-			System.out.println(env.getResearcher().get(i).getName());
-		}
-		System.out.println("");
-		
-		System.out.println("managers");
-		for(int i = 0; i < env.getManager().size(); i++){
-			System.out.println(env.getManager().get(i).getName());
-		}
-		System.out.println("");
-		
-		System.out.println("project heads");
-		for(int i = 0; i < env.getProjectHeads().size(); i++){
-			System.out.println(env.getProjectHeads().get(i).getName());
-		}
-		System.out.println("");
-		
-		System.out.println("group heads");
-		for(int i = 0; i < env.getGrouphead().size(); i++){
-			System.out.println(env.getGrouphead().get(i).getName());
-		}
-		System.out.println("");
-		
-		System.out.println("groups");
-		for(int i = 0; i < env.getGroupNames().size(); i++){
-			System.out.println(env.getGroupNames().get(i).getName());
-			System.out.println("members:");
-			for(int j = 0; j<env.getGroupNames().get(i).getPeople().size(); j++){
-				System.out.println(env.getGroupNames().get(i).getPeople().get(j).getName());
+			
+			System.out.println("Total People: " + env.getMyPeople().size());
+			System.out.println("Total Rooms: " + env.getRoomNames().size());
+			System.out.println("");
+			System.out.println("secretary");
+			for(int i = 0; i < env.getSecretary().size(); i++){
+				System.out.println(env.getSecretary().get(i).getName());
 			}
 			System.out.println("");
+			
+			System.out.println("smokers");
+			for(int i = 0; i < env.getSmoker().size(); i++){
+				System.out.println(env.getSmoker().get(i).getName());
+			}
+			System.out.println("");
+			
+			System.out.println("hackers");
+			for(int i = 0; i < env.getHacker().size(); i++){
+				System.out.println(env.getHacker().get(i).getName());
+			}
+			System.out.println("");
+			
+			System.out.println("researchers");
+			for(int i = 0; i < env.getResearcher().size(); i++){
+				System.out.println(env.getResearcher().get(i).getName());
+			}
+			System.out.println("");
+			
+			System.out.println("managers");
+			for(int i = 0; i < env.getManager().size(); i++){
+				System.out.println(env.getManager().get(i).getName());
+			}
+			System.out.println("");
+			
+			System.out.println("project heads");
+			for(int i = 0; i < env.getProjectHeads().size(); i++){
+				System.out.println(env.getProjectHeads().get(i).getName());
+			}
+			System.out.println("");
+			
+			System.out.println("group heads");
+			for(int i = 0; i < env.getGrouphead().size(); i++){
+				System.out.println(env.getGrouphead().get(i).getName());
+			}
+			System.out.println("");
+			
+			System.out.println("groups");
+			for(int i = 0; i < env.getGroupNames().size(); i++){
+				System.out.println(env.getGroupNames().get(i).getName());
+				System.out.println("members:");
+				for(int j = 0; j<env.getGroupNames().get(i).getPeople().size(); j++){
+					System.out.println(env.getGroupNames().get(i).getPeople().get(j).getName());
+				}
+				System.out.println("");
+			}
+			toFile2(env, fileName, bestNode, transCount, s.getSolutionSize()+1, startTime);		//create the output file
+			System.out.println("Total Time: " + (System.currentTimeMillis() - startTime) + "ms");
 		}
-//		toFile(env, fileName);
+	}
+
+	/**
+	 * Outputs the assignments of the best answer into a file using the name <fileName>.out
+	 * @param env
+	 * @param fileName
+	 * @param solution
+	 * @param transitions
+	 * @param solGenerated
+	 * @param startTime
+	 */
+	public static void toFile2(Environment env, String fileName, Node solution, int transitions, int solGenerated, long startTime){
+		BufferedWriter writer = null;
+		try{
+			writer = new BufferedWriter(new FileWriter(fileName+".out", true));
+			writer.write("// Solution to " + fileName);
+			
+			for(int i = 0; i < solution.getData().size(); i++){
+				if(solution.getData().get(i).toString().compareTo("") != 0){
+					writer.write("\n" + solution.getData().get(i).toString());
+				}
+			}
+			writer.write("\n");
+			writer.write("// The goodness of this solution: " + solution.getGoodness() + "\n");
+			writer.write("// Transitions taken: " + transitions + "\n");
+			writer.write("// Solutions Generated: " + solGenerated + "\n");
+			writer.write("// Total People: " + env.getMyPeople().size() + "\n");
+			writer.write("// Total Rooms: " + env.getRoomNames().size() + "\n");
+			writer.write("// Total time: " + (System.currentTimeMillis() - startTime));
+			writer.close();
+		}
+		catch(IOException err){
+			System.err.println("File could not be created!!");
+		}
 	}
 	
 /**
@@ -133,11 +176,7 @@ public class SisyphusI {
  * @param env The data that is needed to be outputted to the file
  * @param fileName the destination of the file to be written to
  */
-	
-	
 	public static void toFile(Environment env, String fileName){
-		
-		
 		BufferedWriter writer = null;
 		try{
 			writer = new BufferedWriter(new FileWriter(fileName+".out", true));
