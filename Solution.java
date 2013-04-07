@@ -49,21 +49,25 @@ public void transition(){
 	Node tempNode;
 	int projectedGoodness;
 
-	if(!currentNode.isComplete()){
+	
 		mytemp = currentNode.makeChildren();
 		while(mytemp.peek() != null){
 			tempNode = mytemp.poll();
 			projectedGoodness = tempNode.getGoodness();
 			projectedGoodness = projectedGoodness + (tempNode.getCurrentPeople().size()*4); //just an arbritary number, projected goodness, 2 or 1 may cause out of memory
 			tempNode.setGoodness(projectedGoodness);
+			
+			if(tempNode.isComplete()){
+				goodness(tempNode);
+				solutions.add(tempNode);
+				
+			}
+			else{
 			queueNodes.add(tempNode);
 		}
 		}
-	else{
-		goodness(currentNode);
-		solutions.add(currentNode);
 		
-	}
+
 		currentNode = queueNodes.poll();
 }
 
@@ -123,8 +127,9 @@ public void goodness(Node currentNode)
 				}
 			}
 			
-			penalty = penalty - ((person1.getGroup().getPeople().size() - 1 - membersCloseToo) * 2);	//c2
-			System.out.println("c2");
+			penalty = penalty - ((person1.getGroup().getPeople().size() - 1 - membersCloseToo) * 2);	//
+
+			System.out.println("c2 is: " +(person1.getGroup().getPeople().size() - 1 - membersCloseToo) * 2);
 			
 			penalty = penalty - 30;
 			for (int i = 0; i < closeRooms.size(); i++)
@@ -132,7 +137,7 @@ public void goodness(Node currentNode)
 				if (data.get(closeRooms.get(i)).getPerson1() != null && data.get(closeRooms.get(i)).getPerson1().getSecratary() && data.get(closeRooms.get(i)).getPerson1().getGroup().evaluateGroup(person1.getGroup().getName()))
 				{
 					penalty = penalty + 30;	//c3
-					System.out.println("c3");
+					System.out.println("c3 cancelled");
 					break;
 				}
 				
@@ -141,7 +146,7 @@ public void goodness(Node currentNode)
 					if (data.get(closeRooms.get(i)).getPerson2().getSecratary() && data.get(closeRooms.get(i)).getPerson2().getGroup().evaluateGroup(person1.getGroup().getName()))
 					{
 						penalty = penalty + 30;	//c3
-						System.out.println("c3");
+						System.out.println("c3 canceeled");
 						break;
 					}
 				}
