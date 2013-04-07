@@ -46,7 +46,7 @@ public class SisyphusI {
 							}
 						}
 					}
-					if ((System.currentTimeMillis() - startTime) > 5000) break;
+					if ((System.currentTimeMillis() - startTime) > 50000) break;
 					if((s.getCurrentNode() == null)||(s.treeSize() == 0 && s.getCurrentNode().getCurrentPeople().size() == 0)){
 						System.out.println("***********Tree fully traversed***********");
 						break;
