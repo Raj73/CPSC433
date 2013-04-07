@@ -23,19 +23,22 @@ public class SisyphusI {
 		int transCount = 0;
 		int bestGoodness = 999999999;
 		Node n = null;
+		int linesRead = 0;
+		int runTime = 5000;
 		
 		final Environment env = Environment.get();
 		
 		//if arguments in command line were greater than one
 		if (args.length>0) {
 			fileName = args[0];
-			env.fromFile(fileName);
+			linesRead = env.fromFile(fileName);
+			linesRead /= 50;
+			runTime = runTime - linesRead - 1;
 			Solution s = new Solution(env);
 			
 			if(s.hardConstraints()){
 				for(;; transCount++){
 					s.transition();
-					System.out.println("Transition* " + transCount);				// number of transitions done
 					n = s.checkSolution();
 					if(n != null){
 						if(n.getGoodness() < bestGoodness){
@@ -46,12 +49,13 @@ public class SisyphusI {
 							}
 						}
 					}
-					if ((System.currentTimeMillis() - startTime) > 10000) break;
+					if ((System.currentTimeMillis() - startTime) > runTime) break;
 					if((s.getCurrentNode() == null)||(s.treeSize() == 0 && s.getCurrentNode().getCurrentPeople().size() == 0)){
 						System.out.println("***********Tree fully traversed***********");
 						break;
 					}
 				}
+				System.out.println("Transitions done: " + transCount);
 			}
 			if(n == null){
 				System.out.println("***********No solution found******************");

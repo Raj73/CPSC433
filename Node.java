@@ -150,35 +150,7 @@ public class Node implements Comparable<Node> {
 			if (room.getMedium() || room.getSmall()){
 				penalty += 40;
 			}
-			
-/*			Vector <Room> closeRooms = room.getCloseWith();
-			boolean secFound = false;						//secratary flag
-			
-			for(int i = 0; i < aList.size(); i++){			//going through all the assignments
-				for(int j = 0; j < closeRooms.size(); j++){		//going through all the close rooms
-					if(aList.get(i).getRoom().equals(closeRooms.get(j))){	//if assigned room is a close room
-						if(aList.get(i).getPerson1() != null){		//person1 in room
-							if(aList.get(i).getPerson1().getSecratary()){		//first person a sec
-								secFound = true;
-								break;
-							}
-							if(aList.get(i).getPerson2() != null){	//person2 in room
-								if(aList.get(i).getPerson2().getSecratary()){	//second person a sec
-									secFound = true;
-									break;
-								}
-							}
-						}
-					}	
-				}
-				if(secFound){
-					break;
-				}
-			}
-			if(!secFound){
-				penalty += 30;
-			}
-*/		}
+		}
 		else if(person1.getResearcher())				//a researcher and not group head
 		{
 			if(room.getLarge())
