@@ -31,23 +31,26 @@ public class SisyphusI {
 			fileName = args[0];
 			env.fromFile(fileName);
 			Solution s = new Solution(env);
-			for(;; transCount++){
-				s.transition();
-				System.out.println("Transition* " + transCount);				// number of transitions done
-				n = s.checkSolution();
-				if(n != null){
-					if(n.getGoodness() < bestGoodness){
-						bestGoodness = n.getGoodness();
-						System.out.println("------New Best--------");
-						for(int i = 0; i < n.getData().size(); i++){
-							System.out.println(n.getData().get(i).toString());
+			
+			if(s.hardConstraints()){
+				for(;; transCount++){
+					s.transition();
+					System.out.println("Transition* " + transCount);				// number of transitions done
+					n = s.checkSolution();
+					if(n != null){
+						if(n.getGoodness() < bestGoodness){
+							bestGoodness = n.getGoodness();
+							System.out.println("------New Best--------");
+							for(int i = 0; i < n.getData().size(); i++){
+								System.out.println(n.getData().get(i).toString());
+							}
 						}
 					}
-				}
-				if ((System.currentTimeMillis() - startTime) > 5000) break;
-				if((s.getCurrentNode() == null)||(s.treeSize() == 0 && s.getCurrentNode().getCurrentPeople().size() == 0)){
-					System.out.println("***********Tree fully traversed***********");
-					break;
+					if ((System.currentTimeMillis() - startTime) > 5000) break;
+					if((s.getCurrentNode() == null)||(s.treeSize() == 0 && s.getCurrentNode().getCurrentPeople().size() == 0)){
+						System.out.println("***********Tree fully traversed***********");
+						break;
+					}
 				}
 			}
 			if(n == null){
@@ -65,6 +68,7 @@ public class SisyphusI {
 		System.out.println("Total Time: " + (System.currentTimeMillis() - startTime) + "ms");
 		
 		System.out.println("Total People: " + env.getMyPeople().size());
+		System.out.println("Total Rooms: " + env.getRoomNames().size());
 		System.out.println("");
 		System.out.println("secretary");
 		for(int i = 0; i < env.getSecretary().size(); i++){

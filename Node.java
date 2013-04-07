@@ -151,7 +151,7 @@ public class Node implements Comparable<Node> {
 				penalty += 40;
 			}
 			
-			Vector <Room> closeRooms = room.getCloseWith();
+/*			Vector <Room> closeRooms = room.getCloseWith();
 			boolean secFound = false;						//secratary flag
 			
 			for(int i = 0; i < aList.size(); i++){			//going through all the assignments
@@ -178,13 +178,13 @@ public class Node implements Comparable<Node> {
 			if(!secFound){
 				penalty += 30;
 			}
-		}
+*/		}
 		else if(person1.getResearcher())				//a researcher and not group head
 		{
 			if(room.getLarge())
 				penalty += 40;
-			else if(room.getSmall())
-				penalty += 25;
+//			else if(room.getSmall())
+//				penalty += 25;
 		}
 		
 		if(person2 == null){					// only one person in the room
@@ -193,7 +193,7 @@ public class Node implements Comparable<Node> {
 			}
 		}
 		
-		if(person2 != null){						//two people in a room
+/*		if(person2 != null){						//two people in a room
 			penalty += 4;							//better to have your own office
 			if((person1.getSmoker() && !person2.getSmoker()) || (person2.getSmoker() && !person1.getSmoker())){		//both should be smokers
 				penalty += 50;
@@ -218,7 +218,7 @@ public class Node implements Comparable<Node> {
 				penalty += 25;		//two people shouldnt share a small room
 			}
 		}
-		currentNode.setGoodness(penalty);
+*/		currentNode.setGoodness(penalty);
 	}
 
 	@Override
