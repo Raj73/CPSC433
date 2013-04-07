@@ -1,4 +1,3 @@
-
 // the YQT group staff descriptions
 //10
 researcher(Werner)
@@ -212,7 +211,7 @@ medium-room (C24)
 medium-room (C25)
 small-room (C26)
 small-room (C27)
-larger-room (C28)
+large-room (C28)
 small-room (C29)
 medium-room (C30)
 medium-room (C31)
