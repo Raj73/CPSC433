@@ -1,0 +1,383 @@
+
+//10
+researcher(Werner)
+group(Werner, YQT)
+project(Werner, RESPECT)
+hacker(Werner)
+works-with(Werner, {Angi, Marc})
+
+//10
+researcher(Jurgen)
+group(Jurgen, Rebels)
+project(Jurgen,EULISP)
+hacker(Jurgen)
+works-with(Jurgen,{Harry, Thomas})
+
+//11
+researcher(Marc)
+group(Marc, YQT)
+project(Marc, KRIPTON)
+hacker(Marc)
+works-with(Marc,{Angi, Werner})
+
+//11
+researcher(Angi)
+group(Angi, ABC)
+project(Angi, RESPECT)
+works-with(Angi, {Marc, Werner})
+
+//12
+researcher(Andy)
+group(Andy, YQT)
+project(Andy,TUTOR2000)
+smoker(Andy)
+
+//12
+researcher(Michael)
+group(Michael, YQT)
+project(Michael, "BABYLON Product")
+hacker(Michael)
+works-with(Michael,{Hans})
+
+//13
+researcher(Harry)
+group(Harry, YQT)
+project(Harry, EULISP)
+hacker(Harry)
+works-with(Harry,{Jurgen, Thomas})
+
+//13
+researcher(Uwe)
+group(Uwe, ABC)
+project(Uwe, "Autonomous Systems")
+smoker(Uwe)
+hacker(Uwe)
+
+//14
+researcher(Thomas)
+group(Thomas, YQT)
+heads-group(Thomas, YQT)
+project(Thomas, EULISP)
+works-with(Thomas,{Jurgen, Harry})
+
+//15
+secretary(Monika)
+group(Monika, YQT)
+works-with(Monika,{Thomas, Ulrike, Eva})
+
+//15
+secretary(Ulrike)
+group(Ulrike, YQT)
+works-with(Ulrike,{Thomas, Monika, Eva})
+
+//16
+researcher(Hans)
+group(Hans, Rebels)
+project(Hans, "BABYLON Product")
+heads-project(Hans, "BABYLON Product")
+smoker(Hans)
+works-with(Hans,{Michael})
+
+//17
+manager(Eva)
+group(Eva, YQT)
+works-with(Eva,{Thomas, Ulrike, Monika})
+
+//18
+manager(Ross)
+group(Ross, ABC)
+works-with(Ross,{Angela, Kelly, Eva})
+
+//19
+researcher(Angela)
+heads-group(Angela, ABC)
+works-with(Angela,{Thomas, Angela, Kelly})
+
+//30
+researcher(Kelly)
+group(Kelly, ABC)
+hacker(Kelly)
+works-with(Kelly,{Angela, Ross, Katharina})
+project(Kelly, MLT)
+
+//20
+researcher(Joachim)
+group(Joachim, YQT)
+project(Joachim, ASERTI)
+heads-project(Joachim, ASERTI)
+
+//21
+researcher(Katharina)
+group(Katharina, YQT)
+project(Katharina, MLT)
+heads-project(Katharina, MLT)
+smoker(Katharina)
+hacker(Katharina)
+
+//22
+hacker(Yosuke)
+researcher(Yosuke)
+group(Yosuke, CPSC)
+project(Yosuke, Aadvark)
+project(Yosuke, AI)
+works-with(Yosuke,{Sean, Brent, Brandon, Shane, Arthur, Tom, Raj, Bryce})
+
+//22
+researcher(Shane)
+hacker(Shane)
+group(Shane, CPSC)
+works-with(Shane,{Sean, Brent, Brandon, Yosuke, Arthur, Tom})
+
+//23
+hacker(Arthur)
+group(Arthur, CPSC)
+project(Arthur, Minecraft)
+works-with(Arthur,{Sean, Brent, Brandon, Yosuke, Shane, Tom, Raj, Ben})
+
+//23
+hacker(Sean)
+group(Sean, CPSC)
+project(Sean, Aadvark)
+works-with(Sean,{Arthur, Brent, Brandon, Yosuke, Shane, Tom})
+
+//24
+hacker(Brent)
+heads-project(Brent, Aadvark)
+group(Brent, CPSC)
+works-with(Brent,{Arthur, Sean, Brandon, Yosuke, Shane, Tom})
+
+//25
+secretary(Tom)
+group(Tom, CPSC)
+works-with(Tom,{Arthur, Sean, Brandon, Yosuke, Shane, Brent})
+
+//26
+manager(Brandon)
+group(Brandon, CPSC)
+project(Brandon, Minecraft)
+works-with(Brandon,{Arthur, Sean, Tom, Yosuke, Shane, Brent, Amanda, Michaela})
+
+//27
+heads-group(DarkLord, CPSC)
+
+//25
+researcher(Bob)
+group(Bob, Rebels)
+project(Bob, ASERTI)
+
+//28
+researcher(Dylan)
+group(Dylan, Rebels)
+project(Dylan, ASERTI)
+
+//28
+researcher(Mary)
+group(Mary, Rebels)
+project(Mary, "Babylon Product")
+
+//29
+researcher(Betty)
+group(Betty, Rebels)
+project(Betty, MLT)
+
+//29
+hacker(Martin)
+group(Martin, ABC)
+project("Babylon Product")
+
+//30
+secretary(Smith)
+group(Smith, YQT)
+project(Smith, RESPECT)
+
+//31
+hacker(Drake)
+project(Drake, KRIPTON)
+heads-group(Drake, Rebels)
+
+//32
+hacker(Bryce)
+project(Bryce, AI)
+works-with(Bryce, {Yosuke, Raj})
+group(Bryce, CPSC)
+
+//32
+hacker(Raj)
+project(Raj, AI)
+smoker(Raj)
+works-with(Raj, {Yosuke, Bryce, Arthur})
+group(Raj, CPSC)
+
+//33
+researcher(Rob)
+heads-project(Rob, AI)
+
+//34
+researcher(Gellard)
+smoker(Gellard)
+group(Gellard, CPSC)
+works-with(Gellard, {Jeff, Albert})
+
+//34
+secretary(Mandy)
+group(Mandy, CPSC)
+works-with(Mandy, Sean)
+
+//35
+heads-project(Albert, Douche)
+group(Albert, CPSC)
+hacker(Albert)
+smoker(Albert)
+works-with(Albert, {Gellard, Shane, Raj})
+
+//36
+researcher(Amanda)
+group(Amanda, CPSC)
+works-with(Amanda, {Brandon, Michaela})
+
+//36
+group(Michaela, CPSC)
+works-with(Michaela, {Brandon, Amanda})
+
+//37
+hacker(Jeff)
+project(Jeff, Minecraft)
+works-with(Jeff, Gellard)
+
+//37
+secretary(Adam)
+group(Adam, Alone)
+
+//38
+manager(Ben)
+works-with(Ben, {Arthur, Pavlov, Grumpy, Minerva, Chaos, Dante, Inferno, Bill})
+heads-group(Ben, GamesClub)
+heads-project(Ben, "Taking it easy")
+
+//39
+researcher(Pavlov)
+group(Pavlov, GamesClub)
+works-with(Pavlov, {Ben, Grumpy, Minerva, Chaos, Dante, Inferno, Bill})
+
+//39
+group(Grumpy, GamesClub)
+hacker(Grumpy)
+researcher(Grumpy)
+works-with(Grumpy, {Ben, Pavlov, Minerva, Chaos, Dante, Inferno, Bill})
+
+//40
+hacker(Minerva)
+group(Minerva, GamesClub)
+works-with(Minerva, {Ben, Pavlov, Grumpy, Chaos, Dante, Inferno, Bill})
+
+//40
+group(Chaos, GamesClub)
+project(Chaos, "World Destruction")
+works-with(Chaos, {Ben, Pavlov, Grumpy, Minerva, Dante, Inferno, Bill})
+
+//41
+group(Dante, GamesClub)
+secretary(Dante)
+project(Dante, "World Destruction")
+works-with(Dante, {Ben, Pavlov, Grumpy, Minerva, Chaos, Inferno, Bill})
+
+//41
+group(Inferno, GamesClub)
+smoker(Inferno)
+project(Inferno, "World Destruction")
+works-with(Inferno, {Ben, Pavlov, Grumpy, Minerva, Chaos, Dante, Bill})
+
+//42
+group(Bill, GamesClub)
+heads-project(Bill, "World Destruction")
+works-with(Bill, {Ben, Pavlov, Grumpy, Minerva, Chaos, Dante, Inferno})
+
+// project descriptions
+large-project("World Destruction")
+large-project("Babylon Product")
+large-project(ASERTI)
+large-project(MLT)
+
+// room sizes
+medium-room (C10)
+large-room (C11)
+small-room (C12)
+small-room (C13)
+small-room (C14)
+small-room (C15)
+small-room (C16)
+large-room (C17)
+large-room (C18)
+large-room (C19)
+large-room (C20)
+medium-room (C21)
+medium-room (C22)
+medium-room (C23)
+medium-room (C24)
+medium-room (C25)
+small-room (C26)
+small-room (C27)
+large-room (C28)
+small-room (C29)
+medium-room (C30)
+medium-room (C31)
+medium-room (C32)
+medium-room (C33)
+small-room (C34)
+large-room (C35)
+small-room (C36)
+small-room (C37)
+small-room (C38)
+medium-room (C39)
+medium-room (C40)
+medium-room (C41)
+medium-room (C42)
+
+// room proximity
+close(C10, C25)
+close(C10, C26)
+close(C12, C27)
+close(C12, C26)
+close(C13, C14)
+close(C13, C15)
+close(C14, C15)
+close(C14, C16)
+close(C15, C16)
+close(C15, C17)
+close(C16, C17)
+close(C17, C19)
+close(C19, C20)
+close(C19, C21)
+close(C19, C22)
+close(C20, C21)
+close(C21, C10)
+close(C21, C14)
+close(C21, C22)
+close(C21, C11)
+close(C22, C24)
+close(C23, C22)
+close(C24, C14)
+close(C24, C15)
+close(C25, C11)
+close(C25, C12)
+close(C26, C27)
+close(C27, C30)
+close(C27, C31)
+close(C32, C22)
+close(C32, C19)
+close(C32, C15)
+close(C32, C20)
+close(C32, C31)
+close(C32, C30)
+close(C32, C18)
+close(C32, C10)
+close(C32, C17)
+close(C34, C14)
+close(C34, C10)
+close(C34, C11)
+close(C34, C12)
+close(C35, C20)
+close(C38, C31)
+close(C40, C39)
+close(C41, C40)
+close(C42, C20)
