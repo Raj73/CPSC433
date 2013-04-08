@@ -25,26 +25,30 @@ public class SisyphusI {
 		Node bestNode = null;
 		Node tempNode = null;
 		int linesRead = 0;
-		int givenTime = 5000;
+		double givenTime = 60000;
 		
 		final Environment env = Environment.get();
 		
 		//if arguments in command line were greater than one
 		if (args.length>0) {
+			
+			if(args.length == 2)
+				givenTime = Integer.parseInt(args[1]);
+			
 			fileName = args[0];
 			linesRead = env.fromFile(fileName);
 			linesRead /= 10;
-			int runTime = givenTime - linesRead - 2;
+			double runTime = givenTime * 0.98;
 			Solution s = new Solution(env);
 			
 			if(runTime <= 0){
 				runTime = givenTime - 2;
 			}
 			
-			if(s.hardConstraints()){
+			if(s.solvable()){
 				for(;; transCount++){
 					s.transition();
-					tempNode = s.checkSolution();
+					tempNode = s.getSolition();
 					if(tempNode != null){
 						if(bestNode == null){
 							bestNode = tempNode;
@@ -76,6 +80,7 @@ public class SisyphusI {
 				System.out.println("The goodness of this solution: " + bestNode.getGoodness());
 				
 				s.goodness(bestNode);
+				toFile2(env, fileName, bestNode, transCount, s.getSolutionSize()+1, startTime);		//create the output file
 			}
 			
 			System.out.println("Total People: " + env.getMyPeople().size());
@@ -132,7 +137,6 @@ public class SisyphusI {
 				}
 				System.out.println("");
 			}
-			toFile2(env, fileName, bestNode, transCount, s.getSolutionSize()+1, startTime);		//create the output file
 			System.out.println("Total Time: " + (System.currentTimeMillis() - startTime) + "ms");
 		}
 	}

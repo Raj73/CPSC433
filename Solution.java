@@ -8,8 +8,9 @@ public class Solution {
 private Environment env;
 private Node Head;
 private Node currentNode = null;
-private PriorityQueue<Node> solutions = new PriorityQueue<Node>();
 private PriorityQueue<Node> queueNodes = new PriorityQueue<Node>();
+private Node solution = null;
+private int solutions = 0;
 
 
 public Solution(Environment e){
@@ -29,12 +30,16 @@ public void transition(){
 		while(mytemp.peek() != null){
 			tempNode = mytemp.poll();
 			projectedGoodness = tempNode.getGoodness();
-			projectedGoodness = projectedGoodness + (tempNode.getCurrentPeople().size()*10); //just an arbritary number, projected goodness, 2 or 1 may cause out of memory
+			projectedGoodness = projectedGoodness + (tempNode.getCurrentPeople().size()*10); 	//just an arbritary number, projected goodness, 2 or 1 may cause out of memory
 			tempNode.setGoodness(projectedGoodness);
 			
 			if(tempNode.isComplete()){
 				goodness(tempNode);
-				solutions.add(tempNode);
+				solutions ++;
+				if(solution ==null)
+					solution = tempNode;
+				else if(tempNode.getGoodness() < solution.getGoodness())
+					solution = tempNode;
 				
 			}
 			else{
@@ -299,7 +304,7 @@ public void goodness(Node currentNode)
 	}
 }
 
-	public boolean hardConstraints(){
+	public boolean solvable(){
 		
 		@SuppressWarnings("unused")
 		int heads = 0;
@@ -314,33 +319,39 @@ public void goodness(Node currentNode)
 			Else add .5 to rooms_required
 	
 		If float(rooms) <= rooms_required*/
-		for(int i = 0; i < env.getMyPeople().size(); i++){
-			if(env.getMyPeople().get(i).getHeadsGroup() != null || env.getMyPeople().get(i).getHeadsProject() != null){
-				roomsRequired += 1;
+		
+		
+		if(env.getMyPeople().size() != 0){
+			for(int i = 0; i < env.getMyPeople().size(); i++){
+				if(env.getMyPeople().get(i).getHeadsGroup() != null || env.getMyPeople().get(i).getHeadsProject() != null){
+					roomsRequired += 1;
+				}
+				else if(env.getMyPeople().get(i).getManager()){
+					roomsRequired += 1;
+				}
+				else{
+					roomsRequired += 0.5;
+				}
 			}
-			else if(env.getMyPeople().get(i).getManager()){
-				roomsRequired += 1;
-			}
-			else{
-				roomsRequired += 0.5;
-			}
+		}
+		else{
+			solvable = false;
+			System.out.println("#########Problem is not solvable##########");
 		}
 		
 		if(env.getRoomNames().size() < roomsRequired){
 			solvable = false;
-			System.out.println("#########Hard constraints cannot be met###########");
+			System.out.println("#########Problem is not solvable##########");
 		}
 		return solvable;
 	}
 
-public Node getSolution(){
-	return solutions.poll();
+public Node getSolition(){
+	return solution;
 }
-public Node checkSolution(){
-	return solutions.peek();
-}
+
 public int getSolutionSize(){
-	return solutions.size();
+	return solutions;
 }
 
 public Node getCurrentNode() {
