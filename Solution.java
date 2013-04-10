@@ -59,6 +59,7 @@ public void goodness(Node currentNode)
 	Person person2;
 	int penalty = 0;
 	
+	/*for loop that loops through all the rooms and subtracts every penalty from the total for given assignments */
 	for(int ID = 0; ID < data.size(); ID++)
 	{
 		room = data.get(ID).getRoom();
@@ -80,14 +81,18 @@ public void goodness(Node currentNode)
 			}
 		}
 		
+		/* if the person in position 1 is a group head we need to check constraints 1, 2 and 3*/
 		if (person1.getHeadsGroup() != null)
 		{
+			/*check if room is large */
 			if (!room.getLarge())
 			{
 				penalty = penalty - 40;	//c1
 			}			
 			int membersCloseToo = 0;
 			
+			/*check rooms that are close to this one, and compare number of group members in the
+			  rooms to the number of group members - 1 (subtract the person we are checking) */
 			for (int i = 0; i < closeRooms.size(); i++)
 			{
 				if (data.get(closeRooms.get(i)).getPerson1() != null && person1.getGroup().evaluateGroup(data.get(closeRooms.get(i)).getPerson1().getGroup().getName()))
@@ -101,6 +106,8 @@ public void goodness(Node currentNode)
 			
 			penalty = penalty - ((person1.getGroup().getPeople().size() - 1 - membersCloseToo) * 2);
 			
+			/*check rooms that are close to this one, and check if any members are secretaries */
+			  
 			penalty = penalty - 30;
 			for (int i = 0; i < closeRooms.size(); i++)
 			{
@@ -121,10 +128,14 @@ public void goodness(Node currentNode)
 			}
 		}
 		
+		/* if the person in position 1 is a project head we need to check constraints 8, 9 and 10*/
 		if (person1.getHeadsProject() != null)
 		{
 			int membersCloseToo = 0;
 			
+			/*check rooms that are close to this one, and compare number of project members in the
+			  rooms to the number of project members - 1 (subtract the person we are checking) */
+			  
 			for (int i = 0; i < closeRooms.size(); i++)
 			{
 				if(data.get(closeRooms.get(i)).getPerson1() != null && data.get(closeRooms.get(i)).getPerson1().getProject()!= null){
@@ -142,6 +153,8 @@ public void goodness(Node currentNode)
 			penalty = penalty - ((person1.getProject().getProjectMembers().size() - 1 - membersCloseToo) * 5); //c8			
 			if (person1.getProject().isLarge())
 			{
+				/*check rooms that are close to this one, and check if any members are secretaries 
+				  (if room is large) */
 				penalty = penalty - 10;
 				for (int i = 0; i < closeRooms.size(); i++)
 				{
@@ -163,6 +176,9 @@ public void goodness(Node currentNode)
 				
 				penalty = penalty - 10;
 				
+				/*check rooms that are close to this one, and check if any members are the leader
+				of the persons group (if room is large) */
+				  
 				for (int i = 0; i < closeRooms.size(); i++)
 				{
 					if (data.get(closeRooms.get(i)).getPerson1() != null && data.get(closeRooms.get(i)).getPerson1().getHeadsGroup() != null && data.get(closeRooms.get(i)).getPerson1().getHeadsGroup().evaluateGroup(person1.getGroup().getName()))
@@ -174,6 +190,7 @@ public void goodness(Node currentNode)
 			}
 		}
 		
+		/*check if the person is a secretary, and apply constraint 4*/
 		if (person1.getSecratary())
 		{
 			if (person2 != null)
@@ -193,10 +210,14 @@ public void goodness(Node currentNode)
 			}
 		}
 		
+		/* if the person in position 1 is a manager we need to check constraints 5, 6 and 7*/
 		if (person1.getManager())
 		{
 			int membersCloseToo = 0;
 			
+			/*check rooms that are close to this one, and compare number of group members in the
+			  rooms to the number of group members - 1 (subtract the person we are checking) */
+			  
 			for (int i = 0; i < closeRooms.size(); i++)
 			{
 				if (data.get(closeRooms.get(i)).getPerson1() != null && person1.getGroup().evaluateGroup(data.get(closeRooms.get(i)).getPerson1().getGroup().getName()))
@@ -211,6 +232,8 @@ public void goodness(Node currentNode)
 			
 			penalty = penalty - ((person1.getGroup().getPeople().size() - 1 - membersCloseToo) * 2); //c7
 			
+			/*check rooms that are close to this one, and check if any members are secretaries 
+			  (if room is large) */
 			penalty = penalty - 20;
 			for (int i = 0; i < closeRooms.size(); i++)
 			{
@@ -228,7 +251,10 @@ public void goodness(Node currentNode)
 						break;
 					}
 				}
-			}			
+			}
+			
+			/*check rooms that are close to this one, and check if any members are leaders 
+			  of this persons group (if room is large) */
 			for (int i = 0; i < closeRooms.size(); i++)
 			{
 				if (data.get(closeRooms.get(i)).getPerson1().getHeadsGroup() != null && !data.get(closeRooms.get(i)).getPerson1().getHeadsGroup().evaluateGroup(person1.getGroup().getName()))
@@ -237,7 +263,9 @@ public void goodness(Node currentNode)
 					break;
 				}
 			}
-		}		
+		}	
+		
+		/*check if the person is a smoker, and apply constraint 11 if needed*/
 		if (person1.getSmoker())
 		{
 			if (person2 != null)
@@ -254,7 +282,9 @@ public void goodness(Node currentNode)
 			{
 				penalty = penalty - 50; //11
 			}
-		}	
+		}
+		
+		/*check if the person in position one and two are hackers, and apply constraint 13 if needed*/
 		if (person2 != null)
 		{
 			if (!person1.getSecratary() && !person2.getSecratary())
@@ -274,6 +304,7 @@ public void goodness(Node currentNode)
 			}
 		}
 		
+		/*check if two people share an office, and apply constraint 14 if needed*/
 		if (room != null)
 		{
 			if (person1 != null && person2 != null)
@@ -282,6 +313,7 @@ public void goodness(Node currentNode)
 			}
 		}
 		
+		/*check if two people in an office work together, and apply constraint 15 if needed*/
 		if (room != null)
 		{
 			if (person1 != null && person2 != null)
@@ -293,6 +325,7 @@ public void goodness(Node currentNode)
 			}
 		}
 		
+		/*check if two people share a small office, and apply constraint 16 if needed*/
 		if (room.getSmall())
 		{
 			if (person1 != null && person2 != null)
