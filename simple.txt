@@ -20,3 +20,21 @@ large-room (C5120)
 
 // room proximity
 close(C5113, C5120)
+
+
+
+
+
+
+//PROJECT WORKS WITH
+
+researcher(Hans)
+project(Hans, "BABYLON Product")
+works-with(Hans, {Eva})
+
+manager(Eva)
+project(Eva, "BABYLON Product")
+works-with(Eva, Hans)
+
+// room sizes
+medium-room(C5123)
