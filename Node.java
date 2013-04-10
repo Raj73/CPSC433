@@ -27,7 +27,6 @@ public class Node implements Comparable<Node> {
 		
 	}
 	
-	@SuppressWarnings("unchecked")
 	Node(Assignment assign, Vector<Assignment> currentasign, Vector<Person> people){
 		this.current = assign;
 		for(int i = 0; i < currentasign.size(); i++){			
@@ -143,6 +142,7 @@ public class Node implements Comparable<Node> {
 		Room room = currentNode.getCurrent().getRoom();
 		Person person1 = currentNode.getCurrent().getPerson1();
 		Person person2 = currentNode.getCurrent().getPerson2();
+		@SuppressWarnings("unused")
 		Vector <Assignment> aList = currentNode.data;
 		int penalty = 0;
 		

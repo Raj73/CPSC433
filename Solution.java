@@ -1,6 +1,5 @@
 package cpsc433;
 import java.util.PriorityQueue;
-import java.util.TreeSet;
 import java.util.Vector;
 
 public class Solution {
@@ -281,6 +280,17 @@ public void goodness(Node currentNode)
 			if (person2.getSmoker())
 			{
 				penalty = penalty - 50; //11
+			}
+		}
+		
+		if (room != null)
+		{
+			if (person1 != null && person2 != null && person2.getProject() != null && person1.getProject() != null)
+			{
+				if(person1.evaluateInProject(person1.getName(), person2.getProject().getName()))
+				{
+					penalty = penalty - 14;
+				}
 			}
 		}
 		

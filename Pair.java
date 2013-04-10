@@ -17,6 +17,7 @@ import java.util.Map;
  * @author <a href="http://www.cpsc.ucalgary.ca/~kremer/">Rob Kremer</a>
  *
  */
+@SuppressWarnings("rawtypes")
 public class Pair<K, V> implements Map.Entry<K,V>, Comparable {
 
 	private K key;
@@ -90,7 +91,8 @@ public class Pair<K, V> implements Map.Entry<K,V>, Comparable {
      * @param y the object to be campared
      * @return return -1 if x&lt;y; 0 if x=y; +1 if x&gt;y
      */
-    private int compare(Object x, Object y) {
+    @SuppressWarnings("unchecked")
+	private int compare(Object x, Object y) {
     	if (x instanceof Comparable) {
 			Comparable x1 =  (Comparable)x;
 			return x1.compareTo(y);

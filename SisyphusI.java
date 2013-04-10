@@ -77,12 +77,12 @@ public class SisyphusI {
 				for(int i = 0; i < bestNode.getData().size(); i++){
 					System.out.println(bestNode.getData().get(i).toString());
 				}
-				System.out.println("The goodness of this solution: " + bestNode.getGoodness());
+				System.out.println("The goodness of this solution: -" + bestNode.getGoodness());
 				
 				s.goodness(bestNode);
 				toFile2(env, fileName, bestNode, transCount, s.getSolutionSize()+1, startTime);		//create the output file
 			}
-			
+/*			
 			System.out.println("Total People: " + env.getMyPeople().size());
 			System.out.println("Total Rooms: " + env.getRoomNames().size());
 			System.out.println("");
@@ -137,6 +137,7 @@ public class SisyphusI {
 				}
 				System.out.println("");
 			}
+			*/
 			System.out.println("Total Time: " + (System.currentTimeMillis() - startTime) + "ms");
 		}
 	}
@@ -162,7 +163,7 @@ public class SisyphusI {
 				}
 			}
 			writer.write("\n");
-			writer.write("// The goodness of this solution: " + solution.getGoodness() + "\n");
+			writer.write("// The goodness of this solution: -" + solution.getGoodness() + "\n");
 			writer.write("// Transitions taken: " + transitions + "\n");
 			writer.write("// Solutions Generated: " + solGenerated + "\n");
 			writer.write("// Total People: " + env.getMyPeople().size() + "\n");

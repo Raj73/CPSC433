@@ -12,7 +12,6 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 
 	private static final Environment myEnvir = new Environment("myenvironment");
 	
-	@SuppressWarnings("unused")
 	private static final String Object = null;
 	public Vector<Person> getSecretary() {
 		return secretary;
@@ -390,6 +389,7 @@ public class Environment extends PredicateReader implements SisyphusPredicates {
 		}
 		
 		person = myPeople.get(i);
+		@SuppressWarnings("unused")
 		String oldGroup;
 		
 		int newGroup =0;

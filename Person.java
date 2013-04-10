@@ -16,6 +16,7 @@ public class Person extends Entity
 	private Project headsProject;
 	private String assignedRoom = null;
 	private Vector<Person> worksWith = new Vector<Person>();
+	@SuppressWarnings("unused")
 	private int roomsAssigned = 0;
 	
 	// Room qualities
